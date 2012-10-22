@@ -41,16 +41,19 @@ public class MoleSpade extends ItemSpade {
 		if (!(ID == Block.grass.blockID || ID == Block.dirt.blockID || ID == Block.gravel.blockID || ID == Block.sand.blockID || ID == Block.blockClay.blockID || ID == Block.netherrack.blockID ))
 			return false;
 		
+		float R = world.rand.nextFloat()*0.5F + 0.25F;
+		
 		//10% of chance: Grubs
 		if (world.rand.nextInt(10) == 0)
 		{
 			EntityItem _grub = null;
 			//Grubs have their own chances of dropping; define them here
 			if (ID == Block.grass.blockID || ID == Block.dirt.blockID)
-				_grub = new EntityItem(world, x, y, z, new ItemStack(Mole.grub));
+				_grub = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.grub));
 					
 			if (_grub != null)
 			{
+				world.setBlock(x, y, z, 0);
 				_grub.delayBeforeCanPickup = 10;
 				world.spawnEntityInWorld(_grub);
 			}

@@ -73,6 +73,12 @@ public class Mole {
 				'A', Item.flint,
 				'X', Item.leather);
 		
+		GameRegistry.addRecipe(new ItemStack(moleSpade),
+				"A",
+				"I",
+				'A', Item.flint,
+				'I', Item.stick);
+		
 		GameRegistry.addSmelting(dirtstone.blockID, new ItemStack(dirtstone_baked), 0.1F);
 		GameRegistry.addSmelting(grub.shiftedIndex, new ItemStack(grubCooked), 0.1F);
 	}

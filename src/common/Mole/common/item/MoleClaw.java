@@ -43,41 +43,48 @@ public class MoleClaw extends ItemSpade {
 			return false;
 		
 		EntityItem drop = null;
-		int odds = world.rand.nextInt(100);
+		int odds = world.rand.nextInt(200);
+		float R = world.rand.nextFloat()*0.5F + 0.25F;
 		
-		//10% of chance: normal droppings
+		//5% of chance: normal droppings
 		if (odds < 10)
 			return false;
 		
-		//30% of chance: bone meal
+		//15% of chance: bone meal
 		if (odds-10 < 30)
 		{
-			drop = new EntityItem(world, x, y, z, new ItemStack(Item.dyePowder, 1, 1));
+			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Item.dyePowder, 1, 15));
 			drop.delayBeforeCanPickup = 10;
+			world.setBlock(x, y, z, 0);
 			world.spawnEntityInWorld(drop);
+			return true;
 		}
 		
-		//10% of chance: bone
+		//5% of chance: bone
 		if (odds-40 < 10)
 		{
-			drop = new EntityItem(world, x, y, z, new ItemStack(Item.bone, 1, 1));
+			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Item.bone, 1, 1));
 			drop.delayBeforeCanPickup = 10;
+			world.setBlock(x, y, z, 0);
 			world.spawnEntityInWorld(drop);
+			return true;
 		}
 				
-		//5% of chance: normal flint
+		//2.5% of chance: normal flint
 		if (odds-50 < 5)
 		{
-			drop = new EntityItem(world, x, y, z, new ItemStack(Item.flint, 1, 1));
+			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Item.flint, 1, 1));
 			drop.delayBeforeCanPickup = 10;
+			world.setBlock(x, y, z, 0);
 			world.spawnEntityInWorld(drop);
+			return true;
 		}
 		
-		//5% of chance: special flint
-				
-		//5% of chance: clumps
+		//2.5% of chance: special flint
 		
-		//35% of chance: NOTHING
+		//2.5% of chance: clumps
+		
+		//67.5% of chance: NOTHING
 		world.setBlock(x, y, z, 0);
 		return true;
 	}

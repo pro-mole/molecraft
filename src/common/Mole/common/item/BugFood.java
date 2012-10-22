@@ -12,7 +12,7 @@ public class BugFood extends Item {
 	{
 		super(premium? Constants.MOLE_ITEM_BUGFOOD_PREMIUM: Constants.MOLE_ITEM_BUGFOOD);
 		this.maxStackSize = 64;
-		this.setTabToDisplayOn(CreativeTabs.tabMisc);
+		this.setCreativeTab(CreativeTabs.tabMisc);
 		this.setIconIndex(13+(premium?1:0));
 		this.setItemName("bugFood"+(premium?"Premium":""));
 

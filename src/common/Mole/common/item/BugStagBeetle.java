@@ -20,7 +20,7 @@ public class BugStagBeetle extends ItemAxe {
 		setIconIndex(32);
 		setMaxDamage(50);
 		LanguageRegistry.addName(this, "Stag Beetle");
-		setTabToDisplayOn(CreativeTabs.tabTools);
+		setCreativeTab(CreativeTabs.tabTools);
 	}
 	
 	@Override

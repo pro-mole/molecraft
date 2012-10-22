@@ -25,7 +25,7 @@ public class GUITerrarium extends GuiContainer {
 			int var3) {
 
 		// TODO Auto-generated method stub
-		int texture = mc.renderEngine.getTexture("/Mole/common/gui/container.png");
+		int texture = mc.renderEngine.getTexture("/Mole/common/gui/terrarium.png");
 		GL11.glColor4f(1f, 1f, 1f, 1f);
 		mc.renderEngine.bindTexture(texture);
 		

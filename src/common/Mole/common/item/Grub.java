@@ -21,7 +21,7 @@ public class Grub extends ItemFood {
 	{
 		super(Constants.MOLE_ITEM_GRUB, 1, false);
 		this.maxStackSize = 1;
-		this.setTabToDisplayOn(CreativeTabs.tabFood);
+		this.setCreativeTab(CreativeTabs.tabFood);
 		this.setItemName("grub");
 		this.setHasSubtypes(true);
 		this.setIconIndex(0);

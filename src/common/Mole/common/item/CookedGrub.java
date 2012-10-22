@@ -11,7 +11,7 @@ public class CookedGrub extends ItemFood {
 	{
 		super(Constants.MOLE_ITEM_GRUB_COOKED, 2, false);
 		this.maxStackSize = 64;
-		this.setTabToDisplayOn(CreativeTabs.tabFood);
+		this.setCreativeTab(CreativeTabs.tabFood);
 		this.setIconIndex(16);
 		this.setItemName("grubCook");
 

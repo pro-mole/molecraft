@@ -1,3 +1,11 @@
+<<<Priority List>>>
+
+- Dirt Brick (easiest :D)
+- Mole Claws
+- Spade(redo)
+- Clumps
+- Fire/Mud/Toxic Flint
+
 ===MOLECRAFT DESIGN DOC===
 
 This time this design doc will be organized not by item categories, but by theme. Namely the three main themes of Molecraft which shall be...
@@ -5,16 +13,66 @@ This time this design doc will be organized not by item categories, but by theme
 == 1 - DIRTCRAFT ==
 
 SUMMARY: Making dirt into something useful, not including dirt-based reciped and procedures included in the other themes.
-
 - Dirt as construction material and useful recipes
 - More dirt drops(using tools or otherwise)
-- Different varieties of dirt
+- Different varieties of dirt (Seedstones?)
 - Converting dirt into sand, clay, netherrack and other stuff
+
+> The Mole Claws
+
+Recipe:
+A A
+X X
+A = Flint
+X = Leather
+
+The basic "dirtcrafting" tool, it's durable and digs through dirt, gravel, sand, clay and netherrack with ease. The Claws will actually return a normal block 10% of the time, the rest will turn up either nothing or different item drops such as(in order of rarity):
+- Bone Meal
+- Bone
+- Flint(Netherrack may drop "Fire Flint", clay "Mud Flint" and gravel "Toxic Flint"; see Bolts and "Mollista")
+- Dirt Clump(different varieties; see Seedstones)
+
+> Dirt Brick
+
+Recipe
+
+###
+#U# => 8x
+###
+# = Dirt
+U = Bucket(with water)
+
+Part of the "dirt as construction material" point, the dirt brick is as durable as a piece of Stone. It can also be put inside a furnace to create Baked Dirt Bricks taht are as durable as Stone Bricks
+
+> Mollista and Bolts
+
+Recipes:
+ / 
+/I/
+---
+/ = Stick
+I = Bone
+/ = String
+
+Bolt => Bone + Flint(different kinds)
+
+> Seedstones
+
+Recipe: 9 Dirtclumps(varies)
+
+Seedstones are small clusters of dirt-like blocks that can be used to "seed" existing dirt blocks and give interesting properties to it. They exist in a variety of kinds:
+> Wet Seedstone(9 Mud): This seedstone will convert sand blocks around it into dirt, and gravel blocks into clay. Dirt blocks will remain inaltered.
+> Dry Seedstone(9 Dust): This seedstone will convert dirt blocks around it into sand, and remove any water blocks in this area(yes, it can be used to create an air pocket underwater)
+> Fire Seedstone(9 Hot): This seedstone will convert dirt/gravel blocks around it into lava sources and sand into glass
+> Isolation Seedstone(9 Sparse): This seedstone will remove any dirt-like block arount it, but won't meddle with any stone block or fluids
+> Fertile Seedstone(5 Mud, 4 Earth): This seedstone will keep farmland blocks around it always fertile without requiring water
+> Luminous Seedstone(5 Hot, 4 Dust): This seedstone will convert dirt-like blocks around it into blocks with torch-like light values(yes, it can be used as an awesome light source, though it won't be replaceable once placed)
+
+The Mollista is a sort of crossbow that works like a bow but shoots bolts and requires no "charging", always shooting with top strenght. Bolts shot from the mollista can not be recovered, though.
 
 == 2 - MOLE LORE ==
 
 SUMMARY: Magic and tech based on moles(the Duncton series being an interesting source)
-
 - Standing Stones
 - Runes
 - Dark Sound
@@ -23,12 +81,25 @@ SUMMARY: Magic and tech based on moles(the Duncton series being an interesting s
 
 SUMMARY: Breeding grubs and bugs into useful new items.
 
+> The Spade
+
+Recipe:
+A
+I
+A = Flint
+I = Leather
+The spade is the essential tool for bug breeding, as it's able to find grubs without using Bait. It is equivalent to a stone shovel, and can also be used to break Netherrack like a stone pickaxe. When breaking any of these blocks, it may find a grub in about 5% of the times(other sorts of bugs besides "white" may appear with adjusted odds).
+
 - Baits and water filtering for grubs
-- Tool bugs(Sawbeetles, Bombardier Beetles, Fireflies, etc.)
+- Tool bugs(Sawbeetles, Bombardier Beetles, Fireflies, Termites, etc.)
 - Food bugs(Mealworms, Pupas)
 - Development Bugs(Mother Grub, Dung Beetle)
-- Resource Bugs(Coccineals, Silkworm, Centipede)
+- Resource Bugs(Coccineals, Silkworm, Centipede, Black/Gold Scarab,)
 
 ===RANDOM IDEAS AND PLANS===
 
 - Mole mobs!
+
+===THE "GETTING STARTED" DOC===
+
+So, here you are, entering the amazing world of Moles. Marvelous. Molecraft, in many senses, is not that different from vanilla Minecraft(at least not at the time this document was elaborated) so

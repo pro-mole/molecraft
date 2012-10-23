@@ -20,7 +20,7 @@ public class Grub extends ItemFood {
 	public Grub(int type)
 	{
 		super(Constants.MOLE_ITEM_GRUB, 1, false);
-		this.maxStackSize = 1;
+		this.maxStackSize = 8;
 		this.setCreativeTab(CreativeTabs.tabFood);
 		this.setItemName("grub");
 		this.setHasSubtypes(true);

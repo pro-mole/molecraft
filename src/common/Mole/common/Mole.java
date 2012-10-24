@@ -39,7 +39,9 @@ public class Mole {
 		grub = new Grub(0),
 		grubCooked = new CookedGrub(),
 		bugFood = new BugFood(false), bugFoodPremium = new BugFood(true),
-		beetleStag = new BugStagBeetle();
+		beetleStag = new BugStagBeetle(),
+		dirtClump = new Clump(),
+		seedstone[] = {new Seedstone(0)};
 	
 	public static Block
 		dirtstone = new DirtStone(false), dirtstone_baked = new DirtStone(true),
@@ -79,8 +81,18 @@ public class Mole {
 				'A', Item.flint,
 				'I', Item.stick);
 		
+		GameRegistry.addRecipe(new ItemStack(seedstone[0]),
+				"OOO",
+				"OOO",
+				"OOO",
+				'O', dirtClump);
+		
 		GameRegistry.addSmelting(dirtstone.blockID, new ItemStack(dirtstone_baked), 0.1F);
 		GameRegistry.addSmelting(grub.shiftedIndex, new ItemStack(grubCooked), 0.1F);
 	}
 
+	public static boolean isDirtLike(int blockID)
+	{
+		return (blockID == Block.dirt.blockID || blockID == Block.grass.blockID || blockID == Block.gravel.blockID || blockID == Block.sand.blockID || blockID == Block.blockClay.blockID || blockID == Block.netherrack.blockID);
+	}
 }

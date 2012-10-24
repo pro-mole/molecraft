@@ -2,6 +2,7 @@ package Mole.common.item;
 
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import Mole.common.Constants;
+import Mole.common.Mole;
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityItem;
@@ -83,6 +84,14 @@ public class MoleClaw extends ItemSpade {
 		//2.5% of chance: special flint
 		
 		//2.5% of chance: clumps
+		if (odds-60 < 5)
+		{
+			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.dirtClump, 1, 0));
+			drop.delayBeforeCanPickup = 10;
+			world.setBlock(x, y, z, 0);
+			world.spawnEntityInWorld(drop);
+			return true;
+		}
 		
 		//67.5% of chance: NOTHING
 		world.setBlock(x, y, z, 0);

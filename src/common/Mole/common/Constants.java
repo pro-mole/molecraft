@@ -21,8 +21,19 @@ public class Constants {
 	public static final int MOLE_ITEM_BUG_STAGBEETLE = 4104;
 	public static final int MOLE_ITEM_CLAWS = 4108;
 	public static final int MOLE_ITEM_CLUMP = 4109;
+	public static final int MOLE_ITEM_SEEDSTONE = 4110;
 	
 	//Sub-Item IDs
+	public static final int MOLE_GRUB_WHITE = 0;
+	public static final int MOLE_GRUB_FAT = 1;
+	public static final int MOLE_GRUB_RED = 2;
+	
+	public static final int MOLE_CLUMP_EARTH = 0;
+	public static final int MOLE_CLUMP_FIRE = 1;
+	public static final int MOLE_CLUMP_ICE = 2;
+	public static final int MOLE_CLUMP_SAND = 3;
+	public static final int MOLE_CLUMP_WATER = 4;
+	
 	
 	//Texture Files
 	public static final String MOLE_TEXT_TERRAIN = "/Mole/common/resources/terrain.png";

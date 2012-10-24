@@ -49,7 +49,12 @@ public class MoleSpade extends ItemSpade {
 			EntityItem _grub = null;
 			//Grubs have their own chances of dropping; define them here
 			if (ID == Block.grass.blockID || ID == Block.dirt.blockID)
-				_grub = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.grub));
+			{
+				if (world.rand.nextInt(10) == 0)
+					_grub = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.grub,1,Constants.MOLE_GRUB_WHITE));
+				else
+					_grub = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.grub,1,Constants.MOLE_GRUB_FAT));
+			}
 					
 			if (_grub != null)
 			{

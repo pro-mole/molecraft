@@ -1,9 +1,9 @@
 package Mole.common.item;
 
-import seedstone.TileSeedstoneHouse;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import Mole.common.Constants;
 import Mole.common.Mole;
+import Mole.common.seedstone.TileSeedstoneHouse;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;

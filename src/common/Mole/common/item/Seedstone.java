@@ -4,6 +4,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import Mole.common.Constants;
 import Mole.common.Mole;
 import Mole.common.seedstone.TileSeedstoneHouse;
+import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
@@ -39,11 +40,17 @@ public class Seedstone extends Item {
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float px, float py, float pz)
     {
+		if (world.isRemote) return false;
+		
 		System.out.println("USE SEEDSTONE["+x+","+y+","+z+","+side+","+px+","+py+","+pz+"]");
 		
 		if (Mole.isDirtLike(world.getBlockId(x, y, z)))
 		{
-			world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, x, y, z, world.getBlockId(x, y, z)));
+			System.out.println("SEEDSTONE HOUSE START");
+			if (world.getBlockId(x, y, z) == Block.grass.blockID)
+				world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, x, y, z, Block.dirt.blockID));
+			else
+				world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, x, y, z, world.getBlockId(x, y, z)));
 			stack.stackSize = 0;
 			return true;
 		}

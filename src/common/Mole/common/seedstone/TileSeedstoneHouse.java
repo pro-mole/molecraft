@@ -4,8 +4,8 @@ import net.minecraft.src.TileEntity;
 
 public class TileSeedstoneHouse extends TileEntity {
 	
-	int frameX, frameY, frameZ;
-	int size;
+	int X, Y, Z;
+	int width, height;
 	int blockID;
 	int ticks = 0;
 	boolean started = true;
@@ -16,18 +16,21 @@ public class TileSeedstoneHouse extends TileEntity {
 		switch (level)
 		{
 			case 1:
-				size = 3; break;
+				width = 7;
+				height = 5; break;
 			case 2:
-				size = 4; break;
+				width = 7;
+				height = 6; break;
 			case 3:
-				size = 4; break;
+				width = 9;
+				height = 6; break;
 			default:
 				size = 3; break;
 		}
 		
-		frameX = x - size;
-		frameY = y;
-		frameZ = z - size;
+		X = x;
+		Y = y;
+		Z = z;
 	}
 	
 	//Every 5 seconds, put a block to form the walls
@@ -38,27 +41,29 @@ public class TileSeedstoneHouse extends TileEntity {
 		{
 			if (ticks++ >= 200)
 			{
-				//Insert block at position, if not already there
-				worldObj.setBlock(frameX, frameY, frameZ, blockID);
-				
-				//Move to next viable position, in order:
-				// 1 - Pillars
-				if (frameY == 0)
+				//Check each position in a particular order
+				//Until either finished with the house or an empty spot is found
+				int i;
+				int x,y,z;
+				for (i = 0; i < 4*height; i++)
 				{
-					if (frameX == -size)
+					//Pillars
+					if (i < 4*height)
 					{
-						
+						x = ((int)(i / height) / 2 == 0)? -5: 5;
+						y = i % height;
+						z = ((int)(i / height) % 2 == 0)? -5: 5;
 					}
-					else if (frameX == size)
+					else
 					{
-						
+						i -= 4*height;
+						//Start with bottom, go over sides, finish with top
+						if()
 					}
 				}
-				// 2 - Floor
-				// 3 - Ceiling
-				// 4 - Walls
 				
 				//If everything is one, deactivate
+				
 				ticks -= 200;
 			}
 		}

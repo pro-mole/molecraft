@@ -57,12 +57,7 @@ public class ContainerTerrarium extends Container {
 			stack = stackInSlot.copy();
 			
 			//Merge the item into the player inventory
-			if (slot == 0)
-			{
-				if (!mergeItemStack(stackInSlot, 2, inventorySlots.size(), true))
-					return null;
-			}
-			else if (slot == 1)
+			if (slot < 1)
 			{
 				if (!mergeItemStack(stackInSlot, 2, inventorySlots.size(), true))
 					return null;

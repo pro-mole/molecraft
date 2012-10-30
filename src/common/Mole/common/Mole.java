@@ -41,7 +41,7 @@ public class Mole {
 		bugFood = new BugFood(false), bugFoodPremium = new BugFood(true),
 		beetleStag = new BugStagBeetle(),
 		dirtClump = new Clump(),
-		seedstone[] = {new Seedstone(0)};
+		seedstone[] = {new Seedstone(Seedstone.EnumSeedstoneType.HOUSE)};
 	
 	public static Block
 		dirtstone = new DirtStone(false), dirtstone_baked = new DirtStone(true),

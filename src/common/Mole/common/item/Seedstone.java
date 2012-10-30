@@ -21,10 +21,13 @@ public class Seedstone extends Item {
 	public static String[] itemNames = {"seedstoneHouse"};
 	public static String[] uiNames = {"House Seedstone"};
 	
+	int seedType;
+	
 	public Seedstone(int type)
 	{
 		super(Constants.MOLE_ITEM_SEEDSTONE+type);
 		setIconIndex(80+type);
+		seedType = type;
 		
 		setItemName(itemNames[type]);
 		LanguageRegistry.addName(this, uiNames[type]);
@@ -44,14 +47,29 @@ public class Seedstone extends Item {
 		
 		System.out.println("USE SEEDSTONE["+x+","+y+","+z+","+side+","+px+","+py+","+pz+"]");
 		
-		if (Mole.isDirtLike(world.getBlockId(x, y, z)))
+		//Little trick: Dirtstone can be planted
+		if (Mole.isDirtLike(world.getBlockId(x, y, z)) || world.getBlockId(x, y, z) == Constants.MOLE_BLOCK_DIRTSTONE)
 		{
-			System.out.println("SEEDSTONE HOUSE START");
-			if (world.getBlockId(x, y, z) == Block.grass.blockID)
-				world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, x, y, z, Block.dirt.blockID));
-			else
-				world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, x, y, z, world.getBlockId(x, y, z)));
-			stack.stackSize = 0;
+			if (seedType == 0)
+			{
+				switch(world.getBlockId(x, y, z))
+				{
+					case Block.grass.blockID:
+						world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, x, y, z, Block.dirt.blockID)
+						break;
+					case Block.sand.blockID:
+						world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, x, y, z, Block.sandStone.blockID)
+						break;
+					case Block.gravel.blockID:
+						world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, x, y, z, Block.cobbleStone.blockID)
+						break;
+					default:
+						world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, x, y, z, world.getBlockId(x, y, z)));
+						break;
+				}
+			}
+			
+			stack.stackSize--;
 			return true;
 		}
 		

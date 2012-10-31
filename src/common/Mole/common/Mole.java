@@ -40,6 +40,9 @@ public class Mole {
 		grubCooked = new CookedGrub(),
 		bugFood = new BugFood(false), bugFoodPremium = new BugFood(true),
 		beetleStag = new BugStagBeetle(),
+		mealWorm = new BugMealWorm(),
+		bombyxMori = new BugBombyx(),
+		coccineal = new BugCoccineal(),
 		dirtClump = new Clump(),
 		seedstone[] = {new Seedstone(Seedstone.EnumSeedstoneType.HOUSE)};
 	
@@ -86,6 +89,10 @@ public class Mole {
 				"OOO",
 				"OOO",
 				'O', dirtClump);
+		
+		GameRegistry.addRecipe(new ItemStack(Item.dyePowder,1,1),
+				"C",
+				'C', coccineal);
 		
 		GameRegistry.addSmelting(dirtstone.blockID, new ItemStack(dirtstone_baked), 0.1F);
 		GameRegistry.addSmelting(grub.shiftedIndex, new ItemStack(grubCooked), 0.1F);

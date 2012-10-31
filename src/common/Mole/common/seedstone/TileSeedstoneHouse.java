@@ -93,13 +93,13 @@ public class TileSeedstoneHouse extends TileEntity {
 											z = (int)(l / height) - (width-1)/2;
 											break;
 										case 1:  z = (width-1)/2;
-											x = (int)(l / height % width) - (width-1)/2;
+											x = (int)(l / height) % width - (width-1)/2;
 											break;
 										case 2:  x = (width-1)/2;
-											z = (int)-(l / height % width) + (width-1)/2;
+											z = (int)-(l / height) % width + (width-1)/2;
 											break;
 										case 3:  z = -(width-1)/2;
-											x = (int)-(l / height % width) + (width-1)/2;
+											x = (int)-(l / height) % width + (width-1)/2;
 											break;
 									}
 								}
@@ -110,7 +110,6 @@ public class TileSeedstoneHouse extends TileEntity {
 					
 					if (worldObj.getBlockId(X+x, Y+y, Z+z) != this.blockID && !worldObj.isRemote)
 					{
-						System.out.println("PLACE AT "+"("+(X+x)+","+(Y+y)+","+(Z+z)+")");
 						worldObj.setBlock(X+x, Y+y, Z+z, this.blockID);
 						place_block = true;
 						break;
@@ -120,7 +119,6 @@ public class TileSeedstoneHouse extends TileEntity {
 				//If everything is done, deactivate
 				if (!place_block)
 				{
-					System.out.println("SEEDSTONE DEACTIVATE");
 					worldObj.removeBlockTileEntity(X, Y, Z);
 				}
 				

@@ -16,7 +16,7 @@ public class ContainerTerrarium extends Container {
 		
 		//the Slot constructor takes the IInventory and the slot number in that it binds to
         //and the x-y coordinates it resides on-screen
-        addSlotToContainer(new Slot(TE, 0, 80, 25));
+        addSlotToContainer(new GrubSlot(TE, 0, 80, 25));
         addSlotToContainer(new Slot(TE, 1, 80, 49));
 
         //commonly used vanilla code that adds the player's inventory
@@ -57,12 +57,7 @@ public class ContainerTerrarium extends Container {
 			stack = stackInSlot.copy();
 			
 			//Merge the item into the player inventory
-			if (slot == 0)
-			{
-				if (!mergeItemStack(stackInSlot, 2, inventorySlots.size(), true))
-					return null;
-			}
-			else if (slot == 1)
+			if (slot < 1)
 			{
 				if (!mergeItemStack(stackInSlot, 2, inventorySlots.size(), true))
 					return null;

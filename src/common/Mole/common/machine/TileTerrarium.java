@@ -12,7 +12,8 @@ import net.minecraft.src.TileEntity;
 
 public class TileTerrarium extends TileEntity implements IInventory {
 
-	private ItemStack[] inv;
+	static int ticksPerFood = 25;
+	
 	private ItemStack bug;
 	private ItemStack food; 
 	
@@ -23,49 +24,29 @@ public class TileTerrarium extends TileEntity implements IInventory {
 	
 	public TileTerrarium()
 	{
-		inv = new ItemStack[2];
-		bug = inv[0];
-		food = inv[1];
+		bug = null;
+		food = null;
 	}
 	
 	@Override
 	public int getSizeInventory() {
 		// TODO Auto-generated method stub
-		return inv.length;
+		return 2;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int slot) {
 		// TODO Auto-generated method stub
-		return inv[slot];
+		return (slot == 0)? bug: food;
 	}
 
 	@Override
 	public void updateEntity()
 	{
-		if (inv[0] != null)
-		{
-			if (inv[0].itemID - Constants.MOLE_ITEM_GRUB-256 == 0)
-			{
-				if (!startMetamorphosis)
-				{
-					ticks = 0;
-					metamorphosis = 0;
-					startMetamorphosis = true;
-				}
-			}
-			
-			if (inv[0].itemID == Mole.beetleStag.shiftedIndex)
-			{
-				if (!bugWorking)
-				{
-					ticks = 0;
-					bugWorking = true;
-					System.out.println("DMG: "+inv[0].getItemDamage());
-				}
-			}
-		}
-		else
+		if (worldObj.isRemote) return;
+		
+		//Take bug out
+		if (bug == null)
 		{
 			if (startMetamorphosis)
 			{
@@ -79,46 +60,78 @@ public class TileTerrarium extends TileEntity implements IInventory {
 			}
 		}
 		
+		//Grubs
 		if (startMetamorphosis)
 		{
-			ticks += (inv[1] != null && ticks >= 200)? 0: 1;
-			if (ticks >= 200)
+			ticks += (food != null && ticks >= ticksPerFood)? 0: 1;
+			if (ticks >= ticksPerFood)
 			{
-				if (inv[1] != null)
+				if (food != null)
 				{
-					if (inv[1].itemID == Mole.bugFood.shiftedIndex || inv[1].itemID == Mole.bugFoodPremium.shiftedIndex)
+					//Eat stuff to grow...
+					if (food.itemID == Mole.bugFood.shiftedIndex || food.itemID == Mole.bugFoodPremium.shiftedIndex)
 					{
-						metamorphosis += (inv[1].itemID == Mole.bugFood.shiftedIndex)? 10: 20;
-						if (--inv[1].stackSize == 0) inv[1] = null;
+						metamorphosis += (food.itemID == Mole.bugFood.shiftedIndex)? 10: 20;
+						if (--food.stackSize == 0) food = null;
 					}
 					
+					//Metamorphosis ho!
 					if (metamorphosis >= 100)
-					{
-						inv[0] = new ItemStack(Mole.beetleStag,1);
+					{	
+						//Any bug can become a Mealworm with 60% chance
+						if (worldObj.rand.nextInt(10) < 6)
+						{
+							//Mealworm
+						}
+						else
+						{
+							//Check bug type, select metamorphosis
+							
+							int type = bug.getItemDamage();
+							switch(type)
+							{
+								case Constants.MOLE_GRUB_WHITE:
+									//Stag Beetle
+									bug = new ItemStack(Mole.beetleStag,1);
+									break;
+								case Constants.MOLE_GRUB_FAT:
+									//Bombyx mori
+									break;
+								case Constants.MOLE_GRUB_RED:
+									//Coccineal
+									break;
+							}
+						}
 						startMetamorphosis = false;
+						metamorphosis = 0;
 					}
 				}
 				ticks = 0;
 			}
 		}
 		
-		if (bugWorking && inv[0].getItemDamage() > 0)
+		//Adult bugs
+		if (bugWorking && bug.getItemDamage() > 0)
 		{
-			ticks += (inv[1] != null && ticks >= 200)? 0: 1;
-			if (ticks >= 200)
+			ticks += (food != null && ticks >= ticksPerFood)? 0: 1;
+			if (ticks >= ticksPerFood)
 			{
-				if (inv[1] != null)
+				if (food != null)
 				{
-					if (inv[1].itemID == Mole.bugFood.shiftedIndex || inv[1].itemID == Mole.bugFoodPremium.shiftedIndex)
+					if (food.itemID == Mole.bugFood.shiftedIndex || food.itemID == Mole.bugFoodPremium.shiftedIndex)
 					{
-						inv[0].setItemDamage(inv[0].getItemDamage()-((inv[1].itemID == Mole.bugFood.shiftedIndex)? 10: 20));
-						if (inv[0].getItemDamage() < 0)
-							inv[0].setItemDamage(0);
+						//Does whatever this bug does
+						//--Stag Beetles: FIX
+						bug.setItemDamage(bug.getItemDamage()-((food.itemID == Mole.bugFood.shiftedIndex)? 10: 20));
 						
-						if (--inv[1].stackSize == 0) inv[1] = null;
+						//Eat food
+						if (bug.getItemDamage() < 0)
+							bug.setItemDamage(0);
+						
+						if (--food.stackSize == 0) food = null;
 					}
 					
-					if (inv[0].getItemDamage() == 0)
+					if (bug.getItemDamage() == 0)
 					{
 						bugWorking = false;
 					}
@@ -159,16 +172,44 @@ public class TileTerrarium extends TileEntity implements IInventory {
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack) {
 		// TODO Auto-generated method stub
-		inv[slot] = stack;
+		if (slot == 0)
+			bug = stack;
+		else
+			food = stack;
+		
 		if (stack != null)
 		{
-			if (slot == 0 && stack.stackSize > 1)
-			{
-				stack.stackSize = 1;
-			}
-			else if (slot == 1 && stack.stackSize > getInventoryStackLimit())
+			if (stack.stackSize > getInventoryStackLimit())
 			{
 				stack.stackSize = getInventoryStackLimit();
+			}
+		}
+		
+		//If both slots are filled, start working
+		if (bug != null && food != null)
+		{
+			if (food.itemID == Mole.bugFood.shiftedIndex ||	food.itemID == Mole.bugFoodPremium.shiftedIndex)
+			{
+				//Grubs
+				if (bug.itemID - Constants.MOLE_ITEM_GRUB-256 == 0)
+				{
+					if (!startMetamorphosis)
+					{
+						ticks = 0;
+						metamorphosis = 0;
+						startMetamorphosis = true;
+					}
+				}
+				
+				//Adults
+				if (bug.itemID == Mole.beetleStag.shiftedIndex)
+				{
+					if (!bugWorking)
+					{
+						ticks = 0;
+						bugWorking = true;
+					}
+				}
 			}
 		}
 	}
@@ -176,7 +217,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 	@Override
 	public String getInvName() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Terrarium";
 	}
 
 	@Override
@@ -207,13 +248,12 @@ public class TileTerrarium extends TileEntity implements IInventory {
      public void readFromNBT(NBTTagCompound tagCompound) {
              super.readFromNBT(tagCompound);
              
-             NBTTagList tagList = tagCompound.getTagList("Inventory");
+             NBTTagList tagList = tagCompound.getTagList("Terrarium");
              for (int i = 0; i < tagList.tagCount(); i++) {
                      NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
                      byte slot = tag.getByte("Slot");
-                     if (slot >= 0 && slot < inv.length) {
-                             inv[slot] = ItemStack.loadItemStackFromNBT(tag);
-                     }
+                     if (slot == 0) bug = ItemStack.loadItemStackFromNBT(tag); 
+                     else if (slot == 1) food = ItemStack.loadItemStackFromNBT(tag); 
              }
      }
 	 
@@ -222,8 +262,8 @@ public class TileTerrarium extends TileEntity implements IInventory {
              super.writeToNBT(tagCompound);
                              
              NBTTagList itemList = new NBTTagList();
-             for (int i = 0; i < inv.length; i++) {
-                     ItemStack stack = inv[i];
+             for (int i = 0; i < this.getSizeInventory(); i++) {
+                     ItemStack stack = this.getStackInSlot(i);
                      if (stack != null) {
                              NBTTagCompound tag = new NBTTagCompound();
                              tag.setByte("Slot", (byte) i);
@@ -231,7 +271,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
                              itemList.appendTag(tag);
                      }
              }
-             tagCompound.setTag("Inventory", itemList);
+             tagCompound.setTag("Terrarium", itemList);
      }
 
 }

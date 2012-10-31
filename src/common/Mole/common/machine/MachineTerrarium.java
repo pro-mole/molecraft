@@ -37,19 +37,17 @@ public class MachineTerrarium extends BlockContainer {
 	{
 		switch (side)
 		{
-			//Top
+			//Top and Bottom
 			case 1:
-				return 14;
-			//Bottom
 			case 0:
-				return 13;
+				return 15;
 			//Sides
 			case 2:
 			case 3:
 			case 4:
 			case 5:
 			default:
-				return 15;
+				return 14;
 		}
 	}
 	

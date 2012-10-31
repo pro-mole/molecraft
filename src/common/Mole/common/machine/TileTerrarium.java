@@ -82,6 +82,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 						if (worldObj.rand.nextInt(10) < 6)
 						{
 							//Mealworm
+							bug = new ItemStack(Mole.mealWorm,1);
 						}
 						else
 						{
@@ -96,9 +97,11 @@ public class TileTerrarium extends TileEntity implements IInventory {
 									break;
 								case Constants.MOLE_GRUB_FAT:
 									//Bombyx mori
+									bug = new ItemStack(Mole.bombyxMori,1);
 									break;
 								case Constants.MOLE_GRUB_RED:
 									//Coccineal
+									bug = new ItemStack(Mole.coccineal,1);
 									break;
 							}
 						}

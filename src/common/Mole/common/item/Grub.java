@@ -17,7 +17,7 @@ public class Grub extends ItemFood {
 	public static String[] itemNames = {"white", "premium", "red"};
 	public static String[] uiNames = {"White", "Fat", "Red"};
 	
-	public Grub(int type)
+	public Grub()
 	{
 		super(Constants.MOLE_ITEM_GRUB, 1, false);
 		this.maxStackSize = 8;

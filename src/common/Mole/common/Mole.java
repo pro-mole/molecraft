@@ -36,7 +36,7 @@ public class Mole {
 	public static Item
 		moleSpade = new MoleSpade(),
 		moleClaw = new MoleClaw(),
-		grub = new Grub(0),
+		grub = new Grub(),
 		grubCooked = new CookedGrub(),
 		bugFood = new BugFood(false), bugFoodPremium = new BugFood(true),
 		beetleStag = new BugStagBeetle(),

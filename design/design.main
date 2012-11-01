@@ -71,12 +71,25 @@ Seedstones are small clusters of dirt-like blocks that can be used to "seed" exi
 > Luminous Seedstone(5 Hot, 4 Dust): This seedstone will convert dirt-like blocks around it into blocks with torch-like light values(yes, it can be used as an awesome light source, though it won't be replaceable once placed)
 > Explosive Seedstone(9 Fire Seedstone): This will turn a dirt block into a landmine. KABOOM.
 
+> Earth Machines
+
+- Dirt Dryer: Converts Dirt into Sand, at an even and slow pace; quicker if on Desert or Nether biomes, slower if on Marsh, River, Ocean and other wet biomes
+
+- Dirt Moistener Converts Dirt into Clay blocks, at an even and slow pace; efficience is the opposite of the Dryer
+
+Recipes:
+AAA
+A A
+BBB
+A => Sandstone(Dryer), Dirt(Moistener)
+B => Sand(Dryer), Clay Block(Moistener)
+
 == 2 - MOLE LORE ==
 
 SUMMARY: Magic and tech based on moles(the Duncton series being an interesting source)
-- Standing Stones
-- Runes
-- Dark Sound
+- Standing Stones > Provide the material to carve runes onto
+- Runes > Researched
+- Dark Sound > Interaction between runes and the world
 
 == 3 - ENTOMOCULTURE ==
 

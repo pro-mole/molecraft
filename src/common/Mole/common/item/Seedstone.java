@@ -60,19 +60,19 @@ public class Seedstone extends Item {
 			{
 				if (blockId == Block.grass.blockID)
 				{
-					world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, x, y, z, Block.dirt.blockID));
+					world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, Block.dirt.blockID));
 				}
 				else if (blockId == Block.sand.blockID)
 				{
-					world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, x, y, z, Block.sandStone.blockID));
+					world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, Block.sandStone.blockID));
 				}
 				else if (blockId == Block.gravel.blockID)
 				{
-					world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, x, y, z, Block.cobblestone.blockID));
+					world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, Block.cobblestone.blockID));
 				}
 				else
 				{
-					world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, x, y, z, blockId));
+					world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, blockId));
 				}
 			}
 			

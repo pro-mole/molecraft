@@ -15,5 +15,10 @@ public class BugCoccineal extends Item {
 		LanguageRegistry.addName(this, "Coccineal");
 		setCreativeTab(CreativeTabs.tabMisc);
 	}
-
+	
+	@Override
+	public String getTextureFile()
+	{
+		return Constants.MOLE_TEXT_ITEMS;
+	}
 }

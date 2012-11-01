@@ -16,5 +16,10 @@ public class BugBombyx extends Item {
 		LanguageRegistry.addName(this, "Bombyx Mori");
 		setCreativeTab(CreativeTabs.tabMisc);
 	}
-
+	
+	@Override
+	public String getTextureFile()
+	{
+		return Constants.MOLE_TEXT_ITEMS;
+	}
 }

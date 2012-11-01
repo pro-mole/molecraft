@@ -16,4 +16,10 @@ public class BugMealWorm extends ItemFood {
 		LanguageRegistry.addName(this, "Mealworm");
 		setCreativeTab(CreativeTabs.tabFood);
 	}
+	
+	@Override
+	public String getTextureFile()
+	{
+		return Constants.MOLE_TEXT_ITEMS;
+	}
 }

@@ -11,6 +11,8 @@ public class Constants {
 	public static final int MOLE_BLOCK_DIRTSTONE = 1025;
 	//PLACEHOLDER: BAKED_DIRTSTONE=1026
 	public static final int MOLE_BLOCK_TERRARIUM = 1027;
+	public static final int MOLE_BLOCK_SEEDSTONE = 1028;
+	//PLACEHOLDER 8 Seedstone Blocks
 	
 	//Item IDs [4099-4162]
 	public static final int MOLE_ITEM_SPADE = 4099;

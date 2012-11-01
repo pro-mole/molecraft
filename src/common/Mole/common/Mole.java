@@ -23,6 +23,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import Mole.common.block.*;
 import Mole.common.item.*;
 import Mole.common.machine.*;
+import Mole.common.seedstone.TileSeedstoneHouse;
 
 @Mod(modid="ProMole_Mod", name="Molecraft", version="0.0.1")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
@@ -48,8 +49,9 @@ public class Mole {
 	
 	public static Block
 		dirtstone = new DirtStone(false), dirtstone_baked = new DirtStone(true),
-		terrarium = new MachineTerrarium();
-	
+		terrarium = new MachineTerrarium(),
+		seedstoneBlock[] = {new MachineSeedstone(Seedstone.EnumSeedstoneType.HOUSE)};
+		
 	@Init
 	public void load(FMLInitializationEvent event)
 	{
@@ -62,7 +64,10 @@ public class Mole {
 		GameRegistry.registerBlock(dirtstone);
 		GameRegistry.registerBlock(dirtstone_baked);
 		GameRegistry.registerBlock(terrarium);
+		for (Block seedBlock: seedstoneBlock)
+			GameRegistry.registerBlock(seedBlock);
 		GameRegistry.registerTileEntity(TileTerrarium.class, "Terrarium");
+		GameRegistry.registerTileEntity(TileSeedstoneHouse.class, "House Seedstone");
 		
 		//Register Recipes
 		GameRegistry.addRecipe(new ItemStack(dirtstone, 8),
@@ -93,6 +98,9 @@ public class Mole {
 		GameRegistry.addRecipe(new ItemStack(Item.dyePowder,1,1),
 				"C",
 				'C', coccineal);
+		
+		GameRegistry.addShapelessRecipe(new ItemStack(bugFood,4), new ItemStack(Item.seeds), new ItemStack(Block.wood), new ItemStack(Block.dirt));
+		GameRegistry.addShapelessRecipe(new ItemStack(bugFoodPremium,4), new ItemStack(grub), new ItemStack(Item.beefRaw), new ItemStack(Block.dirt));
 		
 		GameRegistry.addSmelting(dirtstone.blockID, new ItemStack(dirtstone_baked), 0.1F);
 		GameRegistry.addSmelting(grub.shiftedIndex, new ItemStack(grubCooked), 0.1F);

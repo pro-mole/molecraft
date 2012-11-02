@@ -1,5 +1,6 @@
 package Mole.common.machine;
 
+import Mole.common.Constants;
 import net.minecraft.src.Container;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.InventoryPlayer;
@@ -57,15 +58,33 @@ public class ContainerTerrarium extends Container {
 			stack = stackInSlot.copy();
 			
 			//Merge the item into the player inventory
-			if (slot < 1)
+			if (slot < 2)
 			{
 				if (!mergeItemStack(stackInSlot, 2, inventorySlots.size(), true))
 					return null;
 			}
 			else
 			{
-				if (!mergeItemStack(stackInSlot, 0, 1, false))
-				return null;
+				if (stackInSlot.itemID == Constants.MOLE_ITEM_GRUB+256)
+				{
+					Slot dst = (Slot) inventorySlots.get(0);
+					if (dst.getHasStack() && dst.getStack().stackSize > 0)
+						return null;
+					
+					stackInSlot.stackSize--;
+					ItemStack _stack = new ItemStack(stackInSlot.itemID,1,stackInSlot.getItemDamage());
+					if (!mergeItemStack(_stack, 0, 1, false))
+					{
+						stackInSlot.stackSize++;
+						return null;
+					}
+				}
+				else if (stackInSlot.itemID == Constants.MOLE_ITEM_BUGFOOD+256 || stackInSlot.itemID == Constants.MOLE_ITEM_BUGFOOD_PREMIUM+256)
+				{
+					if (!mergeItemStack(stackInSlot, 1, 2, false))
+						return null;
+				}
+				else return null;
 			}
 			
 			if (stackInSlot.stackSize == 0)

@@ -13,6 +13,7 @@ public class BugBombyx extends Item {
 		
 		setItemName("bombyx");
 		setIconIndex(34);
+		setMaxDamage(100);
 		LanguageRegistry.addName(this, "Bombyx Mori");
 		setCreativeTab(CreativeTabs.tabMisc);
 	}

@@ -2,8 +2,10 @@ package Mole.common.machine;
 
 import Mole.common.Constants;
 import Mole.common.Mole;
+import net.minecraft.src.EntityItem;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
+import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.MathHelper;
 import net.minecraft.src.NBTTagCompound;
@@ -114,7 +116,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 		}
 		
 		//Adult bugs
-		if (bugWorking && bug.getItemDamage() > 0)
+		if (bugWorking)
 		{
 			ticks += (food != null && ticks >= ticksPerFood)? 0: 1;
 			if (ticks >= ticksPerFood)
@@ -124,19 +126,43 @@ public class TileTerrarium extends TileEntity implements IInventory {
 					if (food.itemID == Mole.bugFood.shiftedIndex || food.itemID == Mole.bugFoodPremium.shiftedIndex)
 					{
 						//Does whatever this bug does
-						//--Stag Beetles: FIX
-						bug.setItemDamage(bug.getItemDamage()-((food.itemID == Mole.bugFood.shiftedIndex)? 10: 20));
-						
-						//Eat food
-						if (bug.getItemDamage() < 0)
-							bug.setItemDamage(0);
+						if (bug.itemID == Mole.beetleStag.shiftedIndex)
+						{
+							//--Stag Beetles: FIX
+							if (bug.getItemDamage() <= 0)
+							{
+								bugWorking = false;
+								ticks = 0;
+								return;
+							}
+							
+							bug.setItemDamage(bug.getItemDamage()-((food.itemID == Mole.bugFood.shiftedIndex)? 10: 20));
+							
+							//Eat food
+							if (bug.getItemDamage() < 0)
+								bug.setItemDamage(0);
+						}
+						else if (bug.itemID == Mole.bombyxMori.shiftedIndex)
+						{
+							//--Bombyx mori: Spawn Silk
+							bug.setItemDamage(bug.getItemDamage() + 5);
+							if (bug.getItemDamage() >= bug.getMaxDamage())
+								bug = null;
+							
+							int n = (food.itemID == Mole.bugFood.shiftedIndex)? 1: 2;
+							for (int i=0; i<n; i++)
+							{
+								worldObj.spawnEntityInWorld(
+									new EntityItem(worldObj,
+										xCoord + worldObj.rand.nextFloat()*0.5+0.25,
+										yCoord + 1 + worldObj.rand.nextFloat()*0.5+0.25,
+										zCoord + worldObj.rand.nextFloat()*0.5+0.25,
+										new ItemStack(Item.silk)
+										));
+							}
+						}
 						
 						if (--food.stackSize == 0) food = null;
-					}
-					
-					if (bug.getItemDamage() == 0)
-					{
-						bugWorking = false;
 					}
 				}
 				ticks = 0;
@@ -205,7 +231,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 				}
 				
 				//Adults
-				if (bug.itemID == Mole.beetleStag.shiftedIndex)
+				if (bug.itemID == Mole.beetleStag.shiftedIndex || bug.itemID == Mole.bombyxMori.shiftedIndex)
 				{
 					if (!bugWorking)
 					{
@@ -249,32 +275,34 @@ public class TileTerrarium extends TileEntity implements IInventory {
 	
 	 @Override
      public void readFromNBT(NBTTagCompound tagCompound) {
-             super.readFromNBT(tagCompound);
-             
-             NBTTagList tagList = tagCompound.getTagList("Terrarium");
-             for (int i = 0; i < tagList.tagCount(); i++) {
-                     NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
-                     byte slot = tag.getByte("Slot");
-                     if (slot == 0) bug = ItemStack.loadItemStackFromNBT(tag); 
-                     else if (slot == 1) food = ItemStack.loadItemStackFromNBT(tag); 
-             }
+		 System.out.println("Loading TE Terrarium at "+xCoord+":"+yCoord+":"+zCoord);
+         super.readFromNBT(tagCompound);
+         
+         NBTTagList tagList = tagCompound.getTagList("Terrarium");
+         for (int i = 0; i < tagList.tagCount(); i++) {
+                 NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+                 byte slot = tag.getByte("Slot");
+                 if (slot == 0) bug = ItemStack.loadItemStackFromNBT(tag); 
+                 else if (slot == 1) food = ItemStack.loadItemStackFromNBT(tag); 
+         }
      }
 	 
 	 @Override
      public void writeToNBT(NBTTagCompound tagCompound) {
-             super.writeToNBT(tagCompound);
-                             
-             NBTTagList itemList = new NBTTagList();
-             for (int i = 0; i < this.getSizeInventory(); i++) {
-                     ItemStack stack = this.getStackInSlot(i);
-                     if (stack != null) {
-                             NBTTagCompound tag = new NBTTagCompound();
-                             tag.setByte("Slot", (byte) i);
-                             stack.writeToNBT(tag);
-                             itemList.appendTag(tag);
-                     }
-             }
-             tagCompound.setTag("Terrarium", itemList);
+		 System.out.println("Saving TE Terrarium at "+xCoord+":"+yCoord+":"+zCoord);
+         super.writeToNBT(tagCompound);
+                         
+         NBTTagList itemList = new NBTTagList();
+         for (int i = 0; i < this.getSizeInventory(); i++) {
+                 ItemStack stack = this.getStackInSlot(i);
+                 if (stack != null) {
+                         NBTTagCompound tag = new NBTTagCompound();
+                         tag.setByte("Slot", (byte) i);
+                         stack.writeToNBT(tag);
+                         itemList.appendTag(tag);
+                 }
+         }
+         tagCompound.setTag("Terrarium", itemList);
      }
 
 }

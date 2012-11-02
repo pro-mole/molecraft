@@ -25,13 +25,13 @@ import Mole.common.item.*;
 import Mole.common.machine.*;
 import Mole.common.seedstone.TileSeedstoneHouse;
 
-@Mod(modid="ProMole_Mod", name="Molecraft", version="0.0.1")
+@Mod(modid="mod_Molecraft", name="Molecraft", version="0.5.0")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Mole {
 	@SidedProxy(clientSide = "Mole.client.ClientProxyMole", serverSide = "Mole.common.CommonProxyMole")
 	public static CommonProxyMole proxy;
 	
-	@Instance("ProMole_Mod")
+	@Instance("mod_Molecraft")
 	public static Mole instance;
 	
 	public static Item

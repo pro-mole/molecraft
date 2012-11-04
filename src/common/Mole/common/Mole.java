@@ -12,8 +12,10 @@ import net.minecraftforge.common.EnumHelper;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
@@ -52,6 +54,12 @@ public class Mole {
 		terrarium = new MachineTerrarium(),
 		seedstoneBlock[] = {new MachineSeedstone(Seedstone.EnumSeedstoneType.HOUSE)};
 		
+	@PreInit
+	public void preInit(FMLPreInitializationEvent event) 
+	{
+		Constants.load(event);
+	}
+	
 	@Init
 	public void load(FMLInitializationEvent event)
 	{
@@ -67,7 +75,7 @@ public class Mole {
 		for (Block seedBlock: seedstoneBlock)
 			GameRegistry.registerBlock(seedBlock);
 		GameRegistry.registerTileEntity(TileTerrarium.class, "Terrarium");
-		GameRegistry.registerTileEntity(TileSeedstoneHouse.class, "House Seedstone");
+		GameRegistry.registerTileEntity(TileSeedstoneHouse.class, "SeedstoneHouse");
 		
 		//Register Recipes
 		GameRegistry.addRecipe(new ItemStack(dirtstone, 8),

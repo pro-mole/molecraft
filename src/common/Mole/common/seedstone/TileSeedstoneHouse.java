@@ -38,6 +38,13 @@ public class TileSeedstoneHouse extends TileEntity {
 		start();
 	}
 	
+	//Constructor for initialization
+	public TileSeedstoneHouse()
+	{
+		System.out.println("Initialized Seedstone at "+xCoord+":"+yCoord+":"+zCoord);
+		started = true;
+	}
+	
 	public void setType(int type)
 	{
 		blockID = type;
@@ -67,31 +74,32 @@ public class TileSeedstoneHouse extends TileEntity {
 					started = false;
 					worldObj.setBlock(xCoord, yCoord, zCoord, this.blockID);
 					ticks = 0;
+					worldObj.removeBlockTileEntity(xCoord, yCoord, zCoord);
 					return;
 				}
 				
 				int x,y,z;
 				x = y = z = 0;
 				//Pillars
-				if (i < 4*height)
+				if (i < width*width)
 				{
-					x = ((int)(i / height) / 2 == 0)? -(width-1)/2: (width-1)/2;
-					y = i % height;
-					z = ((int)(i / height) % 2 == 0)? x: -x;
+					y = 0;
+					x = i % width - (width-1)/2;
+					z = (int)(i / width) - (width-1)/2;
 				}
 				else
 				{
-					int j = i - 4*height;
+					int j = i - width*width;
 					//Start with bottom, then top, finish with sides
-					if (j < width*width)
+					if (j < 4*height)
 					{
-						y = 0;
-						x = j % width - (width-1)/2;
-						z = (int)(j / width) - (width-1)/2;
+						x = ((int)(j / height) / 2 == 0)? -(width-1)/2: (width-1)/2;
+						y = j % height;
+						z = ((int)(j / height) % 2 == 0)? x: -x;
 					}
 					else
 					{
-						int k = j - width*width;
+						int k = j - 4*height;
 						//Do the top, yo
 						if (k < width*width)
 						{
@@ -132,23 +140,41 @@ public class TileSeedstoneHouse extends TileEntity {
 				{
 					worldObj.setBlock(xCoord+x, yCoord+y, zCoord+z, this.blockID);
 				}
+				else
+				{
+					updateEntity();
+					return;
+				}
+			
 				
-				worldObj.notifyBlockChange(xCoord, yCoord, zCoord, blockID);
+				//worldObj.notifyBlockChange(xCoord, yCoord, zCoord, blockID);
 				
 				ticks -= 20;
 			}
 		}
+		else
+			System.out.println("Seedstone at "+xCoord+":"+yCoord+":"+zCoord+" is not started; why?");
 	}
 	
 	@Override
     public void readFromNBT(NBTTagCompound tagCompound)
 	{
-		System.out.println("Loading TE Seedstone at "+xCoord+":"+yCoord+":"+zCoord);
 		super.readFromNBT(tagCompound);
+		System.out.println("Loading TE Seedstone at "+xCoord+":"+yCoord+":"+zCoord);
+		
 		index = tagCompound.getInteger("Pointer");
-		blockID = tagCompound.getInteger("BlockID");
 		height = tagCompound.getInteger("H");
 		width = tagCompound.getInteger("W");
+		blockID = tagCompound.getInteger("Block");
+				
+		System.out.println(index);
+		System.out.println(height);
+		System.out.println(width);
+		System.out.println(blockID);
+		System.out.println(started);
+		System.out.println(this.isInvalid());
+		System.out.println(this.func_70309_m());
+		//System.out.println(worldObj.blockExists(xCoord, yCoord, zCoord));
     }
 	 
 	 @Override
@@ -156,9 +182,10 @@ public class TileSeedstoneHouse extends TileEntity {
 	{       
 		System.out.println("Saving TE Seedstone at "+xCoord+":"+yCoord+":"+zCoord);
 	 	super.writeToNBT(tagCompound);
-	 	tagCompound.setInteger("Pointer", index);
-        tagCompound.setInteger("BlockID", blockID);
+	 	
+        tagCompound.setInteger("Pointer", index);
         tagCompound.setInteger("H", height);
         tagCompound.setInteger("W", width);
+        tagCompound.setInteger("Block", blockID);
     }
 }

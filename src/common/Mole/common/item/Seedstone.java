@@ -5,6 +5,8 @@ import Mole.common.Constants;
 import Mole.common.Mole;
 import Mole.common.seedstone.TileSeedstoneHouse;
 import net.minecraft.src.Block;
+import net.minecraft.src.Chunk;
+import net.minecraft.src.ChunkPosition;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
@@ -53,26 +55,44 @@ public class Seedstone extends Item {
 		System.out.println("USE SEEDSTONE["+x+","+y+","+z+","+side+","+px+","+py+","+pz+"]");
 		
 		int blockId = world.getBlockId(x, y, z);
+		//Chunk chunk = world.getChunkFromBlockCoords(x, z);
+		//ChunkPosition pos = new ChunkPosition(x & 15, y, y & 15);
 		//Little trick: Dirtstone can be planted
 		if (Mole.isDirtLike(blockId) || blockId == Constants.MOLE_BLOCK_DIRTSTONE)
 		{
+			world.setBlock(x, y, z, Constants.MOLE_BLOCK_SEEDSTONE);
 			if (seedType == 0)
 			{
+				if (world.getBlockTileEntity(x, y, z) != null)
+				{
+					System.out.println("Already occupied; oops");
+					return false;
+				}
+				
+				TileSeedstoneHouse _TE;
 				if (blockId == Block.grass.blockID)
 				{
-					world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, Block.dirt.blockID));
+					_TE = new TileSeedstoneHouse(1, Block.dirt.blockID);
+					world.setBlockTileEntity(x, y, z, _TE);
+//					chunk.chunkTileEntityMap.put(pos, _TE);
 				}
 				else if (blockId == Block.sand.blockID)
 				{
-					world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, Block.sandStone.blockID));
+					_TE = new TileSeedstoneHouse(1, Block.sandStone.blockID);
+					world.setBlockTileEntity(x, y, z, _TE);
+//					chunk.chunkTileEntityMap.put(pos, _TE);
 				}
 				else if (blockId == Block.gravel.blockID)
 				{
-					world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, Block.cobblestone.blockID));
+					_TE = new TileSeedstoneHouse(1, Block.cobblestone.blockID);
+					world.setBlockTileEntity(x, y, z, _TE);
+//					chunk.chunkTileEntityMap.put(pos, _TE);
 				}
 				else
 				{
-					world.setBlockTileEntity(x, y, z, new TileSeedstoneHouse(1, blockId));
+					_TE = new TileSeedstoneHouse(1, blockId);
+					world.setBlockTileEntity(x, y, z, _TE);
+//					chunk.chunkTileEntityMap.put(pos, _TE);
 				}
 			}
 			

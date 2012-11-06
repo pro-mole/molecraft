@@ -71,29 +71,39 @@ public class MoleClaw extends ItemSpade {
 			return true;
 		}
 				
-		//2.5% of chance: normal flint
-		if (odds-50 < 5)
+		//5% of chance: normal flint
+		if (odds-50 < 10)
 		{
-			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Item.flint, 1, 1));
+			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Item.flint));
 			drop.delayBeforeCanPickup = 10;
 			world.setBlock(x, y, z, 0);
 			world.spawnEntityInWorld(drop);
 			return true;
 		}
 		
-		//2.5% of chance: special flint
-		
-		//2.5% of chance: clumps
-		if (odds-60 < 5)
+		//10% of chance: clumps
+		if (odds-60 < 20)
 		{
-			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.dirtClump, 1, 0));
+			int clumpType = world.rand.nextInt(Clump.itemNames.length);
+			if (odds-60 >= 2)
+			{
+				if (ID == Block.dirt.blockID || ID == Block.grass.blockID)  
+					clumpType = Constants.MOLE_CLUMP_EARTH;
+				else if (ID == Block.blockClay.blockID)  
+					clumpType = Constants.MOLE_CLUMP_WATER;
+				else if (ID == Block.sand.blockID)
+					clumpType = Constants.MOLE_CLUMP_SAND;
+				else if (ID == Block.netherrack.blockID)  
+					clumpType = Constants.MOLE_CLUMP_FIRE;
+			}
+			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.dirtClump, 1, clumpType));
 			drop.delayBeforeCanPickup = 10;
 			world.setBlock(x, y, z, 0);
 			world.spawnEntityInWorld(drop);
 			return true;
 		}
 		
-		//67.5% of chance: NOTHING
+		//60% of chance: NOTHING
 		world.setBlock(x, y, z, 0);
 		return true;
 	}

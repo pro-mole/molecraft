@@ -14,7 +14,7 @@ import net.minecraft.src.TileEntity;
 
 public class TileTerrarium extends TileEntity implements IInventory {
 
-	static int ticksPerFood = 25;
+	static int ticksPerFood = 200;
 	
 	private ItemStack bug;
 	private ItemStack food; 
@@ -220,7 +220,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 			if (food.itemID == Mole.bugFood.shiftedIndex ||	food.itemID == Mole.bugFoodPremium.shiftedIndex)
 			{
 				//Grubs
-				if (bug.itemID - Constants.MOLE_ITEM_GRUB-256 == 0)
+				if (bug.itemID == Mole.grub.shiftedIndex)
 				{
 					if (!startMetamorphosis)
 					{
@@ -275,7 +275,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 	
 	 @Override
      public void readFromNBT(NBTTagCompound tagCompound) {
-		 System.out.println("Loading TE Terrarium at "+xCoord+":"+yCoord+":"+zCoord);
+//		 System.out.println("Loading TE Terrarium at "+xCoord+":"+yCoord+":"+zCoord);
          super.readFromNBT(tagCompound);
          
          NBTTagList tagList = tagCompound.getTagList("Terrarium");
@@ -285,11 +285,22 @@ public class TileTerrarium extends TileEntity implements IInventory {
                  if (slot == 0) bug = ItemStack.loadItemStackFromNBT(tag); 
                  else if (slot == 1) food = ItemStack.loadItemStackFromNBT(tag); 
          }
+         
+         if (bug != null)
+         {
+	         if (bug.itemID == Mole.grub.shiftedIndex)
+	        	 startMetamorphosis = tagCompound.getBoolean("Working");
+	         else
+	        	 bugWorking = tagCompound.getBoolean("Working");
+         }
+         
+         metamorphosis = tagCompound.getLong("Metamorphosis");
+         ticks = tagCompound.getInteger("Ticks");
      }
 	 
 	 @Override
      public void writeToNBT(NBTTagCompound tagCompound) {
-		 System.out.println("Saving TE Terrarium at "+xCoord+":"+yCoord+":"+zCoord);
+//		 System.out.println("Saving TE Terrarium at "+xCoord+":"+yCoord+":"+zCoord);
          super.writeToNBT(tagCompound);
                          
          NBTTagList itemList = new NBTTagList();
@@ -303,6 +314,9 @@ public class TileTerrarium extends TileEntity implements IInventory {
                  }
          }
          tagCompound.setTag("Terrarium", itemList);
+         tagCompound.setBoolean("Working", bugWorking || startMetamorphosis);
+         tagCompound.setLong("Metamorphosis", metamorphosis);
+         tagCompound.setInteger("Ticks", ticks);
      }
 
 }

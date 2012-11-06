@@ -50,11 +50,11 @@ public class MoleSpade extends ItemSpade {
 			//Grubs have their own chances of dropping; define them here
 			if (ID == Block.grass.blockID || ID == Block.dirt.blockID)
 			{
-				if (world.rand.nextInt(20) == 0) //5% Red grubs
+				if (world.rand.nextInt(20) == 0) //10% Red grubs
 					_grub = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.grub,1,Constants.MOLE_GRUB_RED));
-				else if (world.rand.nextInt(19) == 0) //5% Fat grubs 
+				else if (world.rand.nextInt(19) == 0) //10% Fat grubs 
 					_grub = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.grub,1,Constants.MOLE_GRUB_FAT));
-				else //90% White grubs
+				else //80% White grubs
 					_grub = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.grub,1,Constants.MOLE_GRUB_WHITE));
 			}
 					

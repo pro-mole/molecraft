@@ -1,9 +1,12 @@
 package Mole.common.seedstone;
 
+import javax.sound.midi.Soundbank;
+
 import Mole.common.Constants;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
+import net.minecraft.src.StepSound;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.WorldInfo;
 
@@ -62,7 +65,7 @@ public class TileSeedstoneHouse extends TileEntity {
 	{	
 		if (started)
 		{
-			if (ticks++ >= 20)
+			if (ticks++ >= 100)
 			{
 				//Check each position in a particular order
 				//Until either finished with the house or an empty spot is found
@@ -138,6 +141,7 @@ public class TileSeedstoneHouse extends TileEntity {
 				
 				if (worldObj.getBlockId(xCoord+x, yCoord+y, zCoord+z) != this.blockID && worldObj.getBlockId(xCoord+x, yCoord+y, zCoord+z) != Constants.MOLE_BLOCK_SEEDSTONE && !worldObj.isRemote)
 				{
+					worldObj.playSound(x, y, z, "step.grass", 100f, 0f);
 					worldObj.setBlock(xCoord+x, yCoord+y, zCoord+z, this.blockID);
 				}
 				else
@@ -149,43 +153,34 @@ public class TileSeedstoneHouse extends TileEntity {
 				
 				//worldObj.notifyBlockChange(xCoord, yCoord, zCoord, blockID);
 				
-				ticks -= 20;
+				ticks -= 100;
 			}
 		}
-		else
-			System.out.println("Seedstone at "+xCoord+":"+yCoord+":"+zCoord+" is not started; why?");
 	}
 	
 	@Override
     public void readFromNBT(NBTTagCompound tagCompound)
 	{
 		super.readFromNBT(tagCompound);
-		System.out.println("Loading TE Seedstone at "+xCoord+":"+yCoord+":"+zCoord);
+//		System.out.println("Loading TE Seedstone at "+xCoord+":"+yCoord+":"+zCoord);
 		
 		index = tagCompound.getInteger("Pointer");
 		height = tagCompound.getInteger("H");
 		width = tagCompound.getInteger("W");
 		blockID = tagCompound.getInteger("Block");
-				
-		System.out.println(index);
-		System.out.println(height);
-		System.out.println(width);
-		System.out.println(blockID);
-		System.out.println(started);
-		System.out.println(this.isInvalid());
-		System.out.println(this.func_70309_m());
-		//System.out.println(worldObj.blockExists(xCoord, yCoord, zCoord));
+		ticks = tagCompound.getInteger("Ticks");
     }
 	 
 	 @Override
     public void writeToNBT(NBTTagCompound tagCompound)
 	{       
-		System.out.println("Saving TE Seedstone at "+xCoord+":"+yCoord+":"+zCoord);
+//		System.out.println("Saving TE Seedstone at "+xCoord+":"+yCoord+":"+zCoord);
 	 	super.writeToNBT(tagCompound);
 	 	
         tagCompound.setInteger("Pointer", index);
         tagCompound.setInteger("H", height);
         tagCompound.setInteger("W", width);
         tagCompound.setInteger("Block", blockID);
+        tagCompound.setInteger("Ticks", ticks);
     }
 }

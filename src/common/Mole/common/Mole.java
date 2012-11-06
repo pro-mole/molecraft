@@ -1,6 +1,7 @@
 package Mole.common;
 
 import net.minecraft.src.Block;
+import net.minecraft.src.BlockLog;
 import net.minecraft.src.BlockOre;
 import net.minecraft.src.BlockWood;
 import net.minecraft.src.EnumToolMaterial;
@@ -107,8 +108,29 @@ public class Mole {
 				"C",
 				'C', coccineal);
 		
-		GameRegistry.addShapelessRecipe(new ItemStack(bugFood,4), new ItemStack(Item.seeds), new ItemStack(Block.wood), new ItemStack(Block.dirt));
-		GameRegistry.addShapelessRecipe(new ItemStack(bugFoodPremium,4), new ItemStack(grub), new ItemStack(Item.beefRaw), new ItemStack(Block.dirt));
+		GameRegistry.addRecipe(new ItemStack(terrarium),
+				"---",
+				"#O#",
+				"---",
+				'O', Block.dirt,
+				'#', Block.thinGlass,
+				'-', Block.woodSingleSlab);
+		
+		for (Item vegetal: new Item[] {Item.seeds, Item.appleRed, Item.melon, Item.pumpkinSeeds, Item.melonSeeds, Item.wheat})
+		{
+			for (int i=0; i < BlockLog.woodType.length; i++)
+			{
+				GameRegistry.addShapelessRecipe(new ItemStack(bugFood,4), new ItemStack(vegetal), new ItemStack(Block.wood,1,i), new ItemStack(Block.dirt));
+			}
+		}
+		
+		for (Item animal: new Item[] {Item.beefRaw, Item.chickenRaw, Item.porkRaw, Item.rottenFlesh, Item.fishRaw})
+		{
+			for (int i=0; i < Grub.itemNames.length; i++)
+			{
+				GameRegistry.addShapelessRecipe(new ItemStack(bugFoodPremium,4), new ItemStack(grub,1,i), new ItemStack(animal), new ItemStack(Block.dirt));
+			}
+		}
 		
 		GameRegistry.addSmelting(dirtstone.blockID, new ItemStack(dirtstone_baked), 0.1F);
 		GameRegistry.addSmelting(grub.shiftedIndex, new ItemStack(grubCooked), 0.1F);

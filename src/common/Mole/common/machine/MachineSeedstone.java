@@ -1,6 +1,6 @@
 package Mole.common.machine;
 
-import net.minecraft.src.Block;
+import net.minecraft.src.BlockContainer;
 import net.minecraft.src.Material;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
@@ -8,19 +8,14 @@ import Mole.common.Constants;
 import Mole.common.item.Seedstone.EnumSeedstoneType;
 import Mole.common.seedstone.TileSeedstoneHouse;
 
-public class MachineSeedstone extends Block {
+public class MachineSeedstone extends BlockContainer {
 	
 	EnumSeedstoneType type;
 	
 	public MachineSeedstone(EnumSeedstoneType type)
 	{
 		super(Constants.MOLE_BLOCK_SEEDSTONE, Material.ground);
-	}
-	
-	@Override
-	public boolean hasTileEntity(int metadata)
-	{
-		return true;
+		this.setLightValue(0.8F);
 	}
 	
 	@Override
@@ -33,5 +28,10 @@ public class MachineSeedstone extends Block {
 	public int getBlockTextureFromSide(int side)
 	{
 		return 16;
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World var1) {
+		return null;
 	}
 }

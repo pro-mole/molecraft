@@ -91,6 +91,30 @@ SUMMARY: Magic and tech based on moles(the Duncton series being an interesting s
 - Runes > Researched
 - Dark Sound > Interaction between runes and the world
 
+> Standing Stone
+
+The standing stones are relatively tall(3 to 4 times as big as the player irregular pillars of stone arranged either alone or in symetric shapes, a la actual standing stones. They are formed not of common stone blocks, but of new black colored stone blocks that can be harvested to produce the Rune Stone blocks(described later). Also, Standing Stone formations feature a cove underground with treasures.
+
+Standing Stones are generated in a ratio of about 1 per 7x7 chunk block.
+
+> Rune Researcher
+
+The Rune Researcher works somewhat like the Q-block from Thaumcraft, except different. Yeah. Actually, it does generate rune items that will be used to infuse Rune Stones and the quality and type of the rune depends on the item(s) used.
+
+> Rune Blocks
+
+A rune block is a simple "Black Stone" block that's harvested from Standing Stones. The blocks that form the stones won't always return a block, though. The block by itself is useless until infused with up to 4 runes(one on each side). The bottoms won't be filled so they can "stack". Also, they cannot be placed immediately beside each other(sort of like cacti
+
+The Rune Block recipes are always on the form
+
+ 1
+2O3
+ 4
+ 
+Where the 4 runes position DOES matter. Maybe someday this will actually make sense, but whatever.
+
+>
+
 == 3 - ENTOMOCULTURE ==
 
 SUMMARY: Breeding grubs and bugs into useful new items.

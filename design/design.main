@@ -101,19 +101,45 @@ Standing Stones are generated in a ratio of about 1 per 7x7 chunk block.
 
 The Rune Researcher works somewhat like the Q-block from Thaumcraft, except different. Yeah. Actually, it does generate rune items that will be used to infuse Rune Stones and the quality and type of the rune depends on the item(s) used.
 
+Any item can be researched, the default rune generated being "Void". Runes are classified in 4 types:
+
+- Elemental: linked to elements, of course. Includes Earth/Wind/Fire/Water plus some less orthodox such as Ice/Lightning/Dark/Light/Metal
+- Alignment: linked to the quality and nature of the spell. Includes Good/Evil range as well as Poor/Excellent range.
+- Component: linked to the type of spell. Includes a variety of runes such as Matter(summoning and transforming), Void(destruction), Energy(Damage), Barrier(Protection), Force(movement and replacement)
+- Concept: linked to a metadata-like attribute.
+
+>>GUI
+       [0]
+	   [1]
+ [2] [3] [4] [5]
+  [[INVENTORY]]
+  
+0: Item Slot
+1: Slab Slot
+2: Element Rune
+3: Alignment Rune
+4: Component Rune
+5: Concept Rune 
+
+At the end of the research cycle,up to 4 slabs will be removed from slot 1 and the corresponding runes will be created on each slot. Items may have more than one rune associated to them(NOTE: make up some "register into list" API call to register new items if needed) and which and how many of them will be generated is up to pure chance.
+
 > Rune Blocks
 
 A rune block is a simple "Black Stone" block that's harvested from Standing Stones. The blocks that form the stones won't always return a block, though. The block by itself is useless until infused with up to 4 runes(one on each side). The bottoms won't be filled so they can "stack". Also, they cannot be placed immediately beside each other(sort of like cacti
 
 The Rune Block recipes are always on the form
 
- 1
-2O3
- 4
+ A
+E#K
+ C
  
-Where the 4 runes position DOES matter. Maybe someday this will actually make sense, but whatever.
+E -> Element
+C -> Component
+A -> Alignment
+K -> Concept
 
->
+RuneBlock List:
+> Summon Cow[Cow+Good+Matter+Earth]: will summon a cow after some large charging time somewhere in the chunk.
 
 == 3 - ENTOMOCULTURE ==
 

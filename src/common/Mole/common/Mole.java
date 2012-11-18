@@ -29,7 +29,8 @@ import Mole.common.machine.*;
 import Mole.common.seedstone.TileSeedstoneHouse;
 
 @Mod(modid="mod_Molecraft", name="Molecraft", version="0.5.0")
-@NetworkMod(clientSideRequired=true, serverSideRequired=false)
+@NetworkMod(clientSideRequired=true, serverSideRequired=false, 
+channels={"MoleSeedstones","MoleTerrarium"}, packetHandler = PacketHandler.class)
 public class Mole {
 	@SidedProxy(clientSide = "Mole.client.ClientProxyMole", serverSide = "Mole.common.CommonProxyMole")
 	public static CommonProxyMole proxy;

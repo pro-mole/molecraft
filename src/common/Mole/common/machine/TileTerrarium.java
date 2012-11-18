@@ -1,7 +1,10 @@
 package Mole.common.machine;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.PacketDispatcher;
 import Mole.common.Constants;
 import Mole.common.Mole;
+import Mole.common.PacketHandler;
 import net.minecraft.src.EntityItem;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
@@ -16,8 +19,8 @@ public class TileTerrarium extends TileEntity implements IInventory {
 
 	static int ticksPerFood = 200;
 	
-	private ItemStack bug;
-	private ItemStack food; 
+	public ItemStack bug;
+	public ItemStack food; 
 	
 	private boolean startMetamorphosis = false;
 	private boolean bugWorking = false;
@@ -110,6 +113,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 						startMetamorphosis = false;
 						metamorphosis = 0;
 					}
+					PacketDispatcher.sendPacketToAllPlayers(PacketHandler.createTerrariumPackate(this));
 				}
 				ticks = 0;
 			}
@@ -163,6 +167,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 						}
 						
 						if (--food.stackSize == 0) food = null;
+						PacketDispatcher.sendPacketToAllPlayers(PacketHandler.createTerrariumPackate(this));
 					}
 				}
 				ticks = 0;
@@ -275,7 +280,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 	
 	 @Override
      public void readFromNBT(NBTTagCompound tagCompound) {
-//		 System.out.println("Loading TE Terrarium at "+xCoord+":"+yCoord+":"+zCoord);
+		 System.out.println("Loading TE Terrarium at "+xCoord+":"+yCoord+":"+zCoord+"["+FMLCommonHandler.instance().getEffectiveSide()+"]");
          super.readFromNBT(tagCompound);
          
          NBTTagList tagList = tagCompound.getTagList("Terrarium");
@@ -300,7 +305,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 	 
 	 @Override
      public void writeToNBT(NBTTagCompound tagCompound) {
-//		 System.out.println("Saving TE Terrarium at "+xCoord+":"+yCoord+":"+zCoord);
+		 System.out.println("Saving TE Terrarium at "+xCoord+":"+yCoord+":"+zCoord+"["+FMLCommonHandler.instance().getEffectiveSide()+"]");
          super.writeToNBT(tagCompound);
                          
          NBTTagList itemList = new NBTTagList();

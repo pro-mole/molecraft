@@ -60,7 +60,7 @@ public class MoleSpade extends ItemSpade {
 					
 			if (_grub != null)
 			{
-				world.setBlock(x, y, z, 0);
+				world.setBlockWithNotify(x, y, z, 0);
 				_grub.delayBeforeCanPickup = 10;
 				world.spawnEntityInWorld(_grub);
 			}

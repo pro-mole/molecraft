@@ -56,7 +56,7 @@ public class MoleClaw extends ItemSpade {
 		{
 			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Item.dyePowder, 1, 15));
 			drop.delayBeforeCanPickup = 10;
-			world.setBlock(x, y, z, 0);
+			world.setBlockWithNotify(x, y, z, 0);
 			world.spawnEntityInWorld(drop);
 			return true;
 		}
@@ -66,7 +66,7 @@ public class MoleClaw extends ItemSpade {
 		{
 			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Item.bone, 1, 1));
 			drop.delayBeforeCanPickup = 10;
-			world.setBlock(x, y, z, 0);
+			world.setBlockWithNotify(x, y, z, 0);
 			world.spawnEntityInWorld(drop);
 			return true;
 		}
@@ -76,7 +76,7 @@ public class MoleClaw extends ItemSpade {
 		{
 			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Item.flint));
 			drop.delayBeforeCanPickup = 10;
-			world.setBlock(x, y, z, 0);
+			world.setBlockWithNotify(x, y, z, 0);
 			world.spawnEntityInWorld(drop);
 			return true;
 		}
@@ -98,13 +98,13 @@ public class MoleClaw extends ItemSpade {
 			}
 			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.dirtClump, 1, clumpType));
 			drop.delayBeforeCanPickup = 10;
-			world.setBlock(x, y, z, 0);
+			world.setBlockWithNotify(x, y, z, 0);
 			world.spawnEntityInWorld(drop);
 			return true;
 		}
 		
 		//60% of chance: NOTHING
-		world.setBlock(x, y, z, 0);
+		world.setBlockWithNotify(x, y, z, 0);
 		return true;
 	}
 }

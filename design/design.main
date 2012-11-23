@@ -119,6 +119,10 @@ K -> Concept
 RuneBlock List:
 > Summon Cow[Cow+Good+Matter+Earth]: will summon a cow after some large charging time somewhere in the chunk.
 
+> Learning Stone
+
+The learning stone is a modified Stone Block with a tile entity. The TE displays a Rune Recipe chosen randomly. They are found in chambers under Standing Stones or in the middle of Standing Stone circles.
+
 == 3 - ENTOMOCULTURE ==
 
 SUMMARY: Breeding grubs and bugs into useful new items.

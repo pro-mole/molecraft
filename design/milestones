@@ -6,14 +6,20 @@ Milestones
  - Multiplayer tweaks
  - Empty Husk and Chitin Armor/Tools
  - Remove Mealworm
- - Well Seedstone
+ - Well Seedstone 
+ - Class Interfaces for bugs(Bug > ResourceBug, ToolBug, FoodBug, ConsumeBug...) [DEV]
 0.7
  - Standing Stones
+ - Learning Stones
  - Bug tab in Creative
  - More bugs and grubs
- - More seedstones
+ - More seedstones [Farm, Lake, Lava]
+ - Runestone Dictionary [DEV]
+ - Seedstone Dictionary [DEV]
 0.8
  - Runes
+ - Earth Dryer
+ - Earth Moistener
  - Summon Cow runestone
  - More bugs and grubs
  - More seedstones
@@ -28,3 +34,5 @@ Milestones
    + 12 bugs
    + 12 Runestones
    + 12 Seedstones
+   
+   

@@ -3,11 +3,11 @@ Milestones
 0.5
  - First release; 4 bug types, House Seedstone
 0.6
- - Multiplayer tweaks
+ - Multiplayer tweaks [OK]
  - Empty Husk and Chitin Armor/Tools
- - Remove Mealworm
+ - Remove Mealworm [OK]
  - Well Seedstone 
- - Class Interfaces for bugs(Bug > ResourceBug, ToolBug, FoodBug, ConsumeBug...) [DEV]
+ - Class Interfaces for bugs(Bug > ResourceBug, ToolBug, FoodBug, ConsumeBug...) [DEV][OK]
 0.7
  - Standing Stones
  - Learning Stones

@@ -46,7 +46,7 @@ public class ContainerTerrarium extends Container {
 		}
 	}
 
-	@Override
+	/*@Override
 	public ItemStack transferStackInSlot(int slot)
 	{
 		ItemStack stack = null;
@@ -94,5 +94,5 @@ public class ContainerTerrarium extends Container {
 		}
 		
 		return stack;
-	}
+	}*/
 }

@@ -11,13 +11,13 @@ import net.minecraft.src.ItemAxe;
 import net.minecraft.src.ItemShears;
 import net.minecraft.src.ItemStack;
 
-public class BugStagBeetle extends ItemAxe {
+public class BugStagBeetle extends ItemAxe implements BugTool {
 
 	public BugStagBeetle()
 	{
 		super(Constants.MOLE_ITEM_BUG_STAGBEETLE, EnumToolMaterial.IRON);
 		setItemName("beetleStag");
-		setIconIndex(32);
+		setIconIndex(33);
 		setMaxDamage(50);
 		LanguageRegistry.addName(this, "Stag Beetle");
 		setCreativeTab(CreativeTabs.tabTools);

@@ -45,7 +45,7 @@ public class Mole {
 		grubCooked = new CookedGrub(),
 		bugFood = new BugFood(false), bugFoodPremium = new BugFood(true),
 		beetleStag = new BugStagBeetle(),
-		mealWorm = new BugMealWorm(),
+		emptyHusk = new BugHusk(),
 		bombyxMori = new BugBombyx(),
 		coccineal = new BugCoccineal(),
 		dirtClump = new Clump(),

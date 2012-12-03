@@ -22,7 +22,7 @@ public class Constants {
 	public static int MOLE_ITEM_GRUB_COOKED = 4101;
 	public static int MOLE_ITEM_BUGFOOD = 4102;
 	public static int MOLE_ITEM_BUGFOOD_PREMIUM = 4103;
-	public static int MOLE_ITEM_BUG_MEALWORM = 4104;
+	public static int MOLE_ITEM_BUG_HUSK = 4104;
 	public static int MOLE_ITEM_BUG_STAGBEETLE = 4105;
 	public static int MOLE_ITEM_BUG_BOMBYX = 4106;
 	public static int MOLE_ITEM_BUG_COCCINEAL = 4107;

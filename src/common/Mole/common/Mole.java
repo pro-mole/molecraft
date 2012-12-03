@@ -27,6 +27,11 @@ import Mole.common.block.*;
 import Mole.common.item.*;
 import Mole.common.machine.*;
 import Mole.common.seedstone.TileSeedstoneHouse;
+import Mole.common.terrarium.IGuiTerrariumHandler;
+import Mole.common.terrarium.MachineTerrarium;
+import Mole.common.terrarium.TileTerrarium;
+import Mole.common.tools.MoleClaw;
+import Mole.common.tools.MoleSpade;
 
 @Mod(modid="mod_Molecraft", name="Molecraft", version="0.5.0")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false, 
@@ -54,7 +59,7 @@ public class Mole {
 	public static Block
 		dirtstone = new DirtStone(false), dirtstone_baked = new DirtStone(true),
 		terrarium = new MachineTerrarium(),
-		seedstoneBlock[] = {new MachineSeedstone(Seedstone.EnumSeedstoneType.HOUSE)};
+		seedstoneBlock[] = {new BlockSeedstone(Seedstone.EnumSeedstoneType.HOUSE)};
 		
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event) 

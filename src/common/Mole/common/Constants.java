@@ -1,6 +1,7 @@
 package Mole.common;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.src.EnumArmorMaterial;
 import net.minecraft.src.EnumToolMaterial;
 import net.minecraft.src.MapColor;
 import net.minecraft.src.Material;
@@ -29,6 +30,10 @@ public class Constants {
 	public static int MOLE_ITEM_CLAWS = 4108;
 	public static int MOLE_ITEM_CLUMP = 4109;
 	public static int MOLE_ITEM_SEEDSTONE = 4110;
+	public static int MOLE_ITEM_CHITIN_ARMOR = 4111;
+	//Placeholder for all 4 types of armor
+	public static int MOLE_ITEM_CHITIN_TOOLS = 4115;
+	//Placeholder for all 5 types of tools
 	
 	//Sub-Item IDs
 	public static final int MOLE_GRUB_WHITE = 0;
@@ -47,7 +52,9 @@ public class Constants {
 	public static final String MOLE_TEXT_ITEMS = "/Mole/common/resources/items.png";
 	
 	//Tool Materials
-	public static final EnumToolMaterial MOLECLAW = EnumHelper.addToolMaterial("MOLECLAW", 3, 1024, 10F, 1, 15);
+	public static final EnumToolMaterial MOLECLAW = EnumHelper.addToolMaterial("MOLECLAW", 3, 1024, 10F, 1, 10);
+	public static final EnumArmorMaterial CHITIN_ARMOR = EnumHelper.addArmorMaterial("CHITIN", 15, new int[]{2, 4, 3, 1}, 15);
+	public static final EnumToolMaterial CHITIN_TOOL = EnumHelper.addToolMaterial("CHITIN", 1, 192, 3.0F, 1, 15);
 	
 	//Other
 	

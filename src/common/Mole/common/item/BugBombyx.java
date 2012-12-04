@@ -5,7 +5,7 @@ import Mole.common.Constants;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Item;
 
-public class BugBombyx extends Item {
+public class BugBombyx extends Item implements BugProduce{
 
 	public BugBombyx()
 	{

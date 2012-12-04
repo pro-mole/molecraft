@@ -1,4 +1,4 @@
-package Mole.common.machine;
+package Mole.common.terrarium;
 
 import Mole.common.Constants;
 import net.minecraft.src.Container;

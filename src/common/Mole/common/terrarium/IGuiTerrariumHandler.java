@@ -1,4 +1,4 @@
-package Mole.common.machine;
+package Mole.common.terrarium;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.TileEntity;

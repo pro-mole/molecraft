@@ -1,10 +1,13 @@
-package Mole.common.machine;
+package Mole.common.terrarium;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import Mole.common.Constants;
 import Mole.common.Mole;
 import Mole.common.PacketHandler;
+import Mole.common.item.BugProduce;
+import Mole.common.item.BugTool;
+import Mole.common.item.Grub;
 import net.minecraft.src.EntityItem;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
@@ -87,7 +90,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 						if (worldObj.rand.nextInt(10) < 6)
 						{
 							//Mealworm
-							bug = new ItemStack(Mole.mealWorm,1);
+							bug = new ItemStack(Mole.emptyHusk,1);
 						}
 						else
 						{

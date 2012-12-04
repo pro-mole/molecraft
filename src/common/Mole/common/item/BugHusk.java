@@ -5,14 +5,15 @@ import Mole.common.Constants;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Item;
 
-public class BugCoccineal extends Item implements BugResource {
+public class BugHusk extends Item {
 
-	public BugCoccineal() {
-		super(Constants.MOLE_ITEM_BUG_COCCINEAL);
+	public BugHusk()
+	{
+		super(Constants.MOLE_ITEM_BUG_HUSK);
 		
-		setItemName("coccineal");
-		setIconIndex(35);
-		LanguageRegistry.addName(this, "Coccineal");
+		setItemName("emptyHusk");
+		setIconIndex(32);
+		LanguageRegistry.addName(this, "Empty Husk");
 		setCreativeTab(CreativeTabs.tabMisc);
 	}
 	

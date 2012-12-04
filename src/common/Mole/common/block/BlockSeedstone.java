@@ -1,4 +1,4 @@
-package Mole.common.machine;
+package Mole.common.block;
 
 import net.minecraft.src.BlockContainer;
 import net.minecraft.src.Material;
@@ -8,11 +8,11 @@ import Mole.common.Constants;
 import Mole.common.item.Seedstone.EnumSeedstoneType;
 import Mole.common.seedstone.TileSeedstoneHouse;
 
-public class MachineSeedstone extends BlockContainer {
+public class BlockSeedstone extends BlockContainer {
 	
 	EnumSeedstoneType type;
 	
-	public MachineSeedstone(EnumSeedstoneType type)
+	public BlockSeedstone(EnumSeedstoneType type)
 	{
 		super(Constants.MOLE_BLOCK_SEEDSTONE, Material.ground);
 		this.setLightValue(0.8F);

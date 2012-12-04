@@ -10,7 +10,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 import Mole.common.Constants;
 import Mole.common.PacketHandler;
 import Mole.common.item.Seedstone.EnumSeedstoneType;
-import Mole.common.machine.TileSeedstone;
+import Mole.common.seedstone.TileSeedstone;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;

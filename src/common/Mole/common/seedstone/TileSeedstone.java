@@ -1,4 +1,4 @@
-package Mole.common.machine;
+package Mole.common.seedstone;
 
 import Mole.common.item.Seedstone.EnumSeedstoneType;
 import net.minecraft.src.TileEntity;

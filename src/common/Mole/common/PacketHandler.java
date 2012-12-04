@@ -9,8 +9,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import Mole.common.item.Seedstone.EnumSeedstoneType;
-import Mole.common.machine.TileSeedstone;
-import Mole.common.machine.TileTerrarium;
+import Mole.common.seedstone.TileSeedstone;
+import Mole.common.terrarium.TileTerrarium;
 import Mole.common.seedstone.TileSeedstoneHouse;
 
 import net.minecraft.src.ItemStack;

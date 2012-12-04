@@ -1,5 +1,7 @@
 package Mole.common;
 
+import java.util.Random;
+
 class RandomUtil 
 {
 	public static class ODD

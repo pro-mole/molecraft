@@ -1,4 +1,4 @@
-package Mole.common.machine;
+package Mole.common.terrarium;
 
 import org.lwjgl.opengl.GL11;
 
@@ -14,11 +14,11 @@ public class GUITerrarium extends GuiContainer {
 		super(new ContainerTerrarium(invPlayer, TE));
 	}
 	
-	/*@Override
+	@Override
 	protected void drawGuiContainerForegroundLayer()
 	{
 		fontRenderer.drawString("Terrarium", 8, 6, 4210752);
-	}*/
+	}
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int var2,

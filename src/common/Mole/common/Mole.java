@@ -25,7 +25,8 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 import Mole.common.block.*;
 import Mole.common.item.*;
-import Mole.common.machine.*;
+import Mole.common.seedstone.*;
+import Mole.common.terrarium.*;
 import Mole.common.seedstone.TileSeedstoneHouse;
 import Mole.common.terrarium.IGuiTerrariumHandler;
 import Mole.common.terrarium.MachineTerrarium;

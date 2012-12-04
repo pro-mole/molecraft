@@ -1,4 +1,4 @@
-package Mole.common.machine;
+package Mole.common.terrarium;
 
 import net.minecraft.src.IInventory;
 import net.minecraft.src.Slot;

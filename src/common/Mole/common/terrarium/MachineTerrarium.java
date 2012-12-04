@@ -1,4 +1,4 @@
-package Mole.common.machine;
+package Mole.common.terrarium;
 
 import java.util.List;
 import java.util.Random;

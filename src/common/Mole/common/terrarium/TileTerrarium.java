@@ -1,12 +1,10 @@
-package Mole.common.machine;
+package Mole.common.terrarium;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import Mole.common.Constants;
 import Mole.common.Mole;
-import Mole.common.item.BugProduce;
-import Mole.common.item.BugTool;
-import Mole.common.item.Grub;
+import Mole.common.PacketHandler;
 import net.minecraft.src.EntityItem;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
@@ -85,10 +83,10 @@ public class TileTerrarium extends TileEntity implements IInventory {
 					//Metamorphosis ho!
 					if (metamorphosis >= 100)
 					{	
-						//Any bug can become an Empty Husk with 60% chance
+						//Any bug can become a Mealworm with 60% chance
 						if (worldObj.rand.nextInt(10) < 6)
 						{
-							//Enpty Husk
+							//Mealworm
 							bug = new ItemStack(Mole.emptyHusk,1);
 						}
 						else
@@ -227,7 +225,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 			if (food.itemID == Mole.bugFood.shiftedIndex ||	food.itemID == Mole.bugFoodPremium.shiftedIndex)
 			{
 				//Grubs
-				if (bug.getItem() instanceof Grub)
+				if (bug.itemID == Mole.grub.shiftedIndex)
 				{
 					if (!startMetamorphosis)
 					{
@@ -238,7 +236,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 				}
 				
 				//Adults
-				if (bug.getItem() instanceof BugTool || bug.getItem() instanceof BugProduce)
+				if (bug.itemID == Mole.beetleStag.shiftedIndex || bug.itemID == Mole.bombyxMori.shiftedIndex)
 				{
 					if (!bugWorking)
 					{

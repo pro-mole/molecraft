@@ -1,9 +1,11 @@
 package Mole.common.equipment;
 
+import Mole.common.Constants;
+
 public class ChitinHelm extends ChitinArmor {
 
 	public ChitinHelm() {
-		super(0);
+		super(Constants.MOLE_ARMOR_HEAD);
 	}
 
 }

@@ -46,6 +46,10 @@ public class Constants {
 	public static final int MOLE_CLUMP_SAND = 3;
 	public static final int MOLE_CLUMP_WATER = 4;
 	
+	public static final int MOLE_ARMOR_HEAD = 0;
+	public static final int MOLE_ARMOR_CHEST = 1;
+	public static final int MOLE_ARMOR_LEGS = 2;
+	public static final int MOLE_ARMOR_FEET = 3;
 	
 	//Texture Files
 	public static final String MOLE_TEXT_TERRAIN = "/Mole/common/resources/terrain.png";

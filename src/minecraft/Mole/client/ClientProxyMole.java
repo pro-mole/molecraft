@@ -10,5 +10,7 @@ public class ClientProxyMole extends CommonProxyMole{
 	{
 		MinecraftForgeClient.preloadTexture("/Mole/common/resources/terrain.png");
 		MinecraftForgeClient.preloadTexture("/Mole/common/resources/items.png");
+		MinecraftForgeClient.preloadTexture("/Mole/common/resources/chitin_1.png");
+		MinecraftForgeClient.preloadTexture("/Mole/common/resources/chitin_2.png");
 	}
 }

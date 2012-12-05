@@ -2,14 +2,34 @@ package Mole.common;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.BlockLog;
-import net.minecraft.src.BlockOre;
-import net.minecraft.src.BlockWood;
-import net.minecraft.src.EnumToolMaterial;
 import net.minecraft.src.Item;
-import net.minecraft.src.ItemAppleGold;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.ModLoader;
-import net.minecraftforge.common.EnumHelper;
+import Mole.common.block.BlockSeedstone;
+import Mole.common.block.DirtStone;
+import Mole.common.equipment.ChitinHelm;
+import Mole.common.equipment.ChitinLegging;
+import Mole.common.equipment.ChitinPlate;
+import Mole.common.equipment.ChitinShoes;
+import Mole.common.item.BugBombyx;
+import Mole.common.item.BugCoccineal;
+import Mole.common.item.BugFood;
+import Mole.common.item.BugHusk;
+import Mole.common.item.BugStagBeetle;
+import Mole.common.item.Clump;
+import Mole.common.item.CookedGrub;
+import Mole.common.item.Grub;
+import Mole.common.item.Seedstone;
+import Mole.common.seedstone.TileSeedstoneHouse;
+import Mole.common.terrarium.IGuiTerrariumHandler;
+import Mole.common.terrarium.MachineTerrarium;
+import Mole.common.terrarium.TileTerrarium;
+import Mole.common.tools.ChitinAxe;
+import Mole.common.tools.ChitinHoe;
+import Mole.common.tools.ChitinPickaxe;
+import Mole.common.tools.ChitinSpade;
+import Mole.common.tools.ChitinSword;
+import Mole.common.tools.MoleClaw;
+import Mole.common.tools.MoleSpade;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -19,20 +39,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-
-import Mole.common.block.*;
-import Mole.common.item.*;
-import Mole.common.seedstone.*;
-import Mole.common.terrarium.*;
-import Mole.common.seedstone.TileSeedstoneHouse;
-import Mole.common.terrarium.IGuiTerrariumHandler;
-import Mole.common.terrarium.MachineTerrarium;
-import Mole.common.terrarium.TileTerrarium;
-import Mole.common.tools.MoleClaw;
-import Mole.common.tools.MoleSpade;
 
 @Mod(modid="mod_Molecraft", name="Molecraft", version="0.5.0")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false, 
@@ -47,15 +54,22 @@ public class Mole {
 	public static Item
 		moleSpade = new MoleSpade(),
 		moleClaw = new MoleClaw(),
+		
 		grub = new Grub(),
 		grubCooked = new CookedGrub(),
+		
 		bugFood = new BugFood(false), bugFoodPremium = new BugFood(true),
+		
 		beetleStag = new BugStagBeetle(),
 		emptyHusk = new BugHusk(),
 		bombyxMori = new BugBombyx(),
 		coccineal = new BugCoccineal(),
+		
 		dirtClump = new Clump(),
-		seedstone[] = {new Seedstone(Seedstone.EnumSeedstoneType.HOUSE)};
+		seedstone[] = {new Seedstone(Seedstone.EnumSeedstoneType.HOUSE)},
+		
+		armorChitin[] = {new ChitinHelm(), new ChitinPlate(), new ChitinLegging(), new ChitinShoes()},
+		toolChitin[] = {new ChitinAxe(), new ChitinSpade(), new ChitinPickaxe(), new ChitinHoe(), new ChitinSword()};
 	
 	public static Block
 		dirtstone = new DirtStone(false), dirtstone_baked = new DirtStone(true),
@@ -122,6 +136,56 @@ public class Mole {
 				'O', Block.dirt,
 				'#', Block.thinGlass,
 				'-', Block.woodSingleSlab);
+		
+		GameRegistry.addRecipe(new ItemStack(armorChitin[0]),
+				"###",
+				"# #",
+				'#', emptyHusk);
+		GameRegistry.addRecipe(new ItemStack(armorChitin[1]),
+				"# #",
+				"###",
+				"###",
+				'#', emptyHusk);
+		GameRegistry.addRecipe(new ItemStack(armorChitin[2]),
+				"###",
+				"# #",
+				"# #",
+				'#', emptyHusk);
+		GameRegistry.addRecipe(new ItemStack(armorChitin[3]),
+				"# #",
+				"# #",
+				'#', emptyHusk);
+		
+		GameRegistry.addRecipe(new ItemStack(toolChitin[0]),
+				"##",
+				"|#",
+				"| ",
+				'#', emptyHusk,
+				'|', Item.stick);
+		GameRegistry.addRecipe(new ItemStack(toolChitin[1]),
+				"#",
+				"|",
+				"|",
+				'#', emptyHusk,
+				'|', Item.stick);
+		GameRegistry.addRecipe(new ItemStack(toolChitin[2]),
+				"###",
+				" | ",
+				" | ",
+				'#', emptyHusk,
+				'|', Item.stick);
+		GameRegistry.addRecipe(new ItemStack(toolChitin[3]),
+				"##",
+				"| ",
+				"| ",
+				'#', emptyHusk,
+				'|', Item.stick);
+		GameRegistry.addRecipe(new ItemStack(toolChitin[4]),
+				"#",
+				"#",
+				"|",
+				'#', emptyHusk,
+				'|', Item.stick);
 		
 		for (Item vegetal: new Item[] {Item.seeds, Item.appleRed, Item.melon, Item.pumpkinSeeds, Item.melonSeeds, Item.wheat})
 		{

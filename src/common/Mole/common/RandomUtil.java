@@ -1,86 +1,37 @@
 package Mole.common;
 
+import java.util.HashMap;
 import java.util.Random;
 
-class RandomUtil 
+public class RandomUtil 
 {
-	public static class ODD
+	//Random distribution
+	public static Object randomize(HashMap<Object, int> odds, Random rand)
 	{
-		int oddVal;
-		Object result;
-		
-		public ODD(int o, Object O)
+		int oddTotal = 0;
+		for (int val: odds.values())
 		{
-			oddVal = o;
-			result = O;
+			oddTotal += val;
 		}
 		
-		public ODD(Object O)
+		int pick = rand.nextInt(oddTotal);
+		for (Map.Entry<Object,int> entry: odds.entrySet())
 		{
-			if (O instanceof Object[])
-			{
-				Object[] _O = (Object[]) O;
-				switch(_O.length)
-				{
-					case 0:
-						oddVal = 0;
-						result = null;
-						break;
-					case 1:
-						oddVal = 1;
-						result = _O[0];
-						break;
-					default:
-						if (_O[0] instanceof Integer)
-						{
-							oddVal = (Integer) _O[0];
-							result = _O[1];
-						}
-						else
-						{
-							oddVal = 1;
-							result = _O;
-						}
-						break;
-				}
-			}
+			if (pick < entry.getValue())
+				return entry.getKey();
 			else
-			{
-				oddVal = 1;
-				result = O;
-			}
+				pick -= entry.getValue();
 		}
 		
-		public int getOdds() { return oddVal; }
-		public Object get() { return result; }
-	}
-	
-	public static Object randomize(ODD[] odds, Random rand)
-	{
-		int totalOdds = 0;
-		for (ODD o: odds)
-		{
-			totalOdds += o.getOdds();
-		}
-		
-		int baseChance = rand.nextInt(totalOdds);
-		for (ODD o: odds)
-		{
-			if (baseChance < o.getOdds()) return o.get();
-			baseChance -= o.getOdds();
-		}
-		
+		//Theoretically impossible but...
 		return null;
 	}
 	
+	//Uniform distribution
 	public static Object randomize(Object[] odds, Random rand)
 	{
-		ODD[] O = new ODD[odds.length];
-		for (int i=0; i < odds.length; i++)
-		{
-			O[i] = new ODD(odds[i]);
-		}
+		int pick = rand.nextInt(odds.length);
 		
-		return randomize(O, rand);
+		return odds[pick];
 	}
 }

@@ -29,7 +29,7 @@ public class Constants {
 	public static int MOLE_ITEM_BUG_COCCINEAL = 4107;
 	public static int MOLE_ITEM_CLAWS = 4108;
 	public static int MOLE_ITEM_CLUMP = 4109;
-	public static int MOLE_ITEM_SEEDSTONE = 4110;
+	public static int MOLE_ITEM_SEEDSTONE = 4200;
 	public static int MOLE_ITEM_CHITIN_ARMOR = 4111;
 	//Placeholder for all 4 types of armor
 	public static int MOLE_ITEM_CHITIN_TOOLS = 4115;

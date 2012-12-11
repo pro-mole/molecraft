@@ -19,7 +19,9 @@ import Mole.common.item.Clump;
 import Mole.common.item.CookedGrub;
 import Mole.common.item.Grub;
 import Mole.common.item.Seedstone;
+import Mole.common.item.Seedstone.EnumSeedstoneType;
 import Mole.common.seedstone.TileSeedstoneHouse;
+import Mole.common.seedstone.TileSeedstoneWell;
 import Mole.common.terrarium.IGuiTerrariumHandler;
 import Mole.common.terrarium.MachineTerrarium;
 import Mole.common.terrarium.TileTerrarium;
@@ -66,7 +68,7 @@ public class Mole {
 		coccineal = new BugCoccineal(),
 		
 		dirtClump = new Clump(),
-		seedstone[] = {new Seedstone(Seedstone.EnumSeedstoneType.HOUSE)},
+		seedstone[] = {new Seedstone(Seedstone.EnumSeedstoneType.HOUSE), new Seedstone(EnumSeedstoneType.WELL)},
 		
 		armorChitin[] = {new ChitinHelm(), new ChitinPlate(), new ChitinLegging(), new ChitinShoes()},
 		toolChitin[] = {new ChitinAxe(), new ChitinSpade(), new ChitinPickaxe(), new ChitinHoe(), new ChitinSword()};
@@ -98,6 +100,7 @@ public class Mole {
 			GameRegistry.registerBlock(seedBlock);
 		GameRegistry.registerTileEntity(TileTerrarium.class, "Terrarium");
 		GameRegistry.registerTileEntity(TileSeedstoneHouse.class, "SeedstoneHouse");
+		GameRegistry.registerTileEntity(TileSeedstoneWell.class, "SeedstoneWell");
 		
 		//Register Recipes
 		GameRegistry.addRecipe(new ItemStack(dirtstone, 8),
@@ -124,6 +127,11 @@ public class Mole {
 				"OOO",
 				"OOO",
 				'O', dirtClump);
+		GameRegistry.addRecipe(new ItemStack(seedstone[1]),
+				"OOO",
+				"OOO",
+				"OOO",
+				'O', new ItemStack(dirtClump,1,Constants.MOLE_CLUMP_WATER));
 		
 		GameRegistry.addRecipe(new ItemStack(Item.dyePowder,1,1),
 				"C",

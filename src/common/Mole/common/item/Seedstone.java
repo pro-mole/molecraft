@@ -3,7 +3,9 @@ package Mole.common.item;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import Mole.common.Constants;
 import Mole.common.Mole;
+import Mole.common.seedstone.TileSeedstone;
 import Mole.common.seedstone.TileSeedstoneHouse;
+import Mole.common.seedstone.TileSeedstoneWell;
 import net.minecraft.src.Block;
 import net.minecraft.src.Chunk;
 import net.minecraft.src.ChunkPosition;
@@ -17,11 +19,11 @@ public class Seedstone extends Item {
 
 	public static enum EnumSeedstoneType
 	{
-		HOUSE
+		HOUSE, WELL
 	};
 	
-	public static String[] itemNames = {"seedstoneHouse"};
-	public static String[] uiNames = {"House Seedstone"};
+	public static String[] itemNames = {"seedstoneHouse", "seedstoneWell"};
+	public static String[] uiNames = {"House Seedstone", "Well Seedstone"};
 	
 	int seedType;
 	
@@ -61,7 +63,7 @@ public class Seedstone extends Item {
 		if (Mole.isDirtLike(blockId) || blockId == Constants.MOLE_BLOCK_DIRTSTONE)
 		{
 			world.setBlock(x, y, z, Constants.MOLE_BLOCK_SEEDSTONE);
-			if (seedType == 0)
+			if (seedType == EnumSeedstoneType.HOUSE.ordinal())
 			{
 				if (world.getBlockTileEntity(x, y, z) != null)
 				{
@@ -94,6 +96,19 @@ public class Seedstone extends Item {
 					world.setBlockTileEntity(x, y, z, _TE);
 //					chunk.chunkTileEntityMap.put(pos, _TE);
 				}
+			}
+			
+			if (seedType == EnumSeedstoneType.WELL.ordinal())
+			{
+				if (world.getBlockTileEntity(x, y, z) != null)
+				{
+					System.out.println("Already occupied; oops");
+					return false;
+				}
+				
+				TileSeedstoneWell _TE;
+				_TE = new TileSeedstoneWell();
+				world.setBlockTileEntity(x, y, z, _TE);
 			}
 			
 			stack.stackSize--;

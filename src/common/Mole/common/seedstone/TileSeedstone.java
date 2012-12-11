@@ -7,6 +7,8 @@ public class TileSeedstone extends TileEntity {
 
 	protected EnumSeedstoneType type;
 	
+	protected int ticks;
+	
 	public EnumSeedstoneType getType() { return type; }
 	
 	public void setType(EnumSeedstoneType T)

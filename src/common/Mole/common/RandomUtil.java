@@ -1,12 +1,13 @@
 package Mole.common;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Random;
 
 public class RandomUtil 
 {
 	//Random distribution
-	public static Object randomize(HashMap<Object, int> odds, Random rand)
+	public static Object randomize(HashMap<Object, Integer> odds, Random rand)
 	{
 		int oddTotal = 0;
 		for (int val: odds.values())
@@ -15,7 +16,7 @@ public class RandomUtil
 		}
 		
 		int pick = rand.nextInt(oddTotal);
-		for (Map.Entry<Object,int> entry: odds.entrySet())
+		for (Entry<Object,Integer> entry: odds.entrySet())
 		{
 			if (pick < entry.getValue())
 				return entry.getKey();

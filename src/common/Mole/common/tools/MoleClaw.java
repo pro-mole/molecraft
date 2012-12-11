@@ -1,25 +1,22 @@
 package Mole.common.tools;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.HashMap;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import Mole.common.Constants;
-import Mole.common.Mole;
-import Mole.common.RandomUtil;
-import Mole.common.item.Clump;
 import net.minecraft.src.BiomeGenBase;
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityItem;
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.EnumToolMaterial;
 import net.minecraft.src.Item;
-import net.minecraft.src.ItemCloth;
 import net.minecraft.src.ItemSpade;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
-import net.minecraftforge.common.EnumHelper;
+import Mole.common.Constants;
+import Mole.common.RandomUtil;
+import Mole.common.item.Clump;
+import cpw.mods.fml.common.registry.LanguageRegistry;
+import Mole.common.Mole;
 
 public class MoleClaw extends ItemSpade {
 	
@@ -54,22 +51,29 @@ public class MoleClaw extends ItemSpade {
 		float R = world.rand.nextFloat()*0.5F + 0.25F;
 		
 		//Base odds
-		Object[][] odds = new Object[][] {{5, "normal"}, {15, "bonemeal"}, {5, "bone"}, {5, "flint"}, {10, "clump"}, {60, "none"}};
+		HashMap<Object, Integer> odds = new HashMap() {{
+			put ("normal", 5);
+			put (new ItemStack(Item.dyePowder,1,15), 15);
+			put (new ItemStack(Item.bone), 5);
+			put (new ItemStack(Item.flint), 5);
+			put ("clump", 10);
+			put (null, 60);
+		}};
 		
-		String result = (String) RandomUtil.randomize(odds, world.rand);
+		Object result = RandomUtil.randomize(odds, world.rand);
 		System.out.println(result);
+		
+		if (result == null)
+		{
+			world.setBlockWithNotify(x, y, z, 0);
+			return true;
+		}
 		
 		if (!result.equals("normal"))
 		{
-			ItemStack stack = null;
+			ItemStack stack;
 			
-			if (result.equals("bonemeal"))
-				stack = new ItemStack(Item.dyePowder,1,15);
-			else if (result.equals("bone"))
-				stack = new ItemStack(Item.bone);
-			else if (result.equals("flint"))
-				stack = new ItemStack(Item.flint);
-			else if (result.equals("clump"))
+			if (result.equals("clump"))
 			{
 				ArrayList<Integer> clumpOdds = new ArrayList<Integer>();
 				for (int i=0; i < Clump.itemNames.length; i++)
@@ -105,17 +109,19 @@ public class MoleClaw extends ItemSpade {
 				int type = (Integer) RandomUtil.randomize(clumpOdds.toArray(), world.rand);
 				stack = new ItemStack(Mole.dirtClump, 1, type);
 			}
-			
-			if (stack != null)
+			else
 			{
-				EntityItem _item = new EntityItem(world, x+R, y+R, z+R, stack);
-				_item.delayBeforeCanPickup = 10;
-				world.spawnEntityInWorld(_item);
+				stack = (ItemStack) result;
 			}
+			
+			EntityItem _item = new EntityItem(world, x+R, y+R, z+R, stack);
+			_item.delayBeforeCanPickup = 10;
+			world.spawnEntityInWorld(_item);
 			world.setBlockWithNotify(x, y, z, 0);
+			
 			return true;
 		}
-		
+
 		return false;
 	}
 }

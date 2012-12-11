@@ -1,15 +1,21 @@
 package Mole.common.tools;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import Mole.common.Constants;
 import Mole.common.Mole;
+import Mole.common.RandomUtil;
 import Mole.common.item.Clump;
+import net.minecraft.src.BiomeGenBase;
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityItem;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EnumToolMaterial;
 import net.minecraft.src.Item;
+import net.minecraft.src.ItemCloth;
 import net.minecraft.src.ItemSpade;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
@@ -45,67 +51,71 @@ public class MoleClaw extends ItemSpade {
 			return false;
 		
 		EntityItem drop = null;
-		int odds = world.rand.nextInt(200);
 		float R = world.rand.nextFloat()*0.5F + 0.25F;
 		
-		//5% of chance: normal droppings
-		if (odds < 10)
-			return false;
+		//Base odds
+		Object[][] odds = new Object[][] {{5, "normal"}, {15, "bonemeal"}, {5, "bone"}, {5, "flint"}, {10, "clump"}, {60, "none"}};
 		
-		//15% of chance: bone meal
-		if (odds-10 < 30)
-		{
-			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Item.dyePowder, 1, 15));
-			drop.delayBeforeCanPickup = 10;
-			world.setBlockWithNotify(x, y, z, 0);
-			world.spawnEntityInWorld(drop);
-			return true;
-		}
+		String result = (String) RandomUtil.randomize(odds, world.rand);
+		System.out.println(result);
 		
-		//5% of chance: bone
-		if (odds-40 < 10)
+		if (!result.equals("normal"))
 		{
-			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Item.bone, 1, 1));
-			drop.delayBeforeCanPickup = 10;
-			world.setBlockWithNotify(x, y, z, 0);
-			world.spawnEntityInWorld(drop);
-			return true;
-		}
-				
-		//5% of chance: normal flint
-		if (odds-50 < 10)
-		{
-			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Item.flint));
-			drop.delayBeforeCanPickup = 10;
-			world.setBlockWithNotify(x, y, z, 0);
-			world.spawnEntityInWorld(drop);
-			return true;
-		}
-		
-		//10% of chance: clumps
-		if (odds-60 < 20)
-		{
-			int clumpType = world.rand.nextInt(Clump.itemNames.length);
-			if (odds-60 >= 2)
+			ItemStack stack = null;
+			
+			if (result.equals("bonemeal"))
+				stack = new ItemStack(Item.dyePowder,1,15);
+			else if (result.equals("bone"))
+				stack = new ItemStack(Item.bone);
+			else if (result.equals("flint"))
+				stack = new ItemStack(Item.flint);
+			else if (result.equals("clump"))
 			{
-				if (ID == Block.dirt.blockID || ID == Block.grass.blockID)  
-					clumpType = Constants.MOLE_CLUMP_EARTH;
-				else if (ID == Block.blockClay.blockID)  
-					clumpType = Constants.MOLE_CLUMP_WATER;
-				else if (ID == Block.sand.blockID)
-					clumpType = Constants.MOLE_CLUMP_SAND;
-				else if (ID == Block.netherrack.blockID)  
-					clumpType = Constants.MOLE_CLUMP_FIRE;
+				ArrayList<Integer> clumpOdds = new ArrayList<Integer>();
+				for (int i=0; i < Clump.itemNames.length; i++)
+				{
+					clumpOdds.add(i);
+				}
+				
+				for (int i=-1; i <= 1; i++)
+				{		
+					for (int j=-1; j <= 1; j++)
+					{
+						BiomeGenBase biome = world.getBiomeGenForCoords(x+i, z+j);
+						if (biome == BiomeGenBase.taiga || biome == BiomeGenBase.taigaHills)
+							clumpOdds.add(Constants.MOLE_CLUMP_ICE);
+						if (biome == BiomeGenBase.desert || biome == BiomeGenBase.desertHills)
+							clumpOdds.add(Constants.MOLE_CLUMP_SAND);
+						if (biome == BiomeGenBase.ocean || biome == BiomeGenBase.swampland || biome == BiomeGenBase.river)
+							clumpOdds.add(Constants.MOLE_CLUMP_WATER);
+						
+						int block = world.getBlockId(x+i, y, z+j);
+						
+						if (block == Block.waterStill.blockID)
+							clumpOdds.add(Constants.MOLE_CLUMP_WATER);
+						if (block == Block.sand.blockID)
+							clumpOdds.add(Constants.MOLE_CLUMP_SAND);
+						if (block == Block.dirt.blockID)
+							clumpOdds.add(Constants.MOLE_CLUMP_EARTH);
+						if (block == Block.netherrack.blockID)
+							clumpOdds.add(Constants.MOLE_CLUMP_FIRE);
+					}
+				}
+				
+				int type = (Integer) RandomUtil.randomize(clumpOdds.toArray(), world.rand);
+				stack = new ItemStack(Mole.dirtClump, 1, type);
 			}
-			drop = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.dirtClump, 1, clumpType));
-			drop.delayBeforeCanPickup = 10;
+			
+			if (stack != null)
+			{
+				EntityItem _item = new EntityItem(world, x+R, y+R, z+R, stack);
+				_item.delayBeforeCanPickup = 10;
+				world.spawnEntityInWorld(_item);
+			}
 			world.setBlockWithNotify(x, y, z, 0);
-			world.spawnEntityInWorld(drop);
 			return true;
 		}
 		
-		//60% of chance: NOTHING
-		world.setBlockWithNotify(x, y, z, 0);
-		return true;
+		return false;
 	}
 }

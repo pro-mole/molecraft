@@ -2,7 +2,7 @@ package Mole.common;
 
 import java.util.Random;
 
-class RandomUtil 
+public class RandomUtil 
 {
 	public static class ODD
 	{

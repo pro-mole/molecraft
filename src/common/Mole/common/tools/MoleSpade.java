@@ -1,5 +1,7 @@
 package Mole.common.tools;
 
+import java.util.HashMap;
+
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityItem;
@@ -11,6 +13,7 @@ import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
 import Mole.common.Constants;
 import Mole.common.Mole;
+import Mole.common.RandomUtil;
 
 public class MoleSpade extends ItemSpade {
 	
@@ -50,12 +53,15 @@ public class MoleSpade extends ItemSpade {
 			//Grubs have their own chances of dropping; define them here
 			if (ID == Block.grass.blockID || ID == Block.dirt.blockID)
 			{
-				if (world.rand.nextInt(20) == 0) //10% Red grubs
-					_grub = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.grub,1,Constants.MOLE_GRUB_RED));
-				else if (world.rand.nextInt(19) == 0) //10% Fat grubs 
-					_grub = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.grub,1,Constants.MOLE_GRUB_FAT));
-				else //80% White grubs
-					_grub = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.grub,1,Constants.MOLE_GRUB_WHITE));
+				HashMap <Object, Integer> grubOdds = new HashMap<Object, Integer>() {{
+					put (Constants.MOLE_GRUB_WHITE, 80);
+					put (Constants.MOLE_GRUB_RED, 10);
+					put (Constants.MOLE_GRUB_FAT, 10);
+				}};
+				
+				int type = (Integer) RandomUtil.randomize(grubOdds, world.rand);
+				System.out.println("Grub type: "+type);
+				_grub = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.grub,1, type));
 			}
 					
 			if (_grub != null)
@@ -63,8 +69,8 @@ public class MoleSpade extends ItemSpade {
 				world.setBlockWithNotify(x, y, z, 0);
 				_grub.delayBeforeCanPickup = 10;
 				world.spawnEntityInWorld(_grub);
+				return true;
 			}
-			return true;
 		}
 		
 		//DEFAULT: normal drops

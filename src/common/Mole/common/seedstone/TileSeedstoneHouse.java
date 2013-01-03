@@ -2,21 +2,13 @@ package Mole.common.seedstone;
 
 import java.io.IOException;
 
-import javax.sound.midi.Soundbank;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
-
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import Mole.common.Constants;
 import Mole.common.PacketHandler;
 import Mole.common.item.Seedstone.EnumSeedstoneType;
-import Mole.common.seedstone.TileSeedstone;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.NBTTagCompound;
-import net.minecraft.src.NBTTagList;
-import net.minecraft.src.StepSound;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.WorldInfo;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TileSeedstoneHouse extends TileSeedstone {
 	
@@ -177,7 +169,7 @@ public class TileSeedstoneHouse extends TileSeedstone {
 				
 				if (worldObj.getBlockId(xCoord+x, yCoord+y, zCoord+z) != this.blockID && worldObj.getBlockId(xCoord+x, yCoord+y, zCoord+z) != Constants.MOLE_BLOCK_SEEDSTONE && !worldObj.isRemote)
 				{
-					worldObj.playSound(x, y, z, "step.grass", 100f, 0f);
+					worldObj.playSound(xCoord+x, yCoord+y, zCoord+z, "step.grass", 100f, 0f, true);
 					worldObj.setBlock(xCoord+x, yCoord+y, zCoord+z, this.blockID);
 				}
 				else

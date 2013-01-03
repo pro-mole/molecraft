@@ -3,20 +3,20 @@ package Mole.common.tools;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import net.minecraft.src.BiomeGenBase;
-import net.minecraft.src.Block;
-import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.EntityItem;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.Item;
-import net.minecraft.src.ItemSpade;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.World;
+import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemSpade;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import Mole.common.Constants;
+import Mole.common.Mole;
 import Mole.common.RandomUtil;
 import Mole.common.item.Clump;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import Mole.common.Mole;
 
 public class MoleClaw extends ItemSpade {
 	

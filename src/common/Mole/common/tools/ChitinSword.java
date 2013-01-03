@@ -1,10 +1,9 @@
 package Mole.common.tools;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemSword;
 import Mole.common.Constants;
-import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.EnumToolMaterial;
-import net.minecraft.src.ItemSword;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ChitinSword extends ItemSword {
 

@@ -1,9 +1,9 @@
 package Mole.common.item;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import Mole.common.Constants;
-import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.Item;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class BugCoccineal extends Item implements BugResource {
 

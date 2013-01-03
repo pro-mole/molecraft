@@ -1,15 +1,14 @@
 package Mole.common.item;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemStack;
 import Mole.common.Constants;
-import net.minecraft.src.Block;
-import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.EntityItem;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.EnumToolMaterial;
-import net.minecraft.src.ItemAxe;
-import net.minecraft.src.ItemShears;
-import net.minecraft.src.ItemStack;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class BugStagBeetle extends ItemAxe implements BugTool {
 

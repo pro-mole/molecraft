@@ -1,10 +1,10 @@
 package Mole.common.block;
 
-import net.minecraft.src.BlockContainer;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.Material;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import Mole.common.Constants;
 import Mole.common.item.Seedstone.EnumSeedstoneType;
 

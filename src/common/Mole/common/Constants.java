@@ -1,12 +1,10 @@
 package Mole.common;
 
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import net.minecraft.src.EnumArmorMaterial;
-import net.minecraft.src.EnumToolMaterial;
-import net.minecraft.src.MapColor;
-import net.minecraft.src.Material;
+import net.minecraft.item.EnumArmorMaterial;
+import net.minecraft.item.EnumToolMaterial;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.EnumHelper;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class Constants {
 	

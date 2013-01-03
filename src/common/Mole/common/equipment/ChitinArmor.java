@@ -1,14 +1,12 @@
 package Mole.common.equipment;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.IArmorTextureProvider;
 import Mole.common.Constants;
 import Mole.common.Mole;
-import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.EnumArmorMaterial;
-import net.minecraft.src.ItemArmor;
-import net.minecraft.src.ItemStack;
-import net.minecraftforge.common.IArmorTextureProvider;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ChitinArmor extends ItemArmor implements IArmorTextureProvider {
 

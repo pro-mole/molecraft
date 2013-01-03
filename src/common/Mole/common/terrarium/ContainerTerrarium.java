@@ -1,11 +1,11 @@
 package Mole.common.terrarium;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import Mole.common.Constants;
-import net.minecraft.src.Container;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.InventoryPlayer;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.Slot;
 
 public class ContainerTerrarium extends Container {
 
@@ -47,7 +47,7 @@ public class ContainerTerrarium extends Container {
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(int slot)
+	public ItemStack transferStackInSlot(EntityPlayer player, int slot)
 	{
 		ItemStack stack = null;
 		Slot slotObj = (Slot) inventorySlots.get(slot);

@@ -1,10 +1,10 @@
 package Mole.common.block;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import Mole.common.Constants;
-import net.minecraft.src.Block;
-import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.Material;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 //Implements Dirtstone and Baked Dirtstone
 public class DirtStone extends Block {

@@ -1,7 +1,7 @@
 package Mole.common.seedstone;
 
+import net.minecraft.tileentity.TileEntity;
 import Mole.common.item.Seedstone.EnumSeedstoneType;
-import net.minecraft.src.TileEntity;
 
 public class TileSeedstone extends TileEntity {
 

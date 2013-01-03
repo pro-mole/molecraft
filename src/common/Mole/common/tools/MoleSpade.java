@@ -2,18 +2,17 @@ package Mole.common.tools;
 
 import java.util.HashMap;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import net.minecraft.src.Block;
-import net.minecraft.src.EntityItem;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.EnumToolMaterial;
-import net.minecraft.src.Item;
-import net.minecraft.src.ItemSpade;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.World;
+import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.item.ItemSpade;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import Mole.common.Constants;
 import Mole.common.Mole;
 import Mole.common.RandomUtil;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class MoleSpade extends ItemSpade {
 	

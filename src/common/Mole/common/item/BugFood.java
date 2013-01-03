@@ -1,10 +1,9 @@
 package Mole.common.item;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import Mole.common.Constants;
-import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.Item;
 
 public class BugFood extends Item {
 	

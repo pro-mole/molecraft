@@ -1,11 +1,9 @@
 package Mole.common.terrarium;
 
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.InventoryPlayer;
+
 import org.lwjgl.opengl.GL11;
-
-import Mole.common.Constants;
-
-import net.minecraft.src.GuiContainer;
-import net.minecraft.src.InventoryPlayer;
 
 public class GUITerrarium extends GuiContainer {
 
@@ -15,7 +13,7 @@ public class GUITerrarium extends GuiContainer {
 	}
 	
 	@Override
-	protected void drawGuiContainerForegroundLayer()
+	protected void drawGuiContainerForegroundLayer(int i, int j)
 	{
 		fontRenderer.drawString("Terrarium", 8, 6, 4210752);
 	}

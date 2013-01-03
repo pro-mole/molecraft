@@ -1,10 +1,9 @@
 package Mole.common.tools;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemPickaxe;
 import Mole.common.Constants;
-import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.EnumToolMaterial;
-import net.minecraft.src.ItemPickaxe;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ChitinPickaxe extends ItemPickaxe {
 

@@ -1,9 +1,9 @@
 package Mole.common.item;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemFood;
 import Mole.common.Constants;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.ItemFood;
 
 public class CookedGrub extends ItemFood {
 	

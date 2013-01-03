@@ -1,26 +1,20 @@
 package Mole.common.terrarium;
 
-import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.ModContainer;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import Mole.common.Constants;
 import Mole.common.Mole;
-import net.minecraft.src.BlockContainer;
-import net.minecraft.src.CreativeTabs;
-import net.minecraft.src.EntityItem;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.IInventory;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.Material;
-import net.minecraft.src.ModLoader;
-import net.minecraft.src.NBTTagCompound;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class MachineTerrarium extends BlockContainer {
 
@@ -107,10 +101,11 @@ public class MachineTerrarium extends BlockContainer {
 	                x + rx, y + ry, z + rz,
 	                new ItemStack(item.itemID, item.stackSize, item.getItemDamage()));
 	
-	            if (item.hasTagCompound())
+	            /*if (item.hasTagCompound())
 	            {
+	            	
 	                entityItem.item.setTagCompound((NBTTagCompound) item.getTagCompound().copy());
-	            }
+	            }*/
 	
 	            float factor = 0.05F;
 	            entityItem.motionX = rand.nextGaussian() * factor;

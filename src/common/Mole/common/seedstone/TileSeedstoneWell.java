@@ -2,13 +2,13 @@ package Mole.common.seedstone;
 
 import java.io.IOException;
 
-import net.minecraft.src.Block;
-import net.minecraft.src.NBTTagCompound;
-import net.minecraft.src.TileEntity;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
+import net.minecraft.block.Block;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import Mole.common.PacketHandler;
 import Mole.common.item.Seedstone.EnumSeedstoneType;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TileSeedstoneWell extends TileSeedstone implements SeedstoneTerraform
 {

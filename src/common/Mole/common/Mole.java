@@ -22,6 +22,7 @@ import Mole.common.item.Grub;
 import Mole.common.item.Seedstone;
 import Mole.common.item.Seedstone.EnumSeedstoneType;
 import Mole.common.runestone.BlockRunestone;
+import Mole.common.runestone.TileRunestone;
 import Mole.common.seedstone.TileSeedstoneHouse;
 import Mole.common.seedstone.TileSeedstoneWell;
 import Mole.common.terrarium.IGuiTerrariumHandler;
@@ -108,6 +109,7 @@ public class Mole {
 		GameRegistry.registerTileEntity(TileTerrarium.class, "Terrarium");
 		GameRegistry.registerTileEntity(TileSeedstoneHouse.class, "SeedstoneHouse");
 		GameRegistry.registerTileEntity(TileSeedstoneWell.class, "SeedstoneWell");
+		GameRegistry.registerTileEntity(TileRunestone.class, "Runestone");
 		
 		//World Generator
 		GameRegistry.registerWorldGenerator(new MolecraftWorldGenerator());

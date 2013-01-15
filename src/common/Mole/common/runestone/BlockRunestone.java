@@ -23,9 +23,8 @@ public class BlockRunestone extends BlockContainer {
 	}
 	
 	@Override
-	public TileEntity createNewTileEntity(World var1) {
-		// TODO Auto-generated method stub
-		return null;
+	public TileEntity createNewTileEntity(World world) {
+		return new TileRunestone();
 	}
 	
 	@Override

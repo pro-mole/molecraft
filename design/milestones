@@ -10,9 +10,10 @@ Milestones
  - Class Interfaces for bugs(Bug > ResourceBug, ToolBug, FoodBug, ConsumeBug...) [DEV][OK]
 0.7
  - Standing Stones
- - Learning Stones
+ - Learning Stones > let's make this our "rune extractor" then :D
  - Bug tab in Creative
  - More bugs and grubs
+ - Terrarium to Chest item generation(maybe better create a "generateItem" function to deal with that)
  - More seedstones [Farm, Lake, Lava]
  - Runestone Dictionary [DEV]
  - Seedstone Dictionary [DEV]
@@ -20,6 +21,7 @@ Milestones
  - Runes
  - Earth Dryer
  - Earth Moistener
+ - "Terarrium with Drawer"
  - Summon Cow runestone
  - More bugs and grubs
  - More seedstones

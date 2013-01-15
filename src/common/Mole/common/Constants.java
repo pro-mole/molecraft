@@ -14,6 +14,8 @@ public class Constants {
 	public static int MOLE_BLOCK_DIRTSTONE = 1025; //Dirt stone
 	public static int MOLE_BLOCK_TERRARIUM = 1027; //Simple Terrarium
 	public static int MOLE_BLOCK_SEEDSTONE = 1028; //Seeded block
+	public static int MOLE_BLOCK_STANDINGSTONE = 1029; //Standing stone block
+	public static int MOLE_BLOCK_RUNESTONE = 1030; //Runestone
 	
 	//Item IDs [4099-4162]
 	public static int MOLE_ITEM_SPADE = 4099;

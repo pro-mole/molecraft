@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import Mole.common.block.BlockSeedstone;
 import Mole.common.block.DirtStone;
+import Mole.common.block.StandingStone;
 import Mole.common.equipment.ChitinHelm;
 import Mole.common.equipment.ChitinLegging;
 import Mole.common.equipment.ChitinPlate;
@@ -20,6 +21,7 @@ import Mole.common.item.CookedGrub;
 import Mole.common.item.Grub;
 import Mole.common.item.Seedstone;
 import Mole.common.item.Seedstone.EnumSeedstoneType;
+import Mole.common.runestone.BlockRunestone;
 import Mole.common.seedstone.TileSeedstoneHouse;
 import Mole.common.seedstone.TileSeedstoneWell;
 import Mole.common.terrarium.IGuiTerrariumHandler;
@@ -32,6 +34,7 @@ import Mole.common.tools.ChitinSpade;
 import Mole.common.tools.ChitinSword;
 import Mole.common.tools.MoleClaw;
 import Mole.common.tools.MoleSpade;
+import Mole.common.world.MolecraftWorldGenerator;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -43,7 +46,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid="mod_Molecraft", name="Molecraft", version="0.5.0")
+@Mod(modid="mod_Molecraft", name="Molecraft", version="0.6.0")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false, 
 channels={"MoleSeedstones","MoleTerrarium"}, packetHandler = PacketHandler.class)
 public class Mole {
@@ -76,6 +79,8 @@ public class Mole {
 	public static Block
 		dirtstone = new DirtStone(false), dirtstone_baked = new DirtStone(true),
 		terrarium = new MachineTerrarium(),
+		standStone = new StandingStone(),
+		runeStone = new BlockRunestone(),
 		seedstoneBlock[] = {new BlockSeedstone(Seedstone.EnumSeedstoneType.HOUSE)};
 		
 	@PreInit
@@ -96,11 +101,16 @@ public class Mole {
 		GameRegistry.registerBlock(dirtstone);
 		GameRegistry.registerBlock(dirtstone_baked);
 		GameRegistry.registerBlock(terrarium);
+		GameRegistry.registerBlock(standStone);
+		GameRegistry.registerBlock(runeStone);
 		for (Block seedBlock: seedstoneBlock)
 			GameRegistry.registerBlock(seedBlock);
 		GameRegistry.registerTileEntity(TileTerrarium.class, "Terrarium");
 		GameRegistry.registerTileEntity(TileSeedstoneHouse.class, "SeedstoneHouse");
 		GameRegistry.registerTileEntity(TileSeedstoneWell.class, "SeedstoneWell");
+		
+		//World Generator
+		GameRegistry.registerWorldGenerator(new MolecraftWorldGenerator());
 		
 		//Register Recipes
 		GameRegistry.addRecipe(new ItemStack(dirtstone, 8),
@@ -194,6 +204,10 @@ public class Mole {
 				"|",
 				'#', emptyHusk,
 				'|', Item.stick);
+		GameRegistry.addRecipe(new ItemStack(runeStone),
+				"##",
+				"##",
+				'#', standStone);
 		
 		for (Item vegetal: new Item[] {Item.seeds, Item.appleRed, Item.melon, Item.pumpkinSeeds, Item.melonSeeds, Item.wheat})
 		{

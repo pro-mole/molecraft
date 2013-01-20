@@ -40,16 +40,27 @@ public class Constants {
 	public static final int MOLE_GRUB_FAT = 1;
 	public static final int MOLE_GRUB_RED = 2;
 	
-	public static final int MOLE_CLUMP_EARTH = 0;
-	public static final int MOLE_CLUMP_FIRE = 1;
-	public static final int MOLE_CLUMP_ICE = 2;
-	public static final int MOLE_CLUMP_SAND = 3;
-	public static final int MOLE_CLUMP_WATER = 4;
+	public static final int MOLE_CLUMP_EARTH = 0; //Earth
+	public static final int MOLE_CLUMP_FIRE = 1; //Hot
+	public static final int MOLE_CLUMP_ICE = 2; //Cold
+	public static final int MOLE_CLUMP_SAND = 3; //Dry
+	public static final int MOLE_CLUMP_WATER = 4; //Mud
+	public static final int MOLE_CLUMP_DARK = 5; //Dark
+	public static final int MOLE_CLUMP_LIGHT = 6; //Glowing
+	public static final int MOLE_CLUMP_PLANT = 7; //Fertile
+	public static final int MOLE_CLUMP_EVIL = 8; //Sinister
 	
 	public static final int MOLE_ARMOR_HEAD = 0;
 	public static final int MOLE_ARMOR_CHEST = 1;
 	public static final int MOLE_ARMOR_LEGS = 2;
 	public static final int MOLE_ARMOR_FEET = 3;
+	
+	public static final int MOLE_STILLSTONE_EYE = 0;
+	public static final int MOLE_STILLSTONE_MIGHT = 1;
+	public static final int MOLE_STILLSTONE_HARNDESS = 2;
+	public static final int MOLE_STILLSTONE_QUICK = 3;
+	public static final int MOLE_STILLSTONE_HOME = 4;
+	public static final int MOLE_STILLSTONE_BLAST = 5;
 	
 	//Texture Files
 	public static final String MOLE_TEXT_TERRAIN = "/Mole/common/resources/terrain.png";

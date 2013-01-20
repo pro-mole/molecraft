@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
 import Mole.common.Constants;
 import Mole.common.Mole;
 import Mole.common.PacketHandler;
@@ -155,13 +156,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 							int n = (food.itemID == Mole.bugFood.shiftedIndex)? 1: 2;
 							for (int i=0; i<n; i++)
 							{
-								worldObj.spawnEntityInWorld(
-									new EntityItem(worldObj,
-										xCoord + worldObj.rand.nextFloat()*0.5+0.25,
-										yCoord + 1 + worldObj.rand.nextFloat()*0.5+0.25,
-										zCoord + worldObj.rand.nextFloat()*0.5+0.25,
-										new ItemStack(Item.silk)
-										));
+								generateItem(Item.silk);
 							}
 						}
 						
@@ -322,5 +317,67 @@ public class TileTerrarium extends TileEntity implements IInventory {
          tagCompound.setLong("Metamorphosis", metamorphosis);
          tagCompound.setInteger("Ticks", ticks);
      }
+	 
+	 private void generateItem(Item item)
+	 {
+		 TileEntityChest chest = null;
+		 int slotPos = -1;
+		 
+		 for (int i=-1; i <= 1; i++)
+		 {
+			 if (chest != null) break;
+			 
+			 for (int j=-1; j <= 1; j++)
+			 {
+				 if (chest != null) break;
+				 
+				 for (int k=-1; k <= 1; k++)
+				 {
+					 if (chest != null) break;
+					 
+					 TileEntity container = worldObj.getBlockTileEntity(xCoord+i, yCoord+j, zCoord+k);
+					 if (container != null)
+					 {
+						 if (container instanceof TileEntityChest)
+						 {
+							 chest = (TileEntityChest) container;
+							 for (int s = chest.getSizeInventory(); s > 0; s--)
+							 {
+								 ItemStack stack = chest.getStackInSlot(s-1);
+								 if (stack == null || stack.stackSize == 0 || stack.getItem().equals(item))
+								 {
+									 slotPos = s-1;
+									 break;
+								 }
+							 }
+							 
+							 if (slotPos == -1)
+								 chest = null;
+						 }
+					 }
+				 }
+			 }
+		 }
+		 
+		 if (chest != null)
+		 {
+			 ItemStack theStack = chest.getStackInSlot(slotPos);
+			 System.err.println("Put Item in slot "+slotPos);
+			 if (theStack == null || theStack.stackSize <= 0)
+				 chest.setInventorySlotContents(slotPos, new ItemStack(item));
+			 else
+				 theStack.stackSize++;
+		 }
+		 else
+		 {
+			 worldObj.spawnEntityInWorld(
+					new EntityItem(worldObj,
+						xCoord + worldObj.rand.nextFloat()*0.5+0.25,
+						yCoord + 1 + worldObj.rand.nextFloat()*0.5+0.25,
+						zCoord + worldObj.rand.nextFloat()*0.5+0.25,
+						new ItemStack(item)
+						));
+		 }
+	 }
 
 }

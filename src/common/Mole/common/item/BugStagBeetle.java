@@ -35,12 +35,14 @@ public class BugStagBeetle extends ItemAxe implements BugTool {
 			return false;
 		
 		//System.out.println("Cutting "+player.worldObj.getBlockId(x,y,z));
-		if (player.worldObj.getBlockId(x,y,z) == Block.leaves.blockID)
+		int cut_block = player.worldObj.getBlockId(x,y,z);
+		if (cut_block == Block.leaves.blockID || cut_block == Block.tallGrass.blockID || cut_block == Block.vine.blockID)
 		{
-			EntityItem sheared = new EntityItem(player.worldObj, x, y, z, new ItemStack(Block.blocksList[Block.leaves.blockID], 1, player.worldObj.getBlockMetadata(x, y, z)&3));
+			EntityItem sheared = new EntityItem(player.worldObj, x, y, z, new ItemStack(Block.blocksList[Block.leaves.blockID], 1, player.worldObj.getBlockMetadata(x, y, z)));
 			sheared.delayBeforeCanPickup = 10;
-			//player.worldObj.setBlock(x, y, z, 0);
+			player.worldObj.setBlockWithNotify(x, y, z, 0);
 			player.worldObj.spawnEntityInWorld(sheared);
+			return true;
 		}
 		
 		return false;

@@ -93,35 +93,11 @@ SUMMARY: Magic and tech based on moles(the Duncton series being an interesting s
 
 > Standing Stone
 
-The standing stones are relatively tall(3 to 4 times as big as the player irregular pillars of stone arranged either alone or in symetric shapes, a la actual standing stones. They are formed not of common stone blocks, but of new black colored stone blocks that can be harvested to produce the Rune Stone blocks(described later). Also, Standing Stone formations feature a cove underground with treasures.
+Standing stones are black rock formations that can be harvested for Standing Stone Blocks. They are scattered through the land over dirt-like surfaces(and sometimes underwater, on trees and other weird locations) and may come in multiple formations. The more rocks in a formation, the bigger the chance there will be a cove underneath with some treasure.
 
-Standing Stones are generated in a ratio of about 1 per 7x7 chunk block.
+> Runestone
 
-> Rune Researcher
-
-The Rune Researcher works somewhat like the Q-block from Thaumcraft, except different. Yeah. Actually, it does generate rune items that will be used to infuse Rune Stones and the quality and type of the rune depends on the item(s) used.
-
-> Rune Blocks
-
-A rune block is a simple "Black Stone" block that's harvested from Standing Stones. The blocks that form the stones won't always return a block, though. The block by itself is useless until infused with up to 4 runes(one on each side). The bottoms won't be filled so they can "stack". Also, they cannot be placed immediately beside each other(sort of like cacti
-
-The Rune Block recipes are always on the form
-
- A
-E#K
- C
- 
-E -> Element
-C -> Component
-A -> Alignment
-K -> Concept
-
-RuneBlock List:
-> Summon Cow[Cow+Good+Matter+Earth]: will summon a cow after some large charging time somewhere in the chunk.
-
-> Learning Stone
-
-The learning stone is a modified Stone Block with a tile entity. The TE displays a Rune Recipe chosen randomly. They are found in chambers under Standing Stones or in the middle of Standing Stone circles.
+Runestones are created combining 4 standing stone blocks.
 
 == 3 - ENTOMOCULTURE ==
 

@@ -72,6 +72,7 @@ public class Constants {
 	public static final EnumToolMaterial CHITIN_TOOL = EnumHelper.addToolMaterial("CHITIN", 1, 192, 3.0F, 1, 15);
 	
 	//Other
+	public static int STANDSTONE_AREA_SIZE = 11;
 	
 	public static void load(FMLPreInitializationEvent event)
 	{
@@ -81,6 +82,7 @@ public class Constants {
 		MOLE_BLOCK_DIRTSTONE = config.get(Configuration.CATEGORY_BLOCK, "dirtstone", MOLE_BLOCK_DIRTSTONE).getInt();
 		MOLE_BLOCK_TERRARIUM = config.get(Configuration.CATEGORY_BLOCK, "terrarium", MOLE_BLOCK_TERRARIUM).getInt();
 		MOLE_BLOCK_SEEDSTONE = config.get(Configuration.CATEGORY_BLOCK, "seedstone", MOLE_BLOCK_SEEDSTONE).getInt();
+		STANDSTONE_AREA_SIZE = config.get(Configuration.CATEGORY_GENERAL, "stoneAreaSize", STANDSTONE_AREA_SIZE).getInt();
 		
 		config.save();
 	}

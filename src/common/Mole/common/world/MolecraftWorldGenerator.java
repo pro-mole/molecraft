@@ -1,112 +1,138 @@
 package Mole.common.world;
 
+import java.util.HashMap;
 import java.util.Random;
 
-import Mole.common.Constants;
-
 import net.minecraft.block.Block;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
+import Mole.common.Constants;
 import cpw.mods.fml.common.IWorldGenerator;
 
 public class MolecraftWorldGenerator implements IWorldGenerator {
+
+	public static HashMap<String, Boolean> stonemap = new HashMap();
+	
+	enum stoneType {GROUND, WATER, TREE};
+	int X=0, Y=0, Z=0;
+	stoneType type = stoneType.GROUND;
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world,
 			IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
 		
-		//Super fine debugging here
-		//System.out.println("Changing world in chunk "+chunkX+";"+chunkZ);
+		int Xi = chunkX/Constants.STANDSTONE_AREA_SIZE;
+		int Zi = chunkZ/Constants.STANDSTONE_AREA_SIZE;
 		
-		//Standing stones, hut hut
-		if (world.provider.dimensionId == 0 && random.nextInt(25) == 0)
+		//Fine debugging
+		//System.out.println(chunkX+","+chunkZ+" -> "+X7+","+Z7);
+		//start with the 7x7 chunk deal here
+		if (world.provider.dimensionId == 0 && stonemap.get(Xi+","+Zi) == null)
 		{
-			int X = chunkX*16 + (6 + random.nextInt(4));
-			int Y = 128;
-			int Z = chunkZ*16 + (6 + random.nextInt(4));
-			boolean treeStone = false, waterStone = false;
+			//Find good spot for this
+			//Try about 256 times, for good measure
+			boolean ok = false;
 			
-			while (world.isAirBlock(X, Y, Z) && Y > 0)
+			for (int i=0; i < 256; i++)
 			{
-				Y--;
-			}
-			
-			boolean isDirt = false;
-			for (Block bID: new Block[] {Block.dirt,
-					Block.grass,
-					Block.sand,
-					Block.tallGrass,
-					Block.plantRed,
-					Block.plantYellow,
-					Block.gravel})
-			{
-				if (world.getBlockId(X,Y,Z) == bID.blockID)
-				{
-					isDirt = true;
-					break;
-				}
-			}
-			
-			if (world.getBlockId(X, Y, Z) == Block.waterStill.blockID && random.nextInt(5) == 0)
-			{
-				while(world.getBlockId(X, Y, Z) == Block.waterStill.blockID)
-					Y--;
-				waterStone = true;
-				System.out.println("WATER STONE AT ["+X+","+Y+","+Z+"]");
-			}
-			
-			if (world.getBlockId(X, Y, Z) == Block.leaves.blockID && world.getBiomeGenForCoords(X, Z) == BiomeGenBase.jungle && random.nextInt(5) == 0)
-			{
-				while(world.getBlockId(X, Y, Z) == Block.leaves.blockID)
-					Y--;
-				treeStone = true;
-				System.out.println("TREE STONE AT ["+X+","+Y+","+Z+"]");
-			}
-			
-			if (Y > 0 && (isDirt || waterStone || treeStone))
-			{
-				int n=1;
-				//incrementally increase number of stones in circle by chance
-				for (int i=1; i<4; i++)
-					if (random.nextFloat() < 0.25) n++;
+				double Xv = random.nextGaussian(),
+					Zv = random.nextGaussian();
 				
-				switch(n)
-				{
-					case 1:
-						generateStandingStone(world, X, Y, Z, random);
-						break;
-					case 2:
-						if (random.nextInt(2) == 0)
-						{
-							generateStandingStone(world, X, Y, Z+1, random);
-							generateStandingStone(world, X, Y, Z-2, random);
-						}
-						else
-						{
-							generateStandingStone(world, X+1, Y, Z, random);
-							generateStandingStone(world, X-2, Y, Z, random);
-						}
-						break;
-					case 3:
-						generateStandingStone(world, X+1, Y, Z+1, random);
-						generateStandingStone(world, X+1, Y, Z-3, random);
-						generateStandingStone(world, X-2, Y, Z-1, random);
-						break;
-					case 4:
-						generateStandingStone(world, X-2, Y, Z-2, random);
-						generateStandingStone(world, X-2, Y, Z+1, random);
-						generateStandingStone(world, X+1, Y, Z-2, random);
-						generateStandingStone(world, X+1, Y, Z+1, random);
-						break;
-					default:
-						System.err.println("Standing Stone circles should not have "+n+" stones!");
-				}
-				generateStoneCave(world, X, Y, Z, n, random);
+				X = Xi*Constants.STANDSTONE_AREA_SIZE*16 + (Constants.STANDSTONE_AREA_SIZE*8 + (int)((Xv < -4.0? -4.0: Xv > 4.0? 4.0: Xv)*Constants.STANDSTONE_AREA_SIZE*2));
+				Z = Zi*Constants.STANDSTONE_AREA_SIZE*16 + (Constants.STANDSTONE_AREA_SIZE*8 + (int)((Zv < -4.0? -4.0: Zv > 4.0? 4.0: Zv)*Constants.STANDSTONE_AREA_SIZE*2));
+				
+				if (ok = suitable(world, X, Z, random))
+					break;
 			}
+			
+			stonemap.put(Xi+","+Zi, false);
+
+			int n=1;
+			for (int i=1; i<4; i++)
+				if (random.nextFloat() < 0.25) n++;
+			
+			switch(n)
+			{
+				case 1:
+					generateStandingStone(world, X, Y, Z, random);
+					break;
+				case 2:
+					if (random.nextInt(2) == 0)
+					{
+						generateStandingStone(world, X, Y, Z+1, random);
+						generateStandingStone(world, X, Y, Z-2, random);
+					}
+					else
+					{
+						generateStandingStone(world, X+1, Y, Z, random);
+						generateStandingStone(world, X-2, Y, Z, random);
+					}
+					break;
+				case 3:
+					generateStandingStone(world, X+1, Y, Z+1, random);
+					generateStandingStone(world, X+1, Y, Z-3, random);
+					generateStandingStone(world, X-2, Y, Z-1, random);
+					break;
+				case 4:
+					generateStandingStone(world, X-2, Y, Z-2, random);
+					generateStandingStone(world, X-2, Y, Z+1, random);
+					generateStandingStone(world, X+1, Y, Z-2, random);
+					generateStandingStone(world, X+1, Y, Z+1, random);
+					break;
+				default:
+					System.err.println("Standing Stone circles should not have "+n+" stones!");
+			}
+			generateStoneCave(world, X, Y, Z, n, random);
 		}
 	}
 
+	private boolean suitable(World world, int X, int Z, Random random)
+	{
+		Y = 128;
+		
+		while (world.isAirBlock(X, Y, Z) && Y > 0)
+		{
+			Y--;
+		}
+		
+		for (Block bID: new Block[] {Block.dirt,
+				Block.grass,
+				Block.sand,
+				Block.tallGrass,
+				Block.plantRed,
+				Block.plantYellow,
+				Block.gravel})
+		{
+			if (world.getBlockId(X,Y,Z) == bID.blockID)
+			{
+				type = stoneType.GROUND;
+				return true;
+			}
+		}
+		
+		if (world.getBlockId(X, Y, Z) == Block.waterStill.blockID && random.nextInt(5) == 0)
+		{
+			while(world.getBlockId(X, Y, Z) == Block.waterStill.blockID)
+				Y--;
+			System.out.println("WATER STONE AT ["+X+","+Y+","+Z+"]");
+			type = stoneType.WATER;
+			return true;
+		}
+		
+		if (world.getBlockId(X, Y, Z) == Block.leaves.blockID && world.getBiomeGenForCoords(X, Z) == BiomeGenBase.jungle && random.nextInt(2) == 0)
+		{
+			while(world.getBlockId(X, Y, Z) == Block.leaves.blockID)
+				Y--;
+			System.out.println("TREE STONE AT ["+X+","+Y+","+Z+"]");
+			type = stoneType.TREE;
+			return true;
+		}
+		
+		return false;
+	}
+	
 	private void generateStandingStone(World world, int X, int Y, int Z, Random random)
 	{
 		int block = world.getBlockId(X, Y-1, Z);

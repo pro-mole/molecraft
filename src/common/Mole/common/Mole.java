@@ -4,7 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import Mole.common.block.BlockSeedstone;
 import Mole.common.block.DirtStone;
 import Mole.common.block.StandingStone;
 import Mole.common.equipment.ChitinHelm;
@@ -16,15 +15,17 @@ import Mole.common.item.BugCoccineal;
 import Mole.common.item.BugFood;
 import Mole.common.item.BugHusk;
 import Mole.common.item.BugStagBeetle;
+import Mole.common.item.BugWaterBeetle;
 import Mole.common.item.Clump;
 import Mole.common.item.CookedGrub;
 import Mole.common.item.Grub;
-import Mole.common.item.Seedstone;
-import Mole.common.item.Seedstone.EnumSeedstoneType;
 import Mole.common.runestone.BlockRunestone;
 import Mole.common.runestone.TileRunestone;
-import Mole.common.seedstone.TileSeedstoneHouse;
-import Mole.common.seedstone.TileSeedstoneWell;
+import Mole.common.seedstone.BlockSeedstone;
+import Mole.common.seedstone.ItemBlockSeeded;
+import Mole.common.seedstone.Seedstone;
+import Mole.common.seedstone.SeedstonePillar;
+import Mole.common.seedstone.TileSeedstone;
 import Mole.common.terrarium.IGuiTerrariumHandler;
 import Mole.common.terrarium.MachineTerrarium;
 import Mole.common.terrarium.TileTerrarium;
@@ -70,9 +71,11 @@ public class Mole {
 		emptyHusk = new BugHusk(),
 		bombyxMori = new BugBombyx(),
 		coccineal = new BugCoccineal(),
+		waterBeetle = new BugWaterBeetle(),
 		
 		dirtClump = new Clump(),
-		seedstone[] = {new Seedstone(Seedstone.EnumSeedstoneType.HOUSE), new Seedstone(EnumSeedstoneType.WELL)},
+		
+		seedstonePillar = new Seedstone(TileSeedstone.Type.PILLAR, 1),
 		
 		armorChitin[] = {new ChitinHelm(), new ChitinPlate(), new ChitinLegging(), new ChitinShoes()},
 		toolChitin[] = {new ChitinAxe(), new ChitinSpade(), new ChitinPickaxe(), new ChitinHoe(), new ChitinSword()};
@@ -80,9 +83,9 @@ public class Mole {
 	public static Block
 		dirtstone = new DirtStone(false), dirtstone_baked = new DirtStone(true),
 		terrarium = new MachineTerrarium(),
+		seededBlock = new BlockSeedstone(),
 		standStone = new StandingStone(),
-		runeStone = new BlockRunestone(),
-		seedstoneBlock[] = {new BlockSeedstone(Seedstone.EnumSeedstoneType.HOUSE)};
+		runeStone = new BlockRunestone();
 		
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event) 
@@ -104,12 +107,9 @@ public class Mole {
 		GameRegistry.registerBlock(terrarium);
 		GameRegistry.registerBlock(standStone);
 		GameRegistry.registerBlock(runeStone);
-		for (Block seedBlock: seedstoneBlock)
-			GameRegistry.registerBlock(seedBlock);
 		GameRegistry.registerTileEntity(TileTerrarium.class, "Terrarium");
-		GameRegistry.registerTileEntity(TileSeedstoneHouse.class, "SeedstoneHouse");
-		GameRegistry.registerTileEntity(TileSeedstoneWell.class, "SeedstoneWell");
 		GameRegistry.registerTileEntity(TileRunestone.class, "Runestone");
+		GameRegistry.registerTileEntity(SeedstonePillar.class, "Seedstone_Pillar");
 		
 		//World Generator
 		GameRegistry.registerWorldGenerator(new MolecraftWorldGenerator());
@@ -133,17 +133,6 @@ public class Mole {
 				"I",
 				'A', Item.flint,
 				'I', Item.stick);
-		
-		GameRegistry.addRecipe(new ItemStack(seedstone[0]),
-				"OOO",
-				"OOO",
-				"OOO",
-				'O', dirtClump);
-		GameRegistry.addRecipe(new ItemStack(seedstone[1]),
-				"OOO",
-				"OOO",
-				"OOO",
-				'O', new ItemStack(dirtClump,1,Constants.MOLE_CLUMP_WATER));
 		
 		GameRegistry.addRecipe(new ItemStack(Item.dyePowder,1,1),
 				"C",
@@ -207,8 +196,9 @@ public class Mole {
 				'#', emptyHusk,
 				'|', Item.stick);
 		GameRegistry.addRecipe(new ItemStack(runeStone),
-				"##",
-				"##",
+				"###",
+				"###",
+				"###",
 				'#', standStone);
 		
 		for (Item vegetal: new Item[] {Item.seeds, Item.appleRed, Item.melon, Item.pumpkinSeeds, Item.melonSeeds, Item.wheat})
@@ -233,6 +223,6 @@ public class Mole {
 
 	public static boolean isDirtLike(int blockID)
 	{
-		return (blockID == Block.dirt.blockID || blockID == Block.grass.blockID || blockID == Block.gravel.blockID || blockID == Block.sand.blockID || blockID == Block.blockClay.blockID || blockID == Block.netherrack.blockID);
+		return (blockID == Block.dirt.blockID || blockID == Block.grass.blockID || blockID == Block.gravel.blockID || blockID == Block.sand.blockID || blockID == Block.blockClay.blockID || blockID == Block.netherrack.blockID || blockID == Block.slowSand.blockID);
 	}
 }

@@ -12,7 +12,7 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.src.ModLoader;
 import net.minecraft.tileentity.TileEntity;
-import Mole.common.item.Seedstone.EnumSeedstoneType;
+import Mole.common.seedstone.SeedstonePillar;
 import Mole.common.seedstone.TileSeedstone;
 import Mole.common.terrarium.TileTerrarium;
 import cpw.mods.fml.common.network.IPacketHandler;
@@ -110,47 +110,6 @@ public class PacketHandler implements IPacketHandler {
 		return packet;
 	}
 	
-	public void updateSeedstone(Packet250CustomPayload packet)
-	{
-		DataInputStream packetStream = new DataInputStream(new ByteArrayInputStream(packet.data));
-		int x,y,z;
-		
-		try {
-			int stuff = packetStream.readInt();
-			x = packetStream.readInt();
-			y = packetStream.readInt();
-			z = packetStream.readInt();
-			System.out.println("["+x+","+y+","+z+"]");
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-			return;
-		}
-		
-		TileSeedstone TE = (TileSeedstone)ModLoader.getMinecraftInstance().theWorld.getBlockTileEntity(x, y, z);
-		
-		if (TE == null) return;
-		
-		if (TE.getType() == EnumSeedstoneType.HOUSE)
-		{
-			try {
-				int index = packetStream.readInt();
-				int ticks = packetStream.readInt();
-				int block = packetStream.readInt();
-				int level = packetStream.readInt();
-				
-				System.out.println("Data: "+index+","+ticks+","+block+","+level);
-				//(TileSeedstoneHouse)TE
-			}
-			catch(IOException e)
-			{
-				e.printStackTrace();
-				return;
-			}
-		}
-	}
-	
 	public void updateTerrarium(Packet250CustomPayload packet)
 	{
 		ByteArrayInputStream bis = new ByteArrayInputStream(packet.data);
@@ -214,6 +173,49 @@ public class PacketHandler implements IPacketHandler {
 		else
 		{
 			terrarium.food = null;
+		}
+	}
+	
+	public static void updateSeedstone(Packet250CustomPayload packet)
+	{
+		ByteArrayInputStream bis = new ByteArrayInputStream(packet.data);
+		DataInputStream packetStream = new DataInputStream(bis);
+		
+		int x,y,z;
+		
+		try {
+			//int stuff = packetStream.readInt();
+			x = packetStream.readInt();
+			y = packetStream.readInt();
+			z = packetStream.readInt();
+			System.out.println("["+x+","+y+","+z+"]");
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+			return;
+		}
+		
+		TileEntity TE = ModLoader.getMinecraftInstance().theWorld.getBlockTileEntity(x, y, z);
+		
+		if (TE != null) return;
+		
+		int tier, block, type;
+		try {
+			tier = packetStream.readInt();
+			block = packetStream.readInt();
+			type = packetStream.readInt();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+			return;
+		}
+		
+		if (tier == TileSeedstone.Type.PILLAR.ordinal())
+		{
+			SeedstonePillar pillar = new SeedstonePillar(block, tier);
+			ModLoader.getMinecraftInstance().theWorld.setBlockTileEntity(x, y, z, pillar);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package Mole.common.tools;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.minecraft.block.Block;
@@ -9,9 +10,11 @@ import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import Mole.common.Constants;
 import Mole.common.Mole;
 import Mole.common.RandomUtil;
+import Mole.common.item.Grub;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class MoleSpade extends ItemSpade {
@@ -45,20 +48,42 @@ public class MoleSpade extends ItemSpade {
 		
 		float R = world.rand.nextFloat()*0.5F + 0.25F;
 		
-		//10% of chance: Grubs
-		if (world.rand.nextInt(10) == 0)
+		//20% of chance: Grubs
+		if (world.rand.nextInt(5) == 0)
 		{
 			EntityItem _grub = null;
 			//Grubs have their own chances of dropping; define them here
 			if (ID == Block.grass.blockID || ID == Block.dirt.blockID)
 			{
-				HashMap <Object, Integer> grubOdds = new HashMap<Object, Integer>() {{
-					put (Constants.MOLE_GRUB_WHITE, 80);
-					put (Constants.MOLE_GRUB_RED, 10);
-					put (Constants.MOLE_GRUB_FAT, 10);
-				}};
+				ArrayList<Integer> grubOdds = new ArrayList<Integer>();
 				
-				int type = (Integer) RandomUtil.randomize(grubOdds, world.rand);
+				for (int i=0; i < Grub.itemNames.length; i++)
+				{
+					grubOdds.add(i);
+				}
+				
+				for (int i = -2; i <= 2; i++)
+				{
+					for (int j = -2; j <= 3; j++)
+					{
+						BiomeGenBase biome = world.getBiomeGenForCoords(x+i, z+j);
+						for (int k = -2; k <= 2; k++)
+						{
+							int block = world.getBlockId(x+i, y+k, z+j);
+							//Air blocks should not influence grub odds either
+							if (block == 0) continue;
+							
+							//Add grub chance for biome;
+							if (Constants.grubForBiome.containsKey(biome))
+								grubOdds.add(Constants.grubForBiome.get(biome));
+							//Add grub chance for block;
+							if (Constants.grubForBlock.containsKey(block))
+								grubOdds.add(Constants.grubForBlock.get(block));
+						}
+					}
+				}
+				
+				int type = (Integer) RandomUtil.randomize(grubOdds.toArray(), world.rand);
 				System.out.println("Grub type: "+type);
 				_grub = new EntityItem(world, x+R, y+R, z+R, new ItemStack(Mole.grub,1, type));
 			}

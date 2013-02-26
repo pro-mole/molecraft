@@ -1,8 +1,10 @@
 package Mole.common.item;
 
+import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -10,11 +12,14 @@ import Mole.common.Constants;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import Mole.common.Mole;
 
 public class Grub extends ItemFood {
 	
-	public static String[] itemNames = {"white", "premium", "red"};
-	public static String[] uiNames = {"White", "Fat", "Red"};
+	public static String[] itemNames = {"white", "premium", "red", "water"};
+	public static String[] uiNames = {"White", "Fat", "Red", "Water"};
+	
+	//Metamorphosis 
 	
 	public Grub()
 	{
@@ -65,4 +70,27 @@ public class Grub extends ItemFood {
         	list.add(new ItemStack(id, 1, i));
         }
     }
+	
+	public HashMap<Object, Integer> metamorphosisOdds(int metadata)
+	{
+		HashMap<Object, Integer> metaMap = new HashMap<Object, Integer>();
+		metaMap.put(Mole.emptyHusk, 60);
+		switch (metadata)
+		{
+			case Constants.MOLE_GRUB_WHITE:
+				metaMap.put(Mole.beetleStag, 40);
+				break;
+			case Constants.MOLE_GRUB_FAT:
+				metaMap.put(Mole.bombyxMori, 40);
+				break;
+			case Constants.MOLE_GRUB_RED:
+				metaMap.put(Mole.coccineal, 40);
+				break;
+			case Constants.MOLE_GRUB_WATER:
+				metaMap.put(Mole.waterBeetle, 40);
+				break;
+		}
+		
+		return metaMap;
+	}
 }

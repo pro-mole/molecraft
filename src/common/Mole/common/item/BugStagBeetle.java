@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import Mole.common.Constants;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-public class BugStagBeetle extends ItemAxe implements BugTool {
+public class BugStagBeetle extends ItemAxe implements AdultBugTool {
 
 	public BugStagBeetle()
 	{
@@ -38,7 +38,7 @@ public class BugStagBeetle extends ItemAxe implements BugTool {
 		int cut_block = player.worldObj.getBlockId(x,y,z);
 		if (cut_block == Block.leaves.blockID || cut_block == Block.tallGrass.blockID || cut_block == Block.vine.blockID)
 		{
-			EntityItem sheared = new EntityItem(player.worldObj, x, y, z, new ItemStack(Block.blocksList[Block.leaves.blockID], 1, player.worldObj.getBlockMetadata(x, y, z)));
+			EntityItem sheared = new EntityItem(player.worldObj, x, y, z, new ItemStack(player.worldObj.getBlockId(x, y, z), 1, player.worldObj.getBlockMetadata(x, y, z)));
 			sheared.delayBeforeCanPickup = 10;
 			player.worldObj.setBlockWithNotify(x, y, z, 0);
 			player.worldObj.spawnEntityInWorld(sheared);
@@ -46,5 +46,10 @@ public class BugStagBeetle extends ItemAxe implements BugTool {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public int getFixAmount() {
+		return 5;
 	}
 }

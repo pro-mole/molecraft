@@ -1,5 +1,6 @@
 package Mole.common.terrarium;
 
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -9,28 +10,35 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
-import Mole.common.Constants;
-import Mole.common.Mole;
 import Mole.common.PacketHandler;
+import Mole.common.RandomUtil;
+import Mole.common.item.AdultBug;
+import Mole.common.item.AdultBugProduce;
+import Mole.common.item.AdultBugTool;
+import Mole.common.item.BugFood;
+import Mole.common.item.Grub;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TileTerrarium extends TileEntity implements IInventory {
 
+	enum terrariumStateMachine {IDLE, METAMORPHOSIS, WORK};
+	
 	static int ticksPerFood = 200;
 	
 	public ItemStack bug;
 	public ItemStack food; 
 	
-	private boolean startMetamorphosis = false;
-	private boolean bugWorking = false;
 	private int ticks = 0;
+	terrariumStateMachine workingState;
 	private long metamorphosis = 0; //goes up to 100%;
 	
 	public TileTerrarium()
 	{
 		bug = null;
 		food = null;
+		workingState = terrariumStateMachine.IDLE;
+		
 	}
 	
 	@Override
@@ -50,122 +58,85 @@ public class TileTerrarium extends TileEntity implements IInventory {
 	{
 		if (worldObj.isRemote) return;
 		
-		//Take bug out
-		if (bug == null)
+		switch (workingState)
 		{
-			if (startMetamorphosis)
+		case IDLE:
+			if (bug != null && food != null)
 			{
-				startMetamorphosis = false;
-				ticks = 0;
-			}
-			if (bugWorking)
-			{
-				bugWorking = false;
-				ticks = 0;
-			}
-		}
-		
-		//Grubs
-		if (startMetamorphosis)
-		{
-			ticks += (food != null && ticks >= ticksPerFood)? 0: 1;
-			if (ticks >= ticksPerFood)
-			{
-				if (food != null)
+				//Food's in the right slot
+				if (food.getItem() instanceof BugFood)
 				{
-					//Eat stuff to grow...
-					if (food.itemID == Mole.bugFood.shiftedIndex || food.itemID == Mole.bugFoodPremium.shiftedIndex)
+					//Grub, start metamorphosing!
+					if (bug.getItem() instanceof Grub)
 					{
-						metamorphosis += (food.itemID == Mole.bugFood.shiftedIndex)? 10: 20;
-						if (--food.stackSize == 0) food = null;
+						workingState = terrariumStateMachine.METAMORPHOSIS;
+						break;
 					}
 					
-					//Metamorphosis ho!
-					if (metamorphosis >= 100)
-					{	
-						//Any bug can become a Mealworm with 60% chance
-						if (worldObj.rand.nextInt(10) < 6)
-						{
-							//Mealworm
-							bug = new ItemStack(Mole.emptyHusk,1);
-						}
-						else
-						{
-							//Check bug type, select metamorphosis
-							
-							int type = bug.getItemDamage();
-							switch(type)
-							{
-								case Constants.MOLE_GRUB_WHITE:
-									//Stag Beetle
-									bug = new ItemStack(Mole.beetleStag,1);
-									break;
-								case Constants.MOLE_GRUB_FAT:
-									//Bombyx mori
-									bug = new ItemStack(Mole.bombyxMori,1);
-									break;
-								case Constants.MOLE_GRUB_RED:
-									//Coccineal
-									bug = new ItemStack(Mole.coccineal,1);
-									break;
-							}
-						}
-						startMetamorphosis = false;
-						metamorphosis = 0;
-					}
-					PacketDispatcher.sendPacketToAllPlayers(PacketHandler.createTerrariumPackate(this));
-				}
-				ticks = 0;
-			}
-		}
-		
-		//Adult bugs
-		if (bugWorking)
-		{
-			ticks += (food != null && ticks >= ticksPerFood)? 0: 1;
-			if (ticks >= ticksPerFood)
-			{
-				if (food != null)
-				{
-					if (food.itemID == Mole.bugFood.shiftedIndex || food.itemID == Mole.bugFoodPremium.shiftedIndex)
+					if (bug.getItem() instanceof AdultBug)
 					{
-						//Does whatever this bug does
-						if (bug.itemID == Mole.beetleStag.shiftedIndex)
-						{
-							//--Stag Beetles: FIX
-							if (bug.getItemDamage() <= 0)
-							{
-								bugWorking = false;
-								ticks = 0;
-								return;
-							}
-							
-							bug.setItemDamage(bug.getItemDamage()-((food.itemID == Mole.bugFood.shiftedIndex)? 10: 20));
-							
-							//Eat food
-							if (bug.getItemDamage() < 0)
-								bug.setItemDamage(0);
-						}
-						else if (bug.itemID == Mole.bombyxMori.shiftedIndex)
-						{
-							//--Bombyx mori: Spawn Silk
-							bug.setItemDamage(bug.getItemDamage() + 5);
-							if (bug.getItemDamage() >= bug.getMaxDamage())
-								bug = null;
-							
-							int n = (food.itemID == Mole.bugFood.shiftedIndex)? 1: 2;
-							for (int i=0; i<n; i++)
-							{
-								generateItem(Item.silk);
-							}
-						}
-						
-						if (--food.stackSize == 0) food = null;
-						PacketDispatcher.sendPacketToAllPlayers(PacketHandler.createTerrariumPackate(this));
+						workingState = terrariumStateMachine.WORK;
+						break;
 					}
 				}
-				ticks = 0;
 			}
+			break;
+		case METAMORPHOSIS:
+			if (bug == null || food == null ||
+			(bug != null && !(bug.getItem() instanceof Grub)) ||
+			(food != null && !(food.getItem() instanceof BugFood)))
+			{
+				workingState = terrariumStateMachine.IDLE;
+				break;
+			}
+			
+			if (ticks++ >= ticksPerFood)
+			{
+				Grub _grub = (Grub) bug.getItem();
+				BugFood _food = (BugFood) food.getItem();
+				metamorphosis += _food.getFoodValue(_grub, bug.getItemDamage());
+				if (metamorphosis >= 100)
+				{
+					setInventorySlotContents(0, new ItemStack((Item)RandomUtil.randomize(_grub.metamorphosisOdds(bug.getItemDamage()), worldObj.rand)));
+					metamorphosis = 0;
+				}
+				decrStackSize(1, 1);
+				ticks = 0;
+				PacketDispatcher.sendPacketToAllPlayers(PacketHandler.createTerrariumPackate(this));
+			}
+			break;
+		case WORK:
+			if (bug == null || food == null ||
+			(bug != null && !(bug.getItem() instanceof AdultBug)) ||
+			(food != null && !(food.getItem() instanceof BugFood)))
+			{
+				workingState = terrariumStateMachine.IDLE;
+				break;
+			}
+			
+			if (ticks++ >= ticksPerFood)
+			{
+				AdultBug _bug = (AdultBug) bug.getItem();
+				BugFood _food = (BugFood) food.getItem();
+				if (bug.getItem() instanceof AdultBugTool)
+				{
+					AdultBugTool _toolbug = (AdultBugTool) bug.getItem();
+					bug.damageItem(_food.getFoodValue(_toolbug) * _toolbug.getFixAmount(), (EntityLiving) worldObj.playerEntities.get(0));
+				}
+				else if (bug.getItem() instanceof AdultBugProduce)
+				{
+					AdultBugProduce _prodbug = (AdultBugProduce) bug.getItem();
+					for (int i=0; i < _food.getFoodValue(_prodbug); i++)
+					{
+						generateItem((ItemStack) RandomUtil.randomize(_prodbug.getProduceList(), worldObj.rand));
+					}
+					bug.damageItem(1, (EntityLiving) worldObj.playerEntities.get(0));
+				}
+				decrStackSize(1, 1);
+				ticks = 0;
+				PacketDispatcher.sendPacketToAllPlayers(PacketHandler.createTerrariumPackate(this));
+			}
+			break;
 		}
 	}
 	
@@ -199,12 +170,15 @@ public class TileTerrarium extends TileEntity implements IInventory {
 
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack) {
-		// TODO Auto-generated method stub
+		//Get initial state
+		ItemStack _stack = (slot == 0)? bug: food;
+		
 		if (slot == 0)
 			bug = stack;
-		else
-			food = stack;
 		
+		else if (slot == 1)
+			food = stack;
+
 		if (stack != null)
 		{
 			if (stack.stackSize > getInventoryStackLimit())
@@ -213,33 +187,9 @@ public class TileTerrarium extends TileEntity implements IInventory {
 			}
 		}
 		
-		//If both slots are filled, start working
-		if (bug != null && food != null)
-		{
-			if (food.itemID == Mole.bugFood.shiftedIndex ||	food.itemID == Mole.bugFoodPremium.shiftedIndex)
-			{
-				//Grubs
-				if (bug.itemID == Mole.grub.shiftedIndex)
-				{
-					if (!startMetamorphosis)
-					{
-						ticks = 0;
-						metamorphosis = 0;
-						startMetamorphosis = true;
-					}
-				}
-				
-				//Adults
-				if (bug.itemID == Mole.beetleStag.shiftedIndex || bug.itemID == Mole.bombyxMori.shiftedIndex)
-				{
-					if (!bugWorking)
-					{
-						ticks = 0;
-						bugWorking = true;
-					}
-				}
-			}
-		}
+		//If the bug slot is set to empty, restart metamorphosis
+		if (slot == 0 && stack == null)
+			metamorphosis = 0;
 	}
 
 	@Override
@@ -285,15 +235,8 @@ public class TileTerrarium extends TileEntity implements IInventory {
                  else if (slot == 1) food = ItemStack.loadItemStackFromNBT(tag); 
          }
          
-         if (bug != null)
-         {
-	         if (bug.itemID == Mole.grub.shiftedIndex)
-	        	 startMetamorphosis = tagCompound.getBoolean("Working");
-	         else
-	        	 bugWorking = tagCompound.getBoolean("Working");
-         }
-         
          metamorphosis = tagCompound.getLong("Metamorphosis");
+         workingState = terrariumStateMachine.values()[tagCompound.getInteger("State")];
          ticks = tagCompound.getInteger("Ticks");
      }
 	 
@@ -313,12 +256,12 @@ public class TileTerrarium extends TileEntity implements IInventory {
                  }
          }
          tagCompound.setTag("Terrarium", itemList);
-         tagCompound.setBoolean("Working", bugWorking || startMetamorphosis);
          tagCompound.setLong("Metamorphosis", metamorphosis);
+         tagCompound.setInteger("State", workingState.ordinal());
          tagCompound.setInteger("Ticks", ticks);
      }
 	 
-	 private void generateItem(Item item)
+	 private void generateItem(ItemStack stack)
 	 {
 		 TileEntityChest chest = null;
 		 int slotPos = -1;
@@ -343,8 +286,8 @@ public class TileTerrarium extends TileEntity implements IInventory {
 							 chest = (TileEntityChest) container;
 							 for (int s = chest.getSizeInventory(); s > 0; s--)
 							 {
-								 ItemStack stack = chest.getStackInSlot(s-1);
-								 if (stack == null || stack.stackSize == 0 || stack.getItem().equals(item))
+								 ItemStack _stack = chest.getStackInSlot(s-1);
+								 if (_stack == null || _stack.stackSize == 0 || _stack.getItem().equals(stack.getItem()))
 								 {
 									 slotPos = s-1;
 									 break;
@@ -364,9 +307,9 @@ public class TileTerrarium extends TileEntity implements IInventory {
 			 ItemStack theStack = chest.getStackInSlot(slotPos);
 			 System.err.println("Put Item in slot "+slotPos);
 			 if (theStack == null || theStack.stackSize <= 0)
-				 chest.setInventorySlotContents(slotPos, new ItemStack(item));
+				 chest.setInventorySlotContents(slotPos,stack);
 			 else
-				 theStack.stackSize++;
+				 theStack.stackSize += stack.stackSize;
 		 }
 		 else
 		 {
@@ -375,7 +318,7 @@ public class TileTerrarium extends TileEntity implements IInventory {
 						xCoord + worldObj.rand.nextFloat()*0.5+0.25,
 						yCoord + 1 + worldObj.rand.nextFloat()*0.5+0.25,
 						zCoord + worldObj.rand.nextFloat()*0.5+0.25,
-						new ItemStack(item)
+						stack
 						));
 		 }
 	 }

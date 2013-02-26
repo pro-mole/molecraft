@@ -1,5 +1,6 @@
 package Mole.common.runestone;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import Mole.common.Constants;
 import Mole.common.terrarium.TileTerrarium;

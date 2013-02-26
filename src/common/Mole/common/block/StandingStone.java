@@ -32,12 +32,4 @@ public class StandingStone extends Block {
 		return Constants.MOLE_TEXT_TERRAIN;
 	}
 	
-	@Override
-	public int idDropped(int par1, Random random, int par3)
-    {
-		if (random.nextInt(4) == 0)
-			return this.blockID;
-		else
-			return 0;
-    } 
 }

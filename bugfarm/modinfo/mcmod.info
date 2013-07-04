@@ -1,0 +1,23 @@
+[
+{
+  "modid": "molecraft_bugfarm",
+  "name": "Molecraft Bug Farm",
+  "description": "Molecraft's Bug Farm mod: all about capturing, breeding, using and eating bugs!",
+  "version": "0.1.1",
+  "mcversion": "1.5.2",
+  "url": "http://molecraft.wikia.com",
+  "updateUrl": "",
+  "authors": [
+    "pro-mole"
+  ],
+  "credits": "Developed and designed by Pro-Mole",
+  "logoFile": "/logo.png",
+  "screenshots": [
+  ],
+  "parent":"",
+
+  "dependencies": [
+     "mod_MinecraftForge"
+  ]
+}
+]

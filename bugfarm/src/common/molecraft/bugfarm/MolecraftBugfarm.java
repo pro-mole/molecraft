@@ -26,7 +26,7 @@ public class MolecraftBugfarm {
 	//Blocks
 	
 	//Items
-	public static Item stickMesh, pestleMortar,
+	public static Item stickMesh, pestleMortarWood, pestleMortarStone,
 		dustWood, dustReed, dustMeat, dustLeaf, dustGrub, dustGourd, dustInk, dustFish, dustFungus;
 	
 	//Tile Entities
@@ -35,7 +35,8 @@ public class MolecraftBugfarm {
 	public void load(FMLInitializationEvent event) {
 		
 		stickMesh = new StickMesh();
-		pestleMortar = new PestleAndMortar();
+		pestleMortarWood = new PestleAndMortar(0);
+		pestleMortarStone = new PestleAndMortar(1);
 		dustWood = new Dust(DustType.DUST_WOOD);
 		dustReed = new Dust(DustType.DUST_REED);
 		dustMeat = new Dust(DustType.DUST_MEAT);
@@ -53,22 +54,89 @@ public class MolecraftBugfarm {
 			"//",
 			"//", 
 			'/', Item.stick);
-		GameRegistry.addRecipe(new ItemStack(pestleMortar),
+		GameRegistry.addRecipe(new ItemStack(pestleMortarWood),
+			" / ",
+			"o o",
+			" o ",
+			'/', Item.stick,
+			'o', Block.cobblestone);
+		GameRegistry.addRecipe(new ItemStack(pestleMortarStone),
 			" v ",
 			"o o",
 			" o ",
 			'v', Item.flint,
 			'o', Block.stone);
-		dustRecipes();
+		
+		addDustRecipes();
 	}
 	
-	public void dustRecipes()
+	public void addDustRecipes()
 	{	
-		for (int d=0; d < pestleMortar.getMaxDamage(); d++)
+		//Wood Dust
+		for (int i=0; i < BlockLog.woodType.length; i++)
 		{
-			for (int i=0; i < BlockLog.woodType.length; i++)
-			GameRegistry.addShapelessRecipe(new ItemStack(dustWood),
-					new ItemStack(pestleMortar,1, d), new ItemStack(Block.wood, 1, i));
+			dustRecipe(1, new ItemStack(Block.wood,1,i), dustWood, 4);
+			dustRecipe(1, new ItemStack(Block.planks,1,i), dustWood, 2);
+		}
+		dustRecipe(1, new ItemStack(Item.stick), dustWood, 1);
+		
+		//Reed Dust
+		dustRecipe(0, new ItemStack(Block.reed), dustReed, 3);
+		
+		//Meat Dust
+		for (Item meat: new Item[] {Item.beefRaw, Item.chickenRaw, Item.porkRaw})
+		{
+			dustRecipe(0, new ItemStack(meat), dustMeat, 4);
+		}
+		
+		//Leaf Dust
+		for (Item seed: new Item[] {Item.seeds, Item.pumpkinSeeds})
+		{
+			dustRecipe(0, new ItemStack(seed), dustLeaf, 1);
+		}
+		dustRecipe(0, new ItemStack(Block.tallGrass), dustLeaf, 2);
+		for (int i=0; i < BlockLog.woodType.length; i++)
+			dustRecipe(0, new ItemStack(Block.leaves,1,i), dustLeaf, 2);
+		
+		//Grub Dust
+		
+		//Gourd Dust
+		for (Block gourd: new Block[] {Block.pumpkin, Block.melon})
+		{
+			dustRecipe(0, new ItemStack(gourd), dustGourd, 4);
+		}
+		
+		//Ink Dust
+		dustRecipe(0, new ItemStack(Item.dyePowder, 1, 0), dustInk, 2);
+		
+		//Fish Dust
+		dustRecipe(0, new ItemStack(Item.fishRaw), dustFish, 3);
+		
+		//Fungus Dust
+		for (Block shroom: new Block[] {Block.mushroomBrown, Block.mushroomRed})
+		{
+			dustRecipe(0, new ItemStack(shroom), dustFungus, 1);
+		}
+	}
+	
+	public void dustRecipe(int tier, ItemStack ingredient, Item result, int amount)
+	{
+		if (tier <= 0)
+		{
+			for (int d=0; d < pestleMortarWood.getMaxDamage(); d++)
+			{
+				GameRegistry.addShapelessRecipe(new ItemStack(result, amount),
+						new ItemStack(pestleMortarWood,1, d), ingredient);
+			}
+		}
+		
+		if (tier <= 1)
+		{
+			for (int d=0; d < pestleMortarStone.getMaxDamage(); d++)
+			{
+				GameRegistry.addShapelessRecipe(new ItemStack(result, amount),
+						new ItemStack(pestleMortarStone,1, d), ingredient);
+			}
 		}
 	}
 }

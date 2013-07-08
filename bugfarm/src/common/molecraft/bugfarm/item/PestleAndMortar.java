@@ -10,14 +10,17 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class PestleAndMortar extends Item {
 
-	public PestleAndMortar() {
-		super(Numbers.ITEM_PESTLEANDMORTAR);
+	int[] tierDamage = {32,128};
+	String[] tierLocalName = {"wood","stone"};
+	
+	public PestleAndMortar(int tier) {
+		super(Numbers.ITEM_PESTLEANDMORTAR+tier);
 		
 		//Works as a tool, sort of
-		this.setMaxDamage(32);
+		this.setMaxDamage(tierDamage[tier]);
 		this.setMaxStackSize(1);
 		
-		this.setUnlocalizedName("pestle_mortar");
+		this.setUnlocalizedName("pestle_mortar_"+tierLocalName[tier]);
 		LanguageRegistry.addName(this, "Pestle & Mortar");
 		this.setCreativeTab(CreativeTabs.tabTools);
 	}

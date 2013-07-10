@@ -7,11 +7,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import common.molecraft.bugfarm.crafting.PestleMortarCraftingHandler;
+import common.molecraft.bugfarm.grub.DirtGrub;
 import common.molecraft.bugfarm.grub.FatGrub;
 import common.molecraft.bugfarm.grub.GlowGrub;
+import common.molecraft.bugfarm.grub.GoldGrub;
+import common.molecraft.bugfarm.grub.HellGrub;
+import common.molecraft.bugfarm.grub.MysticGrub;
 import common.molecraft.bugfarm.grub.PoisonGrub;
 import common.molecraft.bugfarm.grub.RedGrub;
+import common.molecraft.bugfarm.grub.ShinyGrub;
+import common.molecraft.bugfarm.grub.SilkGrub;
+import common.molecraft.bugfarm.grub.SlimeGrub;
 import common.molecraft.bugfarm.grub.TinyGrub;
+import common.molecraft.bugfarm.grub.TrapGrub;
 import common.molecraft.bugfarm.grub.WaterGrub;
 import common.molecraft.bugfarm.grub.WhiteGrub;
 import common.molecraft.bugfarm.item.Dust;
@@ -61,9 +69,17 @@ public class MolecraftBugfarm {
 		grubRed = new RedGrub();
 		grubFat = new FatGrub();
 		grubTiny = new TinyGrub();
+		grubDirt = new DirtGrub();
+		grubTrap = new TrapGrub();
 		grubWater = new WaterGrub();
 		grubPoison = new PoisonGrub();
 		grubGlow = new GlowGrub();
+		grubSlime = new SlimeGrub();
+		grubSilk = new SilkGrub();
+		grubShiny = new ShinyGrub();
+		grubGold = new GoldGrub();
+		grubHell = new HellGrub();
+		grubMystic = new MysticGrub();
 		
 		//Crafting Recipes
 		GameRegistry.registerCraftingHandler(new PestleMortarCraftingHandler());

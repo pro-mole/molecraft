@@ -1,11 +1,19 @@
 package common.molecraft.bugfarm;
 
+import scala.xml.parsing.FatalError;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import common.molecraft.bugfarm.crafting.PestleMortarCraftingHandler;
+import common.molecraft.bugfarm.grub.FatGrub;
+import common.molecraft.bugfarm.grub.GlowGrub;
+import common.molecraft.bugfarm.grub.PoisonGrub;
+import common.molecraft.bugfarm.grub.RedGrub;
+import common.molecraft.bugfarm.grub.TinyGrub;
+import common.molecraft.bugfarm.grub.WaterGrub;
+import common.molecraft.bugfarm.grub.WhiteGrub;
 import common.molecraft.bugfarm.item.Dust;
 import common.molecraft.bugfarm.item.Dust.DustType;
 import common.molecraft.bugfarm.item.PestleAndMortar;
@@ -27,7 +35,8 @@ public class MolecraftBugfarm {
 	
 	//Items
 	public static Item stickMesh, pestleMortarWood, pestleMortarStone,
-		dustWood, dustReed, dustMeat, dustLeaf, dustGrub, dustGourd, dustInk, dustFish, dustFungus;
+		dustWood, dustReed, dustMeat, dustLeaf, dustGrub, dustGourd, dustInk, dustFish, dustFungus,
+		grubWhite, grubRed, grubFat, grubTiny, grubWater, grubDirt, grubPoison, grubSilk, grubGlow, grubTrap, grubSlime, grubHell, grubShiny, grubGold, grubMystic;
 	
 	//Tile Entities
 
@@ -37,6 +46,7 @@ public class MolecraftBugfarm {
 		stickMesh = new StickMesh();
 		pestleMortarWood = new PestleAndMortar(0);
 		pestleMortarStone = new PestleAndMortar(1);
+		
 		dustWood = new Dust(DustType.DUST_WOOD);
 		dustReed = new Dust(DustType.DUST_REED);
 		dustMeat = new Dust(DustType.DUST_MEAT);
@@ -46,6 +56,14 @@ public class MolecraftBugfarm {
 		dustInk = new Dust(DustType.DUST_INK);
 		dustFish = new Dust(DustType.DUST_FISH);
 		dustFungus = new Dust(DustType.DUST_FUNGUS);
+		
+		grubWhite = new WhiteGrub();
+		grubRed = new RedGrub();
+		grubFat = new FatGrub();
+		grubTiny = new TinyGrub();
+		grubWater = new WaterGrub();
+		grubPoison = new PoisonGrub();
+		grubGlow = new GlowGrub();
 		
 		//Crafting Recipes
 		GameRegistry.registerCraftingHandler(new PestleMortarCraftingHandler());

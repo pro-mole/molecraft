@@ -23,8 +23,8 @@ public abstract class Grub extends ItemFood {
 		}
 	};
 	
-	public static String[] names = {"White", "Red", "Fat", "Tiny", "Water", "Dirt", "Spiny", "Silky", "Lantern", "Trap", "Hell", "Shiny", "Gold", "Mystic"},
-		localNames = {"white", "red", "fat", "tiny", "water", "dirt", "poison", "silk", "glow", "trap", "hell", "shiny", "gold", "mystic"};
+	public static String[] names = {"White", "Red", "Fat", "Tiny", "Water", "Dirt", "Spiny", "Silky", "Lantern", "Trap", "Slime", "Hell", "Shiny", "Gold", "Mystic"},
+		localNames = {"white", "red", "fat", "tiny", "water", "dirt", "poison", "silk", "glow", "trap", "slime", "hell", "shiny", "gold", "mystic"};
 	
 	GrubType type;
 	

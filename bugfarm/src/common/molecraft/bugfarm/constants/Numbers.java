@@ -20,6 +20,8 @@ public class Numbers {
 	//PLACEHOLDER: 64 Bugs
 	
 	//Block IDs
+	public static final int BLOCK_MORTAR = FIRST_BLOCK_ID+0;
+	//PLACEHOLDER: 4 Mortar materials(wood/rock/obsidian/???)
 	
 	//Materials
 }

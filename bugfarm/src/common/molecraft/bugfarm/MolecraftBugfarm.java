@@ -3,9 +3,17 @@ package common.molecraft.bugfarm;
 import scala.xml.parsing.FatalError;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.src.BaseMod;
+import net.minecraft.src.ModLoader;
 
+import common.molecraft.bugfarm.block.Mortar;
+import common.molecraft.bugfarm.block.TEMortar;
 import common.molecraft.bugfarm.crafting.PestleMortarCraftingHandler;
 import common.molecraft.bugfarm.grub.DirtGrub;
 import common.molecraft.bugfarm.grub.FatGrub;
@@ -29,9 +37,14 @@ import common.molecraft.bugfarm.item.StickMesh;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @Mod(modid=MolecraftBugfarm.modid, name="Molecraft Bug Farm", version="0.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -39,7 +52,11 @@ public class MolecraftBugfarm {
 
 	public static final String modid = "molecraft_bugfarm";
 	
+	@SidedProxy(clientSide="common.molecraft.bugfarm.MolecraftBugfarmClientProxy", serverSide="common.molecraft.bugfarm.MolecraftBugfarmProxy")
+	public static MolecraftBugfarmClientProxy proxy;
+	
 	//Blocks
+	public static Block woodMortar, stoneMortar, obsidianMortar;
 	
 	//Items
 	public static Item stickMesh, pestleMortarWood, pestleMortarStone,
@@ -47,6 +64,9 @@ public class MolecraftBugfarm {
 		grubWhite, grubRed, grubFat, grubTiny, grubWater, grubDirt, grubPoison, grubSilk, grubGlow, grubTrap, grubSlime, grubHell, grubShiny, grubGold, grubMystic;
 	
 	//Tile Entities
+	
+	//Models
+	public static int mortarModelId;
 
 	@Init
 	public void load(FMLInitializationEvent event) {
@@ -54,6 +74,14 @@ public class MolecraftBugfarm {
 		stickMesh = new StickMesh();
 		pestleMortarWood = new PestleAndMortar(0);
 		pestleMortarStone = new PestleAndMortar(1);
+		
+		woodMortar = new Mortar(Mortar.MaterialMortar.WOOD);
+		GameRegistry.registerBlock(woodMortar, "mortarWood");
+		stoneMortar = new Mortar(Mortar.MaterialMortar.ROCK);
+		GameRegistry.registerBlock(stoneMortar, "mortarStone");
+		obsidianMortar = new Mortar(Mortar.MaterialMortar.OBSIDIAN);
+		GameRegistry.registerBlock(obsidianMortar, "mortarObsidian");
+		GameRegistry.registerTileEntity(TEMortar.class, "TEMortar");
 		
 		dustWood = new Dust(DustType.DUST_WOOD);
 		dustReed = new Dust(DustType.DUST_REED);
@@ -80,6 +108,8 @@ public class MolecraftBugfarm {
 		grubGold = new GoldGrub();
 		grubHell = new HellGrub();
 		grubMystic = new MysticGrub();
+		
+		proxy.registerRenderInformation();
 		
 		//Crafting Recipes
 		GameRegistry.registerCraftingHandler(new PestleMortarCraftingHandler());

@@ -12,7 +12,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.src.BaseMod;
 import net.minecraft.src.ModLoader;
 
+import common.molecraft.bugfarm.block.Cocoon;
 import common.molecraft.bugfarm.block.Mortar;
+import common.molecraft.bugfarm.block.TECocoon;
 import common.molecraft.bugfarm.block.TEMortar;
 import common.molecraft.bugfarm.crafting.PestleMortarCraftingHandler;
 import common.molecraft.bugfarm.grub.DirtGrub;
@@ -34,6 +36,7 @@ import common.molecraft.bugfarm.item.Dust;
 import common.molecraft.bugfarm.item.Dust.DustType;
 import common.molecraft.bugfarm.item.PestleAndMortar;
 import common.molecraft.bugfarm.item.StickMesh;
+import common.molecraft.bugfarm.render.CocoonTERenderer;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -56,7 +59,8 @@ public class MolecraftBugfarm {
 	public static MolecraftBugfarmClientProxy proxy;
 	
 	//Blocks
-	public static Block woodMortar, stoneMortar, obsidianMortar;
+	public static Block woodMortar, stoneMortar, obsidianMortar,
+		cocoon[], gall, reedNest, burrow;
 	
 	//Items
 	public static Item stickMesh, pestleMortarWood, pestleMortarStone,
@@ -92,6 +96,14 @@ public class MolecraftBugfarm {
 		dustInk = new Dust(DustType.DUST_INK);
 		dustFish = new Dust(DustType.DUST_FISH);
 		dustFungus = new Dust(DustType.DUST_FUNGUS);
+		
+		cocoon = new Cocoon[Cocoon.ids.length];
+		for (int i=0; i < Cocoon.ids.length; i++)
+		{
+			cocoon[i] = new Cocoon(i);
+			GameRegistry.registerBlock(cocoon[i]);
+		}
+		GameRegistry.registerTileEntity(TECocoon.class, "TECocoon");
 		
 		grubWhite = new WhiteGrub();
 		grubRed = new RedGrub();

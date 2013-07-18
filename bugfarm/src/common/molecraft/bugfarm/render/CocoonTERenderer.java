@@ -23,7 +23,7 @@ public class CocoonTERenderer extends TileEntitySpecialRenderer {
 
 		if (tileentity.worldObj != null)
 		{
-			rotation = tileentity.getBlockMetadata();
+			rotation = (tileentity.getBlockMetadata() - 1) % 4;
 		}
 		
 		TECocoon cocoon = (TECocoon)tileentity;

@@ -14,14 +14,15 @@ public class ModelCocoon extends ModelBase {
 		
 		Cocoon = new ModelRenderer(this, 0, 0).setTextureSize(textureWidth, textureHeight);
 		
-		Cocoon.addBox(5.5f, -5f, -1f, 2, 1, 2);
-		Cocoon.addBox(3.5f, -4f, -2f, 4, 2, 4);
-		Cocoon.addBox(2.5f, -2f, -2.5f, 5, 6, 5);
-		Cocoon.addBox(3.5f, 4f, -2f, 4, 2, 4);
-		Cocoon.addBox(4.5f, 5f, -1.5f, 3, 1, 3);
-		Cocoon.addBox(5.5f, 6f, -1f, 2, 1, 2);
+		Cocoon.addBox(-8f, -6f, -2f, 2, 2, 4);
+		Cocoon.addBox(-8f, -5f, -1f, 3, 1, 2);
+		Cocoon.addBox(-8f, -4f, -3f, 3, 7, 6);
+		Cocoon.addBox(-8f, -3f, -2f, 4, 5, 4);
+		Cocoon.addBox(-8f, 3f, -2f, 2, 3, 4);
+		Cocoon.addBox(-8f, 3f, -1f, 3, 2, 2);
+		Cocoon.addBox(-8f, 6f, -1f, 1, 1, 2);
 		
-		Cocoon.setRotationPoint(0.5f, 0f, 0.5f);
+		Cocoon.setRotationPoint(0f, 0f, 0f);
 	}
 	
 	@Override

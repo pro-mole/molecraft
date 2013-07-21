@@ -42,6 +42,30 @@ public class Cocoon extends BlockContainer {
 		this.setUnlocalizedName(ids[type]+"Cocoon");
 		LanguageRegistry.addName(this, names[type]+" Cocoon");
 		setTickRandomly(true);
+		//setBlockBounds(0f, 2/16f, 5/16f, 4/16f, 14/16f, 11/16f);
+	}
+	
+	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess access,
+			int x, int y, int z) {
+		// TODO Auto-generated method stub
+		int rotation = access.getBlockMetadata(x, y, z);
+		
+		switch (rotation)
+		{
+			case 1:
+				setBlockBounds(0f, 2/16f, 5/16f, 4/16f, 14/16f, 11/16f);
+				break;
+			case 2:
+				setBlockBounds(5/16f, 2/16f, 0f, 11/16f, 14/16f, 4/16f);
+				break;
+			case 3:
+				setBlockBounds(12/16f, 2/16f, 5/16f, 1f, 14/16f, 11/16f);
+				break;
+			case 4:
+				setBlockBounds(5/16f, 2/16f, 12/16f, 11/16f, 14/16f, 1f);
+				break;
+		}
 	}
 
 	@Override
@@ -118,22 +142,38 @@ public class Cocoon extends BlockContainer {
 			//Here's a bit of cheating: first we check them for solid, then for bark
 			//This way, treebark will be preferred, always
 			if (world.isBlockSolidOnSide(x-1, y, z, ForgeDirection.WEST, false))
+			{
 				world.setBlockMetadataWithNotify(x, y, z, 1, 3);
+			}
 			if (world.isBlockSolidOnSide(x, y, z-1, ForgeDirection.NORTH, false))
+			{
 				world.setBlockMetadataWithNotify(x, y, z, 2, 3);
+			}
 			if (world.isBlockSolidOnSide(x+1, y, z, ForgeDirection.EAST, false))
+			{
 				world.setBlockMetadataWithNotify(x, y, z, 3, 3);
+			}
 			if (world.isBlockSolidOnSide(x, y, z+1, ForgeDirection.SOUTH, false))
+			{
 				world.setBlockMetadataWithNotify(x, y, z, 4, 3);
+			}
 			
 			if (world.getBlockId(x-1, y, z) == Block.wood.blockID)
+			{
 				world.setBlockMetadataWithNotify(x, y, z, 1, 3);
+			}
 			if (world.getBlockId(x, y, z-1) == Block.wood.blockID)
+			{
 				world.setBlockMetadataWithNotify(x, y, z, 2, 3);
+			}
 			if (world.getBlockId(x+1, y, z) == Block.wood.blockID)
+			{
 				world.setBlockMetadataWithNotify(x, y, z, 3, 3);
+			}
 			if (world.getBlockId(x, y, z+1) == Block.wood.blockID)
+			{
 				world.setBlockMetadataWithNotify(x, y, z, 4, 3);
+			}
 			
 			//no solid block whatsoever? So sorry
 			if (world.getBlockMetadata(x, y, z) == 0)

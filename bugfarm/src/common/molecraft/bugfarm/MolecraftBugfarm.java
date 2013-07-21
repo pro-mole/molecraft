@@ -37,6 +37,7 @@ import common.molecraft.bugfarm.item.Dust.DustType;
 import common.molecraft.bugfarm.item.PestleAndMortar;
 import common.molecraft.bugfarm.item.StickMesh;
 import common.molecraft.bugfarm.render.CocoonTERenderer;
+import common.molecraft.bugfarm.world.CocoonGenerator;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -144,6 +145,8 @@ public class MolecraftBugfarm {
 			'o', Block.stone);
 		
 		addDustRecipes();
+		
+		GameRegistry.registerWorldGenerator(new CocoonGenerator());
 	}
 	
 	public void addDustRecipes()

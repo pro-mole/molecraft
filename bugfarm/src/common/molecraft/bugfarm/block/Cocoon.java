@@ -1,10 +1,12 @@
 package common.molecraft.bugfarm.block;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -17,7 +19,10 @@ import net.minecraftforge.common.ForgeDirection;
 import common.molecraft.bugfarm.MolecraftBugfarm;
 import common.molecraft.bugfarm.constants.Numbers;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class Cocoon extends BlockContainer {
 	
@@ -36,6 +41,7 @@ public class Cocoon extends BlockContainer {
 		this.setCreativeTab(CreativeTabs.tabMisc);
 		this.setUnlocalizedName(ids[type]+"Cocoon");
 		LanguageRegistry.addName(this, names[type]+" Cocoon");
+		setTickRandomly(true);
 	}
 
 	@Override
@@ -174,5 +180,13 @@ public class Cocoon extends BlockContainer {
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
+	}
+	
+	@Override
+	public void updateTick(World world, int x, int y, int z,
+			Random random) {
+		
+		TECocoon TE = (TECocoon) world.getBlockTileEntity(x, y, z);
+		TE.develop();
 	}
 }

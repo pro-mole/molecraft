@@ -24,6 +24,8 @@ public class Numbers {
 	//PLACEHOLDER: 4 Mortar materials(wood/rock/obsidian/???)
 	public static final int BLOCK_COCOON = FIRST_BLOCK_ID+4;
 	//PLACEHOLDER: 4 Cocoon Varieties(because multiblocks are hard >.<)
+	public static final int BLOCK_TRAP = FIRST_BLOCK_ID+8;
+	//PLACEHOLDER: 8 Trap Types
 	
 	//Materials
 }

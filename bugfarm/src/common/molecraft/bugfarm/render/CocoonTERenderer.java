@@ -28,7 +28,8 @@ public class CocoonTERenderer extends TileEntitySpecialRenderer {
 		
 		TECocoon cocoon = (TECocoon)tileentity;
 		
-		bindTextureByName("/textures/blocks/cocoon"+cocoon.getCocoonTexture()+".png");
+		//bindTextureByName("/textures/blocks/cocoon"+cocoon.getCocoonTexture()+".png");
+		bindTextureByName("/textures/blocks/"+tileentity.blockType.getUnlocalizedName2()+".png");
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)x+0.5f, (float)y+0.5f, (float)z+0.5f);
 		GL11.glScalef(1f, -1f, -1f);

@@ -1,12 +1,14 @@
 package common.molecraft.bugfarm.render;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockCocoa;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
 
 import common.molecraft.bugfarm.block.TECocoon;
 import common.molecraft.bugfarm.model.ModelCocoon;
-
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
 
 public class CocoonTERenderer extends TileEntitySpecialRenderer {
 
@@ -24,6 +26,7 @@ public class CocoonTERenderer extends TileEntitySpecialRenderer {
 		if (tileentity.worldObj != null)
 		{
 			rotation = (tileentity.getBlockMetadata() - 1) % 4;
+			Block cocoonBlock = tileentity.getBlockType();
 		}
 		
 		TECocoon cocoon = (TECocoon)tileentity;

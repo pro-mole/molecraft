@@ -26,6 +26,7 @@ public class Numbers {
 	//PLACEHOLDER: 4 Cocoon Varieties(because multiblocks are hard >.<)
 	public static final int BLOCK_TRAP = FIRST_BLOCK_ID+8;
 	//PLACEHOLDER: 8 Trap Types
+	public static final int BLOCK_BURROW = FIRST_BLOCK_ID+16;
 	
 	//Materials
 }

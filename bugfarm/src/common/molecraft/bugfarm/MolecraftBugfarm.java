@@ -1,17 +1,11 @@
 package common.molecraft.bugfarm;
 
-import scala.xml.parsing.FatalError;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.BaseMod;
-import net.minecraft.src.ModLoader;
 
+import common.molecraft.bugfarm.block.Burrows;
 import common.molecraft.bugfarm.block.Cocoon;
 import common.molecraft.bugfarm.block.Mortar;
 import common.molecraft.bugfarm.block.TECocoon;
@@ -36,19 +30,14 @@ import common.molecraft.bugfarm.item.Dust;
 import common.molecraft.bugfarm.item.Dust.DustType;
 import common.molecraft.bugfarm.item.PestleAndMortar;
 import common.molecraft.bugfarm.item.StickMesh;
-import common.molecraft.bugfarm.render.CocoonTERenderer;
-import common.molecraft.bugfarm.world.CocoonGenerator;
+import common.molecraft.bugfarm.world.GrubGenerator;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @Mod(modid=MolecraftBugfarm.modid, name="Molecraft Bug Farm", version="0.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -61,7 +50,7 @@ public class MolecraftBugfarm {
 	
 	//Blocks
 	public static Block woodMortar, stoneMortar, obsidianMortar,
-		cocoon[], gall, reedNest, burrow;
+		cocoon[], gall, reedNest, burrow[];
 	
 	//Items
 	public static Item stickMesh, pestleMortarWood, pestleMortarStone,
@@ -106,6 +95,13 @@ public class MolecraftBugfarm {
 		}
 		GameRegistry.registerTileEntity(TECocoon.class, "TECocoon");
 		
+		burrow = new Burrows[Burrows.ids.length];
+		for (int i=0; i < Burrows.ids.length; i++)
+		{
+			burrow[i] = new Burrows(i);
+			GameRegistry.registerBlock(burrow[i]);
+		}
+		
 		grubWhite = new WhiteGrub();
 		grubRed = new RedGrub();
 		grubFat = new FatGrub();
@@ -120,7 +116,7 @@ public class MolecraftBugfarm {
 		grubShiny = new ShinyGrub();
 		grubGold = new GoldGrub();
 		grubHell = new HellGrub();
-		grubMystic = new MysticGrub();
+		//grubMystic = new MysticGrub();
 		
 		proxy.registerRenderInformation();
 		
@@ -146,7 +142,7 @@ public class MolecraftBugfarm {
 		
 		addDustRecipes();
 		
-		GameRegistry.registerWorldGenerator(new CocoonGenerator());
+		GameRegistry.registerWorldGenerator(new GrubGenerator());
 	}
 	
 	public void addDustRecipes()

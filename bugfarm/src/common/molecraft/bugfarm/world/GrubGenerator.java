@@ -11,7 +11,7 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.IWorldGenerator;
 
-public class CocoonGenerator implements IWorldGenerator {
+public class GrubGenerator implements IWorldGenerator {
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world,
@@ -20,8 +20,14 @@ public class CocoonGenerator implements IWorldGenerator {
 		Chunk chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
 		//System.out.println("["+chunk.xPosition+","+chunk.zPosition+"]");
 		
+		generateCocoons(random, world, chunkX, chunkZ, 4);
+		
+	}
+	
+	public void generateCocoons(Random random, World world, int chunkX, int chunkZ, int cocoonDensity)
+	{
 		//Let's lay down how many cocoons we have to put in this chunk
-		int max = random.nextInt(4);
+		int max = random.nextInt(cocoonDensity);
 		
 		//Try a bunch of times
 		for(int t = 0; t < 20 && max > 0; t++)
@@ -86,7 +92,6 @@ public class CocoonGenerator implements IWorldGenerator {
 			
 			//Otherwise, don't bother
 		}
-		
 	}
 
 }

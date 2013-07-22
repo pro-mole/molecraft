@@ -6,9 +6,10 @@ import java.util.Random;
 
 public class Randomizer {
 	
-	static Random rand;
+	static Random rand = new Random();
 	
-	public static Object choose(HashMap<Object, Float> odds)
+	
+	public static <T> T choose(HashMap<T, Float> odds)
 	{
 		float total = 0;
 		for (float val: odds.values())
@@ -18,16 +19,16 @@ public class Randomizer {
 		
 		float odd = rand.nextFloat() * total;
 		
-		Iterator<Object> K = odds.keySet().iterator();
-		while(K != null)
+		Iterator<T> K = odds.keySet().iterator();
+		while(K.hasNext())
 		{
-			if (odd < odds.get(K))
+			T k = K.next();
+			if (odd < odds.get(k))
 			{
-				return odd;
+				return k;
 			}
 			
-			odd -= odds.get(K);
-			K.next();
+			odd -= odds.get(k);
 		}
 		
 		return null;

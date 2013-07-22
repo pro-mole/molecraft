@@ -38,7 +38,7 @@ public class Cocoon extends BlockContainer {
 		
 		this.variety = type;
 		this.setHardness(0.05f);
-		this.setCreativeTab(CreativeTabs.tabMisc);
+		//this.setCreativeTab(CreativeTabs.tabMisc);
 		this.setUnlocalizedName(ids[type]+"Cocoon");
 		LanguageRegistry.addName(this, names[type]+" Cocoon");
 		setTickRandomly(true);

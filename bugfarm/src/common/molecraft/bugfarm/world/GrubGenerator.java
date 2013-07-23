@@ -3,6 +3,7 @@ package common.molecraft.bugfarm.world;
 import java.util.Random;
 
 import common.molecraft.bugfarm.MolecraftBugfarm;
+import common.molecraft.bugfarm.constants.Numbers;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
@@ -17,80 +18,110 @@ public class GrubGenerator implements IWorldGenerator {
 	public void generate(Random random, int chunkX, int chunkZ, World world,
 			IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
 
-		Chunk chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
-		//System.out.println("["+chunk.xPosition+","+chunk.zPosition+"]");
-		
 		generateCocoons(random, world, chunkX, chunkZ, 4);
-		
+		generateBurrows(random, world, chunkX, chunkZ, 1);
 	}
 	
-	public void generateCocoons(Random random, World world, int chunkX, int chunkZ, int cocoonDensity)
-	{
-		//Let's lay down how many cocoons we have to put in this chunk
-		int max = random.nextInt(cocoonDensity);
+	private void generateBurrows(Random random, World world, int chunkX,
+			int chunkZ, int burrowDensity) {
+		//Let's lay down how many burrows we have to put in this chunk
+		int max = random.nextInt(burrowDensity+1);
 		
 		//Try a bunch of times
-		for(int t = 0; t < 20 && max > 0; t++)
+		for(int t = 0; t < 25 && max > 0; t++)
 		{
 			int x = chunkX*16 + random.nextInt(16);
 			int z = chunkZ*16 + random.nextInt(16);
-			int y = random.nextInt(64) + 64;
+			int y = world.getHeightValue(x, z)-1;
 			
-			//System.out.println("Try "+t+":"+x+","+y+","+z);
 			int block = world.getBlockId(x, y, z);
 			
-			//If we find air, go down
-			while (block == 0)
+			while(block == 0 || block == Block.leaves.blockID || block == Block.waterStill.blockID || block == Block.waterMoving.blockID)
 			{
 				block = world.getBlockId(x, --y, z);
 			}
 			
-			//If we find leaves, let's try and find a tree!
-			if (block == Block.leaves.blockID)
+			//For burrows it's a lot easier
+			if (block == Block.dirt.blockID || block == Block.grass.blockID)
 			{
-				//Again, go down
-				while (block == Block.leaves.blockID)
-				{
-					block = world.getBlockId(x, --y, z);
-				}
-				
-				//if we didn't find the trunk, let's try looking around
-				if (block != Block.wood.blockID)
-				{
-					for (ForgeDirection dir: new ForgeDirection[] {ForgeDirection.NORTH, ForgeDirection.EAST, ForgeDirection.SOUTH, ForgeDirection.WEST})
-					{
-						if (world.getBlockId(x + dir.offsetX, y, z + dir.offsetZ) == Block.wood.blockID)
-						{
-							x += dir.offsetX;
-							z += dir.offsetZ;
-							block = world.getBlockId(x, y, z);
-							break;
-						}
-					}
-				}
+				world.setBlock(x, y, z, Numbers.BLOCK_BURROW);
+				max--;
 			}
 			
-			//If we find a trunk, then we get to shine :D
+			if (block == Block.sand.blockID)
+			{
+				world.setBlock(x, y, z, Numbers.BLOCK_BURROW+1);
+				max--;
+			}
+			
+			if (block == Block.blockClay.blockID)
+			{
+				world.setBlock(x, y, z, Numbers.BLOCK_BURROW+2);
+				max--;
+			}
+			
+			if (block == Block.netherrack.blockID)
+			{
+				world.setBlock(x, y, z, Numbers.BLOCK_BURROW+3);
+				max--;
+			}
+		}
+	}
+
+	public void generateCocoons(Random random, World world, int chunkX, int chunkZ, int cocoonDensity)
+	{
+		//Let's lay down how many cocoons we have to put in this chunk
+		int max = random.nextInt(cocoonDensity+1);
+		
+		//Try a bunch of times
+		for(int t = 0; t < 100 && max > 0; t++)
+		{
+			int x = chunkX*16 + random.nextInt(16);
+			int z = chunkZ*16 + random.nextInt(16);
+			int y = world.getHeightValue(x, z)-1;
+			if (y == 0) System.err.println("What the hell is going on?");
+			
+			//System.out.println("Try "+t+":"+x+","+y+","+z);
+			int block = world.getBlockId(x, y, z);
+			
+			//Let's change this and only bother if we find wood right away
+			//If this is a forest, it can't be that hard
+			while (block == Block.leaves.blockID)
+			{
+				block = world.getBlockId(x, --y, z);
+			}
+			
 			if (block == Block.wood.blockID)
 			{
-				switch(random.nextInt(4))
+				int dy = 0;
+				while (world.getBlockId(x, y, z) == Block.wood.blockID)
 				{
-					case 0:
-						x -= 1; break;
-					case 1:
-						x += 1; break;
-					case 2:
-						z -= 1; break;
-					case 3:
-						z += 1; break;
+					dy++;
+					y--;
+				}
+				
+				y += random.nextInt(dy);
+				
+				int direction = random.nextInt(4); 
+				while (world.getBlockId(x, y, z) == Block.wood.blockID)
+				{
+					switch(direction)
+					{
+						case 0:
+							x -= 1; break;
+						case 1:
+							x += 1; break;
+						case 2:
+							z -= 1; break;
+						case 3:
+							z += 1; break;
+					}
 				}
 				
 				System.out.println("[CHUNK "+chunkX+","+chunkZ+"]Cocoon placed at ("+x+","+y+","+z+") on try "+t+"!");
 				world.setBlock(x, y, z, MolecraftBugfarm.cocoon[random.nextInt(3)].blockID);
 				max--;
 			}
-			
-			//Otherwise, don't bother
 		}
 	}
 

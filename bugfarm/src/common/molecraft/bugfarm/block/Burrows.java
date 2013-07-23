@@ -26,7 +26,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class Burrows extends Block {
 	
 	static Block[] burrowed = {Block.dirt, Block.sand, Block.blockClay, Block.netherrack};
-	public static String[] names = {"Dirt","Grass","Sand","Clay","Nether"},
+	public static String[] names = {"Dirt","Sand","Clay","Nether"},
 			ids = {"dirt","sand","clay","nether"};
 	
 	Block matrix;

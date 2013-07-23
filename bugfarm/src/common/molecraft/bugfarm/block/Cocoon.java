@@ -95,8 +95,6 @@ public class Cocoon extends BlockContainer {
 					drops.add(new ItemStack(MolecraftBugfarm.grubFat));
 				else if (rnd < 0.2)
 					drops.add(new ItemStack(MolecraftBugfarm.grubPoison));
-				else if (rnd < 0.5)
-					drops.add(new ItemStack(MolecraftBugfarm.grubTiny,world.rand.nextInt(4)+4));
 				else
 					drops.add(new ItemStack(MolecraftBugfarm.grubWhite));
 				break;
@@ -113,8 +111,6 @@ public class Cocoon extends BlockContainer {
 			case 2: //Debris Cocoon
 				if (rnd < 0.05)
 					drops.add(new ItemStack(MolecraftBugfarm.grubShiny));
-				else if (rnd < 0.15)
-					drops.add(new ItemStack(MolecraftBugfarm.grubFat));
 				else if (rnd < 0.3)
 					drops.add(new ItemStack(MolecraftBugfarm.grubRed));
 				else if (rnd < 0.5)

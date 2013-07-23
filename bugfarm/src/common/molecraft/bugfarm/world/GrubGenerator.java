@@ -74,7 +74,7 @@ public class GrubGenerator implements IWorldGenerator {
 		int max = random.nextInt(cocoonDensity+1);
 		
 		//Try a bunch of times
-		for(int t = 0; t < 100 && max > 0; t++)
+		for(int t = 0; t < 25 && max > 0; t++)
 		{
 			int x = chunkX*16 + random.nextInt(16);
 			int z = chunkZ*16 + random.nextInt(16);
@@ -119,7 +119,7 @@ public class GrubGenerator implements IWorldGenerator {
 				}
 				
 				System.out.println("[CHUNK "+chunkX+","+chunkZ+"]Cocoon placed at ("+x+","+y+","+z+") on try "+t+"!");
-				world.setBlock(x, y, z, MolecraftBugfarm.cocoon[random.nextInt(3)].blockID);
+				world.setBlock(x, y, z, MolecraftBugfarwhile(block != Block.leaves.blockID);while(block != Block.leaves.blockID);m.cocoon[random.nextInt(3)].blockID);
 				max--;
 			}
 		}

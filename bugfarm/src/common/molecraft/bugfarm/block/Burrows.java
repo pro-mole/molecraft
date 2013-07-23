@@ -73,9 +73,6 @@ public class Burrows extends Block {
 		
 		HashMap<Item, Float> grubOdds = new HashMap<Item, Float>();
 		grubOdds.put(MolecraftBugfarm.grubDirt, 5f);
-		grubOdds.put(MolecraftBugfarm.grubWhite, 2f);
-		grubOdds.put(MolecraftBugfarm.grubFat, 1f);
-		grubOdds.put(MolecraftBugfarm.grubTiny, 1f);
 		
 		BiomeDictionary.Type[] biomes = BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(x, z));
 		
@@ -84,19 +81,20 @@ public class Burrows extends Block {
 			switch(b)
 			{
 				case WATER:
-					grubOdds.put(MolecraftBugfarm.grubWater, 2f);
+					grubOdds.put(MolecraftBugfarm.grubWater, 4f);
 					grubOdds.put(MolecraftBugfarm.grubSlime, 1f);
 					break;
 				case SWAMP:
-					grubOdds.put(MolecraftBugfarm.grubSlime, 2f);
+					grubOdds.put(MolecraftBugfarm.grubSlime, 3f);
 					grubOdds.put(MolecraftBugfarm.grubPoison, 1f);
-					grubOdds.put(MolecraftBugfarm.grubTrap, 1f);
+					grubOdds.put(MolecraftBugfarm.grubTrap, 0.5f);
 					break;
 				case BEACH:
-					grubOdds.put(MolecraftBugfarm.grubWater, 2f);
+					grubOdds.put(MolecraftBugfarm.grubWater, 3f);
+					grubOdds.put(MolecraftBugfarm.grubTrap, 1f);
 					break;
 				case DESERT:
-					grubOdds.put(MolecraftBugfarm.grubTrap, 2f);
+					grubOdds.put(MolecraftBugfarm.grubTrap, 4f);
 					grubOdds.put(MolecraftBugfarm.grubShiny, 1f);
 					grubOdds.put(MolecraftBugfarm.grubGold, 0.5f);
 					break;
@@ -117,16 +115,14 @@ public class Burrows extends Block {
 					grubOdds.put(MolecraftBugfarm.grubSilk, 2f);
 					break;
 				case MOUNTAIN:
-					grubOdds.put(MolecraftBugfarm.grubTiny, 2f);
 					break;
 				case WASTELAND:
-					grubOdds.put(MolecraftBugfarm.grubTiny, 4f);
 					grubOdds.put(MolecraftBugfarm.grubTrap, 2f);
 					break;
 				case NETHER:
+					grubOdds.put(MolecraftBugfarm.grubHell, 10f);
 					break;
 				default:
-					grubOdds.put(MolecraftBugfarm.grubDirt,2f);
 					break;
 			}
 		}
@@ -134,7 +130,7 @@ public class Burrows extends Block {
 		long time = world.getWorldTime();
 		if (time > 13000 && time <= 21000)
 		{
-			grubOdds.put(MolecraftBugfarm.grubGlow, 1f);
+			grubOdds.put(MolecraftBugfarm.grubGlow, 2f);
 		}
 		System.out.println("Current time: "+time);
 		

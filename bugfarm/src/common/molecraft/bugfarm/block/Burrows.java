@@ -132,7 +132,6 @@ public class Burrows extends Block {
 		{
 			grubOdds.put(MolecraftBugfarm.grubGlow, 2f);
 		}
-		System.out.println("Current time: "+time);
 		
 		drops.add(new ItemStack(Randomizer.choose(grubOdds)));
 		

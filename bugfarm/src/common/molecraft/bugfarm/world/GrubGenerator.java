@@ -118,8 +118,7 @@ public class GrubGenerator implements IWorldGenerator {
 					}
 				}
 				
-				System.out.println("[CHUNK "+chunkX+","+chunkZ+"]Cocoon placed at ("+x+","+y+","+z+") on try "+t+"!");
-				world.setBlock(x, y, z, MolecraftBugfarwhile(block != Block.leaves.blockID);while(block != Block.leaves.blockID);m.cocoon[random.nextInt(3)].blockID);
+				world.setBlock(x, y, z, MolecraftBugfarm.cocoon[random.nextInt(3)].blockID);
 				max--;
 			}
 		}

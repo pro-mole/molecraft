@@ -18,20 +18,25 @@ public class ModelMortar extends ModelBase {
 		//Bowl.addBox(0f, 0f, 0f, 2, 1, 1);
 		//Bowl.addBox(0f, 0f, 0f, 1, 2, 1);
 		//Bowl.addBox(0f, 0f, 0f, 1, 1, 2);
-		Bowl.addBox(-3.5f, -3f, -3.5f, 7, 7, 1);
-		Bowl.addBox(-3.5f, -3f, -3.5f, 1, 7, 7);
-		Bowl.addBox(3.5f, -3f, 3.5f, -7, 7, -1);
-		Bowl.addBox(3.5f, -3f, 3.5f, -1, 7, -7);
-		Bowl.addBox(-2.5f, 4f, -2.5f, 5, 2, 5);
-		Bowl.addBox(-3.5f, 6f, -3.5f, 7, 1, 7);
+		Bowl.addBox(-4.0f, -3f, -4.0f, 1, 7, 6);
+		Bowl.addBox(-4.0f, -3f, 2.0f, 6, 7, 1);
+		Bowl.addBox(2.0f, -3f, -3.0f, 1, 7, 6);
+		Bowl.addBox(-3.0f, -3f, -4.0f, 6, 7, 1);
+		
+		//Bowl.addBox(-3.0f, -3f, -4.0f, 5, 7, 1);
+		//Bowl.addBox(-4.0f, -3f, -3.0f, 1, 7, 5);
+		//Bowl.addBox(3f, -3f, 3f, -7, 7, -1);
+		//Bowl.addBox(3f, -3f, 3f, -1, 7, -7);
+		Bowl.addBox(-3.0f, 4f, -3.0f, 5, 2, 5);
+		Bowl.addBox(-4.0f, 6f, -4.0f, 7, 1, 7);
 		//Bowl.addBox(-8.5f, -8.5f, -8.5f, 16, 16, 16);
 		Bowl.setRotationPoint(0.5f, 0, 0.5f);
 		
 		Rim = new ModelRenderer(this, 0, 0).setTextureSize(textureWidth, textureHeight);
-		Rim.addBox(-3.5f, 0f, -4f, 7, 1, 1);
-		Rim.addBox(-4f, 0f, -3.5f, 1, 1, 7);
-		Rim.addBox(3.5f, 0f, 4f, -7, 1, -1);
-		Rim.addBox(4f, 0f, 3.5f, -1, 1, -7);
+		Rim.addBox(-4.0f, 0f, -4.5f, 7, 1, 1);
+		Rim.addBox(-4.5f, 0f, -4.0f, 1, 1, 7);
+		Rim.addBox(3f, 0f, 3.5f, -7, 1, -1);
+		Rim.addBox(3.5f, 0f, 3f, -1, 1, -7);
 		Rim.setRotationPoint(0.5f, 0f, 0.5f);
 		//Rim.rotateAngleX = 0;
 		//Rim.rotateAngleY = 0;

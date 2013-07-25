@@ -27,8 +27,9 @@ public class Mortar extends BlockContainer {
 		tier = material;
 		
 		this.setHardness(0.1f + tier.ordinal()*0.2f);
-		//this.setCreativeTab(CreativeTabs.tabTools);
+		this.setCreativeTab(CreativeTabs.tabTools);
 		this.setUnlocalizedName("mortar"+ids[tier.ordinal()]);
+		this.setBlockBounds(4.5f/16f, 0f, 4.5f/16f, 11.5f/16f, 11/16f, 11.5f/16f);
 		LanguageRegistry.addName(this, names[tier.ordinal()]+" Mortar");
 	}
 

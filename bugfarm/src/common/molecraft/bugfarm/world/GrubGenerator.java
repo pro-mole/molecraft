@@ -18,7 +18,7 @@ public class GrubGenerator implements IWorldGenerator {
 	public void generate(Random random, int chunkX, int chunkZ, World world,
 			IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
 
-		generateCocoons(random, world, chunkX, chunkZ, 4);
+		generateCocoons(random, world, chunkX, chunkZ, 2);
 		generateBurrows(random, world, chunkX, chunkZ, 1);
 	}
 	

@@ -11,7 +11,6 @@ import common.molecraft.bugfarm.block.Cocoon;
 import common.molecraft.bugfarm.block.Mortar;
 import common.molecraft.bugfarm.block.TECocoon;
 import common.molecraft.bugfarm.block.TEMortar;
-import common.molecraft.bugfarm.crafting.PestleMortarCraftingHandler;
 import common.molecraft.bugfarm.grub.DirtGrub;
 import common.molecraft.bugfarm.grub.FatGrub;
 import common.molecraft.bugfarm.grub.GlowGrub;
@@ -122,8 +121,6 @@ public class MolecraftBugfarm {
 		proxy.registerRenderInformation();
 		
 		//Crafting Recipes
-		GameRegistry.registerCraftingHandler(new PestleMortarCraftingHandler());
-		
 		GameRegistry.addRecipe(new ItemStack(stickMesh),
 			"//",
 			"//", 
